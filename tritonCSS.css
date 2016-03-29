@@ -8,12 +8,12 @@
 
 body{
   background-color: white;
-  font-family: "Times New Roman", Times, serif;
+  font-family: Georgia, serif;
 }
 h1 {
   padding-left: 10px;
   color: black;
-  font-family: "Times New Roman", Times, serif;
+  font-family: Georgia, serif;
 }
 #logo {
   position: absolute;
