@@ -1,5 +1,13 @@
+//***
+* Created by Khoi Le and Nikolai Flowers, March 29, 2016
+*//
 body{
   background-color: white;
+}
+h1 {
+  padding-left: 10px;
+  color: #FEC10D;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 #logo {
   position: absolute;
