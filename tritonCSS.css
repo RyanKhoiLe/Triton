@@ -8,11 +8,12 @@
 
 body{
   background-color: white;
-  font-family: "Bitstream Vera Serif Bold", serif 
+  font-family: "Bitstream Vera Serif Bold", serif ;
 }
 h1 {
   padding-left: 10px;
   color: black;
+  font-family: "Bitstream Vera Serif Bold", serif ;
 }
 #logo {
   position: absolute;
