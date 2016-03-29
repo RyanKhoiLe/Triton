@@ -44,8 +44,8 @@ h1 {
 hr {
     border: 0;
     height: 3px;
-    background: #FFF2F9;
-    background-image: linear-gradient(to right, #FFFFFF, #FFF2F9, #FFFFFF);
+    background: #FFE3F2;
+    background-image: linear-gradient(to right, #FFFFFF, #FFE3F2, #FFFFFF);
 }
 
 #logo {
