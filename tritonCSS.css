@@ -63,7 +63,7 @@ hr {
   margin-top: 0;
   margin: 0 auto;
   text-align: center;
-  background-color: -webkit-linear-gradient(#FFFFFF, #F7F7F0);
+  background-color: -webkit-linear-gradient(#F7F7F0, #FFFFFF);
 }
 
 #headBar{
