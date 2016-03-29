@@ -8,12 +8,12 @@
 
 body{
   background-color: white;
-  font-family: "Bitstream Vera Serif Bold", serif ;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 h1 {
   padding-left: 10px;
   color: black;
-  font-family: "Bitstream Vera Serif Bold", serif ;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 #logo {
   position: absolute;
