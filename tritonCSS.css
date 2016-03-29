@@ -43,7 +43,7 @@ h1 {
 
 hr {
     border: 0;
-    height: 1px;
+    height: 3px;
     background: #FFF2F9;
     background-image: linear-gradient(to right, #ccc, #FFF2F9, #ccc);
 }
