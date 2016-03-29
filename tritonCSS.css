@@ -1,13 +1,18 @@
 //***
 * Created by Khoi Le and Nikolai Flowers, March 29, 2016
 *//
+@font-face {
+      font-family: "Bitstream Vera Serif Bold";
+      src: url("https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf");
+    }
+
 body{
   background-color: white;
+  font-family: "Bitstream Vera Serif Bold", serif 
 }
 h1 {
   padding-left: 10px;
   color: black;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 #logo {
   position: absolute;
