@@ -3,17 +3,17 @@
 *//
 @font-face {
       font-family: "Bitstream Vera Serif Bold";
-      src: url("VeraSeBd.ttf");
+      src: url("VeraSeBd.ttf") format("truetype");
     }
 
 body{
   background-color: white;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Bitstream Vera Serif Bold", Times, serif;
 }
 h1 {
   padding-left: 10px;
   color: black;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Bitstream Vera Serif Bold", Times, serif;
 }
 #logo {
   position: absolute;
