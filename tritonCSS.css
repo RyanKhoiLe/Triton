@@ -32,12 +32,12 @@ font-style: normal;
 
 body{
   background-color: white;
-  font-family: 'bebas_neueregular';
+  font-family: 'bebas_neueregular', serif;
 }
 h1 {
   padding-left: 10px;
   color: black;
-   font-family: 'modern_serif_erodedregular';
+  font-family: 'bebas_neueregular', serif;
 }
 #logo {
   position: absolute;
