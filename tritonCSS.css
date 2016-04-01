@@ -53,7 +53,7 @@ hr {
     border: 0;
     height: 3px;
     background: #FFC4CE;
-    background-image: linear-gradient(to right, #FFFFFF, #FFF8E8, #FFFFFF);
+    background-image: linear-gradient(to right, #FFFFFF, #FFC4CE, #FFFFFF);
 }
 
 #logo {
@@ -71,7 +71,7 @@ hr {
   margin-top: 0;
   margin: 0 auto;
   text-align: center;
-  background: -webkit-linear-gradient(#FFF7E0, #FFFFFF);
+  background: -webkit-linear-gradient(#FFF8E8, #FFFFFF);
 }
 
 #headBar{
