@@ -53,7 +53,7 @@ hr {
     border: 0;
     height: 3px;
     background: #FFC4CE;
-    background-image: linear-gradient(to right, #FFFFFF, #FFC4CE, #FFFFFF);
+    background-image: linear-gradient(to right, #FFFFFF, #FFF8E8, #FFFFFF);
 }
 
 #logo {
