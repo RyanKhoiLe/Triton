@@ -59,6 +59,12 @@ hr {
     background: #FFC4CE;
     background-image: linear-gradient(to right, #FFFFFF, #FFC4CE, #FFFFFF);
 }
+a{
+      color: #C9E8FF;
+}
+a:visited{
+      color: #FFC4CE;
+}
 .centeredList{
       width: 80%;
       margin:0 auto;
