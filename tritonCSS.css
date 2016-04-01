@@ -55,7 +55,11 @@ hr {
     background: #FFC4CE;
     background-image: linear-gradient(to right, #FFFFFF, #FFC4CE, #FFFFFF);
 }
-
+.centeredList{
+      width: 30%;
+      margin:0 auto;
+      text-align: left;
+}
 #logo {
   position: absolute;
   top: 10px;
