@@ -81,3 +81,10 @@ hr {
   width: 100%;
   background-color: #C9E8FF;
 }
+
+table{
+  table-layout: fixed;
+}
+td{
+  width: 30%;
+}
