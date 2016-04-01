@@ -32,6 +32,21 @@
 	    </table>
 	    
 	    <hr>
+	    <script>
+  		var input = document.getElementById("specialCode");
+  		var myButton = document.getElementById("enterCode");
+  		var searchLink = document.getElementById("searchLink");
+  		var searchLinkDisplay = document.getElementById("searchLinkDisplay");
+  		myButton.addEventListener("click", clickHandler, false);
+  		function clickHandler(){
+  			console.log("clicked" + input.value);
+  			if(input.value === "101"){
+  				searchLink.innerHTML = "Guernica";
+  				searchLink.setAttribute('href',"exhibit1.html");
+  			}
+  			
+  		}
+  	</script>
 	</div>
   </body>
 </html
