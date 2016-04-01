@@ -48,6 +48,10 @@ h1 {
   font-family: 'bebas_neueregular', serif;
 }
 
+p{
+      padding-left: 5%;
+      padding-right: 5%;
+}
 
 hr {
     border: 0;
