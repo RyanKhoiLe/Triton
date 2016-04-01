@@ -33,7 +33,7 @@ font-style: normal;
 #specialCode, textarea{
   border: 0px solid #FFC4CE;
   box-shadow: 0 0 5px 3px #FFC4CE;
-  color: #FBFFE0;
+  color: #FFF7E0;
   font-size: 24px;
   text-align: center;
 }
@@ -71,7 +71,7 @@ hr {
   margin-top: 0;
   margin: 0 auto;
   text-align: center;
-  background: -webkit-linear-gradient(#FBFFE0, #FFFFFF);
+  background: -webkit-linear-gradient(#FFF7E0, #FFFFFF);
 }
 
 #headBar{
