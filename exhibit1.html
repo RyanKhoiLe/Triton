@@ -6,13 +6,87 @@
   <link rel="stylesheet" type="text/css" href="tritonCSS.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
        <link rel="icon" href="images/tritonIconSmall.png">
+       <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
 </head>
 <body>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
+      authDomain: "learnfirebase-43e98.firebaseapp.com",
+      databaseURL: "https://learnfirebase-43e98.firebaseio.com",
+      storageBucket: "learnfirebase-43e98.appspot.com",
+    };
+    firebase.initializeApp(config);
+    var url = "https://learnfirebase-43e98.firebaseio.com";
+    var firebaseRef = firebase.database().ref();
+    // var provider = new firebase.auth.FacebookAuthProvider();
+    // firebase.auth().signInWithRedirect(provider);
+    // firebase.auth().getRedirectResult().then(function(result) {
+    //   if(result.credential){
+    //     var token = result.credentil.accessToken;
+    //   }
+    //   var user = result.user;
+    // }).catch(function(error) {
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   var email = error.email;
+    //   var credential = error.credential;
+    // });
+
+    function timeStamp(){
+      var now = new Date();
+      var date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
+      var time = [now.getHours(), now.getMinutes()];
+      var suffix = (time[0] < 12) ? "AM" : "PM";
+      time[0] = (time[0] < 12) ? time[0] : time[0] - 12;
+
+      for(var i = 1; i < 3; i++){
+        if(time[i] < 10) {
+          time[i] = "0" + time[i];
+        }
+      }
+
+      return date.join("/") + ", " + time.join(":") + " " + suffix;
+    }
+
+    function postComment(){
+      var name = document.getElementById("name").value,
+      comment = document.getElementById("comment").value,
+      time = timeStamp();
+
+      if(name && comment){
+        firebaseRef.push({
+          name: name,
+          comment: comment,
+          time: time
+        });
+      }
+
+      document.getElementById("name").value = '';
+      document.getElementById("comment").value = '';
+    }
+
+    firebaseRef.on("child_added", function(snapshot){
+      var comment = snapshot.val();
+      addComment(comment.name, comment.comment, comment.time);
+    });
+
+    function addComment(name, comment, timeStamp){
+      var comments = document.getElementById("comments");
+      comments.innerHTML = "<hr><h4>" + name + " says:</h4> <p id='commentText'>" + comment +"<h3>" + timeStamp + "</h3>" + comments.innerHTML;
+    }
+
+    firebase.auth().signOut().then(function() {
+
+    }, function(error){});
+  </script>
   <div id="headBar">
     <h1 style="text-align: left"> GUERNICA - PICASSO </h1>
     <a href="index.html"><img id="logo" src="images/tritonIcon.png" alt="triton"></a>
   </div>
-  
+
   <div id = "wrapper">
     <h2> Title: <strong> Guernica </strong> </h2>
     <h2> Artist: <strong> Pablo Picasso </strong> </h2>
@@ -22,7 +96,7 @@
       <source src="audio/Guernica.mp3" type="audio/mpeg">
       No audio for this browser
     </audio>
-   
+
     <hr>
     <h2> Major Symbols </h2>
     <div class="centeredList">
@@ -45,8 +119,8 @@
     <hr>
     <h2> History of Picasso </h2>
       <p>Pablo Ruiz y Picasso, also known as <b>Pablo Picasso</b>, was a <b>Spanish painter</b>, sculptor, printmaker, ceramicist, stage designer,
-      poet and playwright who spent most of his adult life in <b>France</b>. Regarded as one of the greatest and most influential artists of 
-      the <b>20th century</b>, he is known for co-founding the <b>Cubist movement</b>, the invention of constructed sculpture, the co-invention of 
+      poet and playwright who spent most of his adult life in <b>France</b>. Regarded as one of the greatest and most influential artists of
+      the <b>20th century</b>, he is known for co-founding the <b>Cubist movement</b>, the invention of constructed sculpture, the co-invention of
       collage, and for the wide variety of styles that he helped develop and explore.</p>
     <hr>
     <h2> Guernica in 3D </h2>
@@ -60,8 +134,29 @@
     <a href="http://www.philamuseum.org/collections/permanent/51315.html"> Dali's Guernica </a>
     <hr>
      <a href="http://www.pablopicasso.org/guernica.jsp"> <h3>More on Guernica</h3> </a>
+     <div class="container">
+       <div class="comment-box">
+         <div class="comment-form">
+           <div class="header"> <h2>Add your comment <h2></div>
+           <form action="#" onsubmit="event.preventDefault(); postComment()">
+             <div>
+               <input type="text" id="name" placeholder="Name">
+             </div>
+             <div>
+               <textarea id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
+             </div>
+             <button type="submit">COMMENT</button>
+           </form>
+         </div>
+         <div id="commentContainer">
+           <h4 class="header">Comments</h4>
+           <div id="comments"></div>
+         </div>
+       </div>
+     </div>
     <img src="images/tritonLogo.png" alt="triton" height="50" style="padding-top: 15px; padding-bottom: 0px;">
     <div><a href="http://ryankhoile.github.io/Triton/index.html">Return to main page</a></div>
   </div>
 </body>
+
 </html>

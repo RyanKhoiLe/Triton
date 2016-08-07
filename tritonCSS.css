@@ -5,7 +5,7 @@
       font-family: "Bitstream Vera Serif Bold";
       src: url("VeraSeBd.ttf") format("truetype");
     }
-    
+
 @font-face {
 font-family: 'bebas_neueregular';
 src: url('fonts/bebasneue-webfont.eot');
@@ -37,7 +37,36 @@ font-style: normal;
   font-size: 24px;
   text-align: center;
 }
-
+header{
+  font-size: 36px;
+}
+input{
+  font-size: 24px;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+#comment{
+  font-size: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+#comments{
+  font-family: 'Trebuchet MS', sans-serif;
+  margin: auto;
+  font-size: 20px;
+  width: 60%;
+  text-align: center;
+}
+#commentText{
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color: lightgrey;
+}
+.comment-box{
+  //position: absolute;
+  margin: auto;
+}
+button{
+  font-family: 'bebas_neueregular', serif;
+  font-size: 16px;
+}
 body{
   background-color: white;
   font-family: 'bebas_neueregular', serif;
@@ -49,6 +78,7 @@ h1 {
 }
 
 p{
+      padding-top: 5px;
       padding-left: 5%;
       padding-right: 5%;
 }
@@ -59,6 +89,17 @@ hr {
     background: #FFC4CE;
     background-image: linear-gradient(to right, #FFFFFF, #FFC4CE, #FFFFFF);
 }
+#commentContainer{
+    margin: auto;
+}
+h3{
+  font-size: 16px;
+}
+h4{
+  font-size: 20px;
+  text-align: center;
+}
+
 a{
       color: #0075CF;
 }
