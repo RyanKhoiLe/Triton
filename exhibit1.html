@@ -124,6 +124,14 @@
       + "<button id='shareBtn" + num + "' class='shareBtns'>SHARE</button>" + comments.innerHTML;
       console.log(userComments);
       console.log(document.getElementById("shareBtn" + num));
+      document.getElementById("shareBtn" + num).onclick = function(){
+        FB.ui({
+          method: 'share',
+          mobile_iframe: true,
+          href: 'https://ryankhoile.github.io/Triton/exhibit1.html',
+         quote: 'I just went to the Triton'
+        }, function(response){});
+      }
     }
 
     firebase.auth().signOut().then(function() {
