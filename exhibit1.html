@@ -21,6 +21,7 @@
     firebase.initializeApp(config);
     var url = "https://learnfirebase-43e98.firebaseio.com";
     var firebaseRef = firebase.database().ref();
+    var userComments = [];
     //var provider = new firebase.auth.FacebookAuthProvider();
     //firebase.auth().signInWithRedirect(provider);
     // firebase.auth().getRedirectResult().then(function(result) {
@@ -107,13 +108,22 @@
       var comment = snapshot.val();
       addComment(comment.name, comment.comment, comment.time);
     });
-
+    function UserComment(name, comment, timeStamp){
+      this.name = name;
+      this.comment = comment;
+      this.timeStamp = timeStamp;
+    }
     function addComment(name, comment, timeStamp){
+      var userComment = new UserComment(name, comment, timeStamp);
+      userComments.push(userComment);
       var comments = document.getElementById("comments");
+      var num = '' + userComments.indexOf(userComment);
       comments.innerHTML = "<hr><h4>" + name + " says:</h4> <p id='commentText'>" + comment +"<h3>" + timeStamp + "</h3>" +
       "<div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>" +
       "<a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=145634995501895&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div>"
-      + "<button id='shareBtn' class='shareBtns'>SHARE</button>" + comments.innerHTML;
+      + "<button id='shareBtn" + num + "' class='shareBtns'>SHARE</button>" + comments.innerHTML;
+      console.log(userComments);
+      console.log(document.getElementById("shareBtn" + num));
     }
 
     firebase.auth().signOut().then(function() {
