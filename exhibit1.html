@@ -105,7 +105,7 @@
       document.getElementById("comment").value = '';
     }
 
-    firebaseRef.ref().on("child_added", function(snapshot){
+    firebaseRef.ref('guernica/').on("child_added", function(snapshot){
       var comment = snapshot.val();
       addComment(comment.name, comment.comment, comment.time);
     });
