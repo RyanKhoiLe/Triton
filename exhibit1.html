@@ -21,7 +21,7 @@
     };
     firebase.initializeApp(config);
     var url = "https://learnfirebase-43e98.firebaseio.com";
-    var firebaseRef = firebase.database().ref();
+    var firebaseRef = firebase.database();
     var userComments = [];
     //var provider = new firebase.auth.FacebookAuthProvider();
     //firebase.auth().signInWithRedirect(provider);
@@ -94,7 +94,7 @@
       }
 
       if(name && comment){
-        firebaseRef.push({
+        firebaseRef.ref('guernica/').set({
           name: name,
           comment: comment,
           time: time
@@ -105,7 +105,7 @@
       document.getElementById("comment").value = '';
     }
 
-    firebaseRef.on("child_added", function(snapshot){
+    firebaseRef.ref().on("child_added", function(snapshot){
       var comment = snapshot.val();
       addComment(comment.name, comment.comment, comment.time);
     });
