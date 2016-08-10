@@ -94,7 +94,7 @@
       }
 
       if(name && comment){
-        firebaseRef.ref('guernica/').set({
+        firebaseRef.ref('guernica/').push({
           name: name,
           comment: comment,
           time: time
