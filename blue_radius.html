@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>Guernica - Picasso</title>
+  <!--Created by Khoi Le and Nikolai Flowers 2016 !-->
+  <title>Tracery One - Susan Parker</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="tritonCSS.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -123,9 +124,9 @@
       }
       comments.innerHTML.replace("<button id='shareBtn" + numMinusOne +"' class='shareBtns'>SHARE</button>", '');
       comments.innerHTML = "<hr><h4>" + name + " says:</h4> <p id='commentText'>" + comment +"<h3>" + timeStamp + "</h3>" +
-      "<div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>" +
-      "<a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=145634995501895&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div>"
-      + "<button id='shareBtn" + num + "' class='shareBtns'>SHARE</button>" + comments.innerHTML;
+      "<button id='shareBtn" + num + "' class='shareBtns'>Share on FB</button>" + comments.innerHTML;
+      // "<div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>" +
+      // "<a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=145634995501895&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div>"
       console.log(userComments);
       console.log(document.getElementById("shareBtn" + num));
       document.getElementById("shareBtn" + num).onclick = function(){
@@ -133,7 +134,7 @@
           method: 'share',
           mobile_iframe: true,
           href: 'https://ryankhoile.github.io/Triton/exhibit1.html',
-         quote: 'I just went to the Triton'
+         quote: document.getElementById('commentText').textContent //'I just went to the Triton and saw Guernica, it was a fantastic painting!'
         }, function(response){});
       }
     }
@@ -152,12 +153,15 @@
   }(document, 'script', 'facebook-jssdk'));</script>
 
   <div id="headBar">
-    <h1 style="text-align: left"> GUERNICA - PICASSO </h1>
+    <h1 style="text-align: left"> TRACERY ONE - SUSAN PARKER </h1>
     <a href="index.html"><img id="logo" src="images/tritonIcon.png" alt="triton"></a>
   </div>
 
   <div id = "wrapper">
-    <a href='ryankhoile.github.io/Triton/exhibit2.html'><img src='images/rightArrow.png'></a>
+    <div id="arrowBar">
+      <a href='ryankhoile.github.io/Triton/tracery_one.html'><img src='images/leftArrow.png' height='50px'></a>
+      <a href='ryankhoile.github.io/Triton/exhibit1.html'><img src='images/rightArrow.png' height='50px'></a>
+    </div>
     <h2> Title: <strong> Blue Radius </strong> </h2>
     <h2> Artist: <strong> Susan Parker </strong> </h2>
     <h2> Year: <strong> 2013 </strong> </h2>
@@ -174,7 +178,7 @@
     <h2> Major Symbols </h2>
     <div class="centeredList">
       <ul>
-        <li>X</li>
+        <li>The blue color represents. . .water </li>
         <li>X</li>
         <li>X</li>
         <li>X</li>
@@ -185,10 +189,10 @@
     </div>
     <hr>
     <h2> History of Blue Radius </h2>
-      <p></p>
+      <p> Painted in 2013 </p>
     <hr>
     <h2> History of Susan Parker </h2>
-      <p></p>
+      <p> Susan Parker wants to make paintings that have a strong, physical presence and also convey a sense of discovery and intimacy upon closer viewing.  </p>
     <hr>
     <h2> Video 1 </h2>
     <iframe class="video" src="https://www.youtube.com/embed/jc1Nfx4c5LQ" frameborder="0" allowfullscreen></iframe>
@@ -197,11 +201,11 @@
     <iframe class="video" src="https://www.youtube.com/embed/PbLTE-ERzY0" frameborder="0" allowfullscreen></iframe>
     <hr>
     <h2> Related Works </h2>
-    <a href="http://susanparkerpainter.com/susan_parker_paintings_tracery.html">Tracery One</a><br>
+    <a href="http://ryankhoile.github.io/Triton/tracery_one.html">Tracery One</a><br>
     <a href="http://susanparkerpainter.com/susan_parker_paintings_chart_compass.html"> Indigo </a>
     <hr>
      <a href="http://susanparkerpainter.com/"> <h3>More on Susan Parker</h3> </a>
-     <button id="shareBtn" class="shareBtns">SHARE</button>
+     <!-- <button id="shareBtn" class="shareBtns">SHARE</button> -->
      <!-- <script>
 
       var shareButtons = document.getElementsByClassName("shareBtns");
@@ -225,16 +229,16 @@
       //    }, function(response){});
       //  }
      </script> -->
-     <div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>
-     <a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=626508604175695&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div>
+     <!-- <div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>
+     <a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=626508604175695&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div> -->
 
 
      <div class="container">
-       <div class="header"> <h2>Comment and Post to Facebook <h2></div>
-       <div class="fb-comments" data-href="http://ryankhoile.github.io/Triton/exhibit1.html" data-width="100%" data-numposts="20"></div>
+       <!-- <div class="header"> <h2>Comment and Post to Facebook <h2></div>
+       <div class="fb-comments" data-href="http://ryankhoile.github.io/Triton/exhibit1.html" data-width="100%" data-numposts="20"></div> -->
        <div class="comment-box">
          <div class="comment-form">
-           <div class="header"> <h2> No Facebook? Add a comment here <h2></div>
+           <div class="header"> <h2> Add a comment here <h2></div>
            <form action="#" onsubmit="event.preventDefault(); postComment()">
              <div>
                <input type="text" id="name" placeholder="Name">
