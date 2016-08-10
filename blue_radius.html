@@ -123,9 +123,9 @@
       }
       comments.innerHTML.replace("<button id='shareBtn" + numMinusOne +"' class='shareBtns'>SHARE</button>", '');
       comments.innerHTML = "<hr><h4>" + name + " says:</h4> <p id='commentText'>" + comment +"<h3>" + timeStamp + "</h3>" +
-      "<button id='shareBtn" + num + "' class='shareBtns'>Share on FB</button>" + comments.innerHTML;
-      // "<div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>" +
-      // "<a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=145634995501895&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div>"
+      "<div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>" +
+      "<a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=145634995501895&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div>"
+      + "<button id='shareBtn" + num + "' class='shareBtns'>SHARE</button>" + comments.innerHTML;
       console.log(userComments);
       console.log(document.getElementById("shareBtn" + num));
       document.getElementById("shareBtn" + num).onclick = function(){
@@ -133,7 +133,7 @@
           method: 'share',
           mobile_iframe: true,
           href: 'https://ryankhoile.github.io/Triton/exhibit1.html',
-         quote: document.getElementById('commentText').textContent; //'I just went to the Triton and saw Guernica, it was a fantastic painting!'
+         quote: 'I just went to the Triton'
         }, function(response){});
       }
     }
@@ -158,55 +158,50 @@
 
   <div id = "wrapper">
     <a href='ryankhoile.github.io/Triton/exhibit2.html'><img src='images/rightArrow.png'></a>
-    <h2> Title: <strong> Guernica </strong> </h2>
-    <h2> Artist: <strong> Pablo Picasso </strong> </h2>
-    <h2> Year: <strong> 1937 </strong> </h2>
-    <h2> Genre: <strong> Narrative Art </strong> </h2>
+    <h2> Title: <strong> Blue Radius </strong> </h2>
+    <h2> Artist: <strong> Susan Parker </strong> </h2>
+    <h2> Year: <strong> 2013 </strong> </h2>
+    <h2> Genre: <strong>  </strong> </h2>
+    <h2> Material: <strong> Acrylic on Canvas </strong> </h2>
     <audio controls>
       <source src="audio/Guernica.mp3" type="audio/mpeg">
       No audio for this browser
     </audio>
 
     <hr>
-    <img src="images/guernica.jpg" width="60%">
+    <img src="images/blue_radius.jpg" width="60%">
     <hr>
     <h2> Major Symbols </h2>
     <div class="centeredList">
       <ul>
-        <li>The bull is a classic symbol of Spain</li>
-        <li>The shape and posture of the bodies express protest.</li>
-        <li>Picasso uses black, white, and grey paint to set a somber mood and express pain and chaos.</li>
-        <li>Flaming buildings and crumbling walls not only express the destruction of Guernica, but reflect the destructive power of civil war.</li>
-        <li>The newspaper print used in the painting reflects how Picasso learned of the massacre.</li>
-        <li>The light bulb in the painting represents the sun. Also "bombilla" (lightbulb in Spanish) sounds similar to "bomba" (bomb in Spanish)</li>
-        <li>The broken sword near the bottom of the painting symbolizes the defeat of the people at the hand of their tormentors</li>
+        <li>X</li>
+        <li>X</li>
+        <li>X</li>
+        <li>X</li>
+        <li>X</li>
+        <li>X</li>
+        <li>X</li>
       </ul>
     </div>
     <hr>
-    <h2> History of Guernica </h2>
-      <p>From wikipedia: The bombing of <strong>Guernica</strong> (26 April 1937) was an aerial attack on the Basque town of Guernica during the <b>Spanish Civil War.</b>
-      It was carried out at the behest of the <b>Spanish nationalist government (Victor Franco)</b> by its allies, the <b>German (Hitler)</b> air force's Condor Legion and the <b>Italian (Mussolini)</b>
-      Aviazione Legionaria, under the code name <b>Operation Rügen</b> (Rügen means "to reprimand" in German).
-      All the roads and bridges were <b>destroyed</b> so the citiens could not escape. After the bombing, the survivors were mowed down with <b>machine guns.</b> </p>
+    <h2> History of Blue Radius </h2>
+      <p></p>
     <hr>
-    <h2> History of Picasso </h2>
-      <p>Pablo Ruiz y Picasso, also known as <b>Pablo Picasso</b>, was a <b>Spanish painter</b>, sculptor, printmaker, ceramicist, stage designer,
-      poet and playwright who spent most of his adult life in <b>France</b>. Regarded as one of the greatest and most influential artists of
-      the <b>20th century</b>, he is known for co-founding the <b>Cubist movement</b>, the invention of constructed sculpture, the co-invention of
-      collage, and for the wide variety of styles that he helped develop and explore.</p>
+    <h2> History of Susan Parker </h2>
+      <p></p>
     <hr>
-    <h2> Guernica in 3D </h2>
+    <h2> Video 1 </h2>
     <iframe class="video" src="https://www.youtube.com/embed/jc1Nfx4c5LQ" frameborder="0" allowfullscreen></iframe>
     <hr>
-    <h2> In-Depth Analysis </h2>
+    <h2> Video 2 </h2>
     <iframe class="video" src="https://www.youtube.com/embed/PbLTE-ERzY0" frameborder="0" allowfullscreen></iframe>
     <hr>
     <h2> Related Works </h2>
-    <a href="https://en.wikipedia.org/wiki/The_Dream_and_Lie_of_Franco">The Dream and Lie of Franco</a><br>
-    <a href="http://www.philamuseum.org/collections/permanent/51315.html"> Dali's Guernica </a>
+    <a href="http://susanparkerpainter.com/susan_parker_paintings_tracery.html">Tracery One</a><br>
+    <a href="http://susanparkerpainter.com/susan_parker_paintings_chart_compass.html"> Indigo </a>
     <hr>
-     <a href="http://www.pablopicasso.org/guernica.jsp"> <h3>More on Guernica</h3> </a>
-     <!-- <button id="shareBtn" class="shareBtns">SHARE</button> -->
+     <a href="http://susanparkerpainter.com/"> <h3>More on Susan Parker</h3> </a>
+     <button id="shareBtn" class="shareBtns">SHARE</button>
      <!-- <script>
 
       var shareButtons = document.getElementsByClassName("shareBtns");
@@ -230,13 +225,13 @@
       //    }, function(response){});
       //  }
      </script> -->
-     <!-- <div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>
-     <a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=626508604175695&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div> -->
+     <div class='fb-share-button' data-href='http://ryankhoile.github.io/Triton/exhibit1.html' data-layout='button' data-size='small' data-mobile-iframe='true'>
+     <a class='fb-xfbml-parse-ignore' target='_blank' href='https://www.facebook.com/dialog/feed?app_id=626508604175695&display=popup&amp;caption=I%20just%20went%20to%20the%20Triton%20Museum%20and%20it%20was%20amazing&link=https%3A%2F%2Fryankhoile.github.io%2FTriton%2Fexhibit1.html%2F&redirect_uri=https://ryankhoile.github.io/Triton/exhibit1.html'>Share</a></div>
 
 
      <div class="container">
-       <!-- <div class="header"> <h2>Comment and Post to Facebook <h2></div>
-       <div class="fb-comments" data-href="http://ryankhoile.github.io/Triton/exhibit1.html" data-width="100%" data-numposts="20"></div> -->
+       <div class="header"> <h2>Comment and Post to Facebook <h2></div>
+       <div class="fb-comments" data-href="http://ryankhoile.github.io/Triton/exhibit1.html" data-width="100%" data-numposts="20"></div>
        <div class="comment-box">
          <div class="comment-form">
            <div class="header"> <h2> No Facebook? Add a comment here <h2></div>
