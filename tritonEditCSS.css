@@ -41,6 +41,18 @@ font-style: normal;
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/Roboto Condensed/RobotoCondensed-Regular.eot');
+    src: url('fonts/Roboto Condensed/RobotoCondensed-Regular.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Roboto Condensed/RobotoCondensed-Regular.woff2') format('woff2'),
+         url('fonts/Roboto Condensed/RobotoCondensed-Regular.woff') format('woff'),
+         url('fonts/Roboto Condensed/RobotoCondensed-Regular.ttf') format('truetype'),
+         url('fonts/Roboto Condensed/RobotoCondensed-Regular.svg#modern_serif_erodedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #headBar{
   position: absolute;
   top: 0px;
@@ -62,15 +74,16 @@ font-style: normal;
   float: left;
   font-size: 60px;
   text-align: left;
-  font-family: 'economica', serif;
+  font-family: 'roboto_condensed', serif;
   color: white;
   padding-left: 20px;
   clear: right;
 }
 #navBar{
+  position: absolute;
   float: left;
-  margin-top: 1px;
-  margin-left: 10px;
+  margin-top: 143px;
+  margin-left: 200px;
   width: 75%;
   height: 100px;
   /*border: solid 1px white;*/
@@ -78,7 +91,7 @@ font-style: normal;
 .navBarLink{
   padding-left: 20px;
   font-size: 24px;
-  font-family: 'economica', sans-serif;
+  font-family: 'roboto_condensed', sans-serif;
 }
 
 #logo {
@@ -90,7 +103,7 @@ font-style: normal;
 
 #logoPageCreator {
   position: absolute;
-  top: 10px;
+  top: 30px;
   margin-left: 90%;
   height: 70%;
 }
@@ -119,6 +132,18 @@ textarea{
   font-size: 24px;
   font-family: 'Trebuchet MS', sans-serif;
 }
+.textContainer{
+  float: left;
+  width: 13%;
+}
+h2{
+  font-size: 26px;
+  padding-top: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-align: left;
+  float: left;
+}
 input{
   margin-left: 20px;
   margin-top: 20px;
@@ -126,7 +151,7 @@ input{
   width: 50%;
   float: left;
   font-size: 26px;
-  font-family: 'economica', sans-serif;
+  font-family: 'roboto_condensed', sans-serif;
   border: solid 1px #dcdcdc;
   transition: box-shadow 0.3s, border 0.3s;
   border-radius: 5px;
@@ -162,7 +187,7 @@ button{
 }
 body{
   background-color: white;
-  font-family: 'economica', sans-serif;
+  font-family: 'roboto_condensed', sans-serif;
 }
 #exhibitPreview{
   /*width: 100%;*/
@@ -175,19 +200,21 @@ body{
   float: left;
 }
 #showExhibit{
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 1%;
+
   width: 49%;
   height: 1700px;
   border: 0px solid blue;
   float: left;
 }
 .update{
+
   margin-top: 20px;
+  width: 20%;
   -webkit-border-radius: 7;
   -moz-border-radius: 7;
   border-radius: 7px;
-  font-family: 'economica', sans-serif;
+  font-family: 'roboto_condensed', sans-serif;
   color: #000000;
   font-size: 26px;
   background: #ffffff;
@@ -227,14 +254,7 @@ h1 {
   color: black;
   /*font-family: 'bebas_neueregular', serif;*/
 }
-h2{
-  /*width: 200px;*/
-  font-size: 26px;
-  padding-top: 10px;
-  padding-left: 30px;
-  text-align: left;
-  float: left;
-}
+
 h3{
   font-size: 16px;
 }
