@@ -8,12 +8,23 @@
 
 @font-face {
 font-family: 'bebas_neueregular';
-src: url('fonts/bebasneue-webfont.eot');
-src: url('fonts/bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
-   url('fonts/bebasneue-webfont.woff2') format('woff2'),
-   url('fonts/bebasneue-webfont.woff') format('woff'),
-   url('fonts/bebasneue-webfont.ttf') format('truetype'),
-   url('fonts/bebasneue-webfont.svg#bebas_neueregular') format('svg');
+src: url('fonts/Bebas Neue/bebasneue-webfont.eot');
+src: url('fonts/Bebas Neue/bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+   url('fonts/Bebas Neue/bebasneue-webfont.woff2') format('woff2'),
+   url('fonts/Bebas Neue/bebasneue-webfont.woff') format('woff'),
+   url('fonts/Bebas Neue/bebasneue-webfont.ttf') format('truetype'),
+   url('fonts/Bebas Neue/bebasneue-webfont.svg#bebas_neueregular') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'economica';
+src: url('fonts/Economica/Economica-Regular.eot');
+src: url('fonts/Economica/Economica-Regular.eot?#iefix') format('embedded-opentype'),
+   url('fonts/Economica/Economica-Regular.woff2') format('woff2'),
+   url('fonts/Economica/Economica-Regular.woff') format('woff'),
+   url('fonts/Economica/Economica-Regular.ttf') format('truetype'),
+   url('fonts/Economica/Economica-Regular.svg#Economica-Regular') format('svg');
 font-weight: normal;
 font-style: normal;
 }
@@ -30,13 +41,55 @@ font-style: normal;
     font-style: normal;
 }
 
-#specialCode, textarea{
-  border: 0px solid #C9E8FF;
-  box-shadow: 0 0 5px 3px #C9E8FF;
-  color: #000000;
-  font-size: 24px;
-  text-align: center;
+#headBar{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 200px;
+  width: 100%;
+  background-color: #000000;
 }
+
+#pageTitle{
+  font-size: 60px;
+  text-align: left;
+  font-family: 'economica', serif;
+  color: white;
+  padding-left: 20px;
+}
+
+.navBarLink{
+  padding-left: 20px;
+  font-size: 24px;
+  font-family: 'economica', sans-serif;
+}
+
+#logo {
+  position: absolute;
+  top: 10px;
+  margin-left: 80%;
+  height: 70%;
+}
+
+#logoPageCreator {
+  position: absolute;
+  top: 10px;
+  margin-left: 90%;
+  height: 70%;
+}
+
+#wrapper {
+  position: absolute;
+  border: 0px solid #FFC4CE;
+  top: 200px;
+  left: 0px;
+  width: 100%;
+  margin-top: 0;
+  margin: 0 auto;
+  text-align: center;
+  background: -webkit-linear-gradient(#FFFFFE, #FFFFFF);
+}
+
 header{
   font-size: 36px;
 }
@@ -51,12 +104,21 @@ textarea{
 }
 input{
   margin-left: 20px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  width: 500px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 50%;
   float: left;
-  font-size: 24px;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 26px;
+  font-family: 'economica', sans-serif;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+  border-radius: 5px;
+  padding: 10px 20px 10px 20px;
+}
+input[type="text"]:focus,
+input[type="text"].focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
 }
 #comment{
   font-size: 20px;
@@ -83,10 +145,12 @@ button{
 }
 body{
   background-color: white;
-  /*font-family: 'bebas_neueregular', serif;*/
+  font-family: 'economica', sans-serif;
 }
 #exhibitPreview{
   /*width: 100%;*/
+  margin-left: auto;
+  margin-right: auto;
 }
 #submitUpdate{
   width: 49%;
@@ -97,12 +161,26 @@ body{
   margin-left: auto;
   margin-right: auto;
   width: 49%;
-  height: 1900px;
+  height: 1700px;
   border: 0px solid blue;
   float: left;
 }
 .update{
-  margin-top: 30px;
+  margin-top: 20px;
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  font-family: 'economica', sans-serif;
+  color: #000000;
+  font-size: 26px;
+  background: #ffffff;
+  padding: 10px 20px 10px 20px;
+  border: solid #dcdcdc 1px;
+  text-decoration: none;
+}
+.update:hover {
+  background: #0795D7;
+  text-decoration: none;
 }
 .inputContainer{
     border: 1px solid lightgrey;
@@ -126,6 +204,7 @@ hr {
 #commentContainer{
     margin: auto;
 }
+
 h1 {
   padding-left: 10px;
   color: black;
@@ -133,6 +212,7 @@ h1 {
 }
 h2{
   /*width: 200px;*/
+  font-size: 26px;
   padding-top: 10px;
   padding-left: 10px;
   text-align: left;
@@ -158,41 +238,18 @@ a:visited{
       margin:0 auto;
       text-align: left;
 }
-#logo {
-  position: absolute;
-  top: 10px;
-  margin-left: 80%;
-  height: 70%;
-}
-#logoPageCreator {
-  position: absolute;
-  top: 10px;
-  margin-left: 90%;
-  height: 70%;
-}
-#wrapper {
-  position: absolute;
-  border: 0px solid #FFC4CE;
-  top: 130px;
-  left: 0px;
-  width: 100%;
-  margin-top: 0;
-  margin: 0 auto;
-  text-align: center;
-  background: -webkit-linear-gradient(#FFFFFE, #FFFFFF);
-}
-
-#headBar{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  background-color: #000000;
-}
 
 table{
   table-layout: fixed;
 }
 td{
   width: 30%;
+}
+
+#specialCode, textarea{
+  border: 0px solid #C9E8FF;
+  box-shadow: 0 0 5px 3px #C9E8FF;
+  color: #000000;
+  font-size: 24px;
+  text-align: center;
 }

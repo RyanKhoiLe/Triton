@@ -22,15 +22,17 @@
     var url = "https://learnfirebase-43e98.firebaseio.com";
     var firebaseRef = firebase.database();
 
-    var thisUrl = window.location.href;
-    var keyStartAt = window.location.href.indexOf('?');
-    var idStartAt = keyStartAt + 4;
-    var fbID = thisUrl.substring(idStartAt);
+
     var title, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre;
     var symbols;
     var videos;
 
+    var thisUrl = window.location.href;
+    var keyStartAt = window.location.href.indexOf('?');
+    var idStartAt = keyStartAt + 4;
+    var fbID = thisUrl.substring(idStartAt);
     console.log(fbID);
+
     firebaseRef.ref('exhibits/' + fbID).on('value', function(snapshot) {
       var exhibitData = snapshot.val();
       console.log(exhibitData);
@@ -104,8 +106,12 @@
     }
     </script>
     <div id="headBar">
-      <h1 style="font-size: 60px; text-align: left; font-family: 'bebas_neueregular', serif; color: white" id="pageTitle"> Page Update - Triton </h1>
+      <h1 id="pageTitle"> Exhibit Editor </h1>
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
+      <div id="navBar">
+        <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
+        <a class="navBarLink" style="color: white" href="analytics.html"> analytics </a>
+      </div>
     </div>
     <div id="wrapper" style="border: 1px solid black">
       <form id="submitUpdate" action="#" onsubmit="event.preventDefault(); updatePage()">
@@ -180,17 +186,24 @@
         <button type="submit">Update page</button>
       </form>
       <div id="showExhibit">
-        <h1> Real-time preview (make sure to click the update button to see changes): </h1>
+        <h1> Real-time preview </h1>
+        <p> (make sure to click the update button to see changes): </p>
         <iframe id="exhibitPreview" width="100%" height="100%" src="exhibit.html?id=-KOzAZCrb_n_1LDbtTuV"></iframe>
+        <script>
+          var thisUrl = window.location.href;
+          var keyStartAt = window.location.href.indexOf('?');
+          var idStartAt = keyStartAt + 4;
+          var fbID = thisUrl.substring(idStartAt);
+          console.log(fbID);
+          document.getElementById("exhibitPreview").setAttribute("src", "exhibit.html?id=" + fbID);
+        </script>
       </div>
-      <script>
-        document.getElementById("exhibitPreview").setAttribute("src", "exhibit.html?id=" + fbId);
-      </script>
       <br>
-      <h1 id="result">Click submit</h1>
+        <h1 id="result">Click submit</h1>
       <br>
       <br>
     </div>
+
 
   </body>
 
