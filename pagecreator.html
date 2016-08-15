@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- created by Khoi Le 2016 !-->
+  <title> New Exhibit Page Creator </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="tritonCSS.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="images/tritonIconSmall.png">
+  <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+</head>
+<body>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
+      authDomain: "learnfirebase-43e98.firebaseapp.com",
+      databaseURL: "https://learnfirebase-43e98.firebaseio.com",
+      storageBucket: "learnfirebase-43e98.appspot.com",
+    };
+    firebase.initializeApp(config);
+    var url = "https://learnfirebase-43e98.firebaseio.com";
+    var firebaseRef = firebase.database();
+
+    function createNewPage(){
+      var title = document.getElementById("title").value,
+      artist = document.getElementById("artist").value,
+      year = document.getElementById("year").value,
+      genre = document.getElementById("genre").value,
+      media = document.getElementById("media").value,
+      exhibitImage = document.getElementById("exhibitImage").value,
+      summary = document.getElementById("summary").value,
+      symbols = document.getElementById("symbols").value,
+      historyOfArtist = document.getElementById("historyOfArtist").value,
+      historyOfPainting = document.getElementById("historyOfPainting").value,
+      videos = document.getElementById("videos").value;
+
+      var fbKey;
+      if(title && artist && summary && symbols){
+        fbKey = firebaseRef.ref('exhibits/').push({
+            title: title,
+            artist: artist,
+            year: year,
+            genre: genre,
+            media: media,
+            exhibitImage: exhibitImage,
+            summary: summary,
+            symbols: symbols,
+            historyOfArtist: historyOfArtist,
+            historyOfPainting: historyOfPainting,
+            videos: videos
+        }).key;
+        firebaseRef.ref('exhibitKeys/').push({
+          key: fbKey
+        })
+      }
+      document.getElementById('result').innerHTML = 'Congrats your new page has been created';
+    }
+    </script>
+    <div id="headBar">
+      <h1 style="text-align: left" id="pageTitle"> Page Creator - Triton </h1>
+      <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
+    </div>
+    <div id="wrapper" width="90%">
+      <form action="#" onsubmit="event.preventDefault(); createNewPage()">
+        <div>
+          <h2> Title: </h2>
+          <input type="text" id="title" placeholder="Las Meninas">
+        </div>
+        <div>
+          <h2> Artist </h2>
+          <input type="text" id="artist" placeholder="Pablo Picasso">
+        </div>
+        <div>
+          <h2> Year: </h2>
+          <input type="text" id="year" placeholder="1957">
+        </div>
+        <div>
+          <h2> Genre: </h2>
+          <input type="text" id="genre" placeholder="Abstract">
+        </div>
+        <div>
+          <h2> Media: </h2>
+          <input type="text" id="media" placeholder="Oil on canvas">
+        </div>
+        <div>
+          <h2> Image (please go to imgpost.me and upload your image file. Then copy and paste the direct link here. Use 'https' for security.): </h2>
+          <input type="text" id="exhibitImage" placeholder="https://imgpost.me/img/sg51hq1/las_meninas.jpg">
+        </div>
+        <div>
+          <h2> Summary (Like a tweet! Capture the MOST interesting thing in a short but sweet summary): </h2>
+          <textarea id="summary" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+        </div>
+        <div>
+          <h2> Major Symbols (Separate by commas): </h2>
+          <textarea id="symbols" rows="3" cols="50" placeholder="Shapes capture the mood of Picasso, Mirror and shadow leaves mystery, Dark monochrome creates an ominous tone"></textarea>
+        </div>
+        <div>
+          <h2> History of the Painting: </h2>
+          <textarea id="historyOfPainting" rows="4" cols="50" placeholder="The original Las Meninas was painted in 1656 by Diego Velazquez, and captured the royal family's princesses. Picasso painted his versions of Las Meninas (58 in total) in the 1950's and wanted to emphasize how his versions conveyed his own meanings."></textarea>
+        </div>
+        <div>
+          <h2> History of the Artist: </h2>
+          <textarea id="historyOfArtist" rows="4" cols="50" placeholder="Pablo Picasso is often referred to as the father of cubism, which can be seen in the geometric and abstract shapes of the figures in the painting"></textarea>
+        </div>
+        <div>
+          <h2> Videos (please use YouTube videos and use the "Embed URL" link and paste below, separated by commas) If no videos, please leave blank </h2>
+          <textarea id="videos" rows="3" cols="50" placeholder="https://www.youtube.com/embed/jc1Nfx4c5LQ, https://www.youtube.com/embed/as47s12LC"></textarea>
+        </div>
+
+        <button type="submit">Create page</button>
+      </form>
+      <br>
+      <h1 id="result"></h1>
+      <br>
+      <br>
+    </div>
+
+  </body>
+
+</html>

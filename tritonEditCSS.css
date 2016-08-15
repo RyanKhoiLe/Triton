@@ -40,7 +40,21 @@ font-style: normal;
 header{
   font-size: 36px;
 }
+textarea{
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 580px;
+  float: left;
+  font-size: 24px;
+  font-family: 'Trebuchet MS', sans-serif;
+}
 input{
+  margin-left: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 500px;
+  float: left;
   font-size: 24px;
   font-family: 'Trebuchet MS', sans-serif;
 }
@@ -64,19 +78,39 @@ input{
   margin: auto;
 }
 button{
-  font-family: 'bebas_neueregular', serif;
+  /*font-family: 'bebas_neueregular', serif;*/
   font-size: 16px;
 }
 body{
   background-color: white;
-  font-family: 'bebas_neueregular', serif;
+  /*font-family: 'bebas_neueregular', serif;*/
 }
-h1 {
-  padding-left: 10px;
-  color: black;
-  font-family: 'bebas_neueregular', serif;
+#exhibitPreview{
+  /*width: 100%;*/
 }
-
+#submitUpdate{
+  width: 49%;
+  border: 0px solid grey;
+  float: left;
+}
+#showExhibit{
+  margin-left: auto;
+  margin-right: auto;
+  width: 49%;
+  height: 1900px;
+  border: 0px solid blue;
+  float: left;
+}
+.update{
+  margin-top: 30px;
+}
+.inputContainer{
+    border: 1px solid lightgrey;
+    width: 100%;
+    /*margin-left: auto;*/
+    margin-right: auto;
+    overflow: auto;
+}
 p{
       padding-top: 5px;
       padding-left: 5%;
@@ -92,6 +126,18 @@ hr {
 #commentContainer{
     margin: auto;
 }
+h1 {
+  padding-left: 10px;
+  color: black;
+  /*font-family: 'bebas_neueregular', serif;*/
+}
+h2{
+  /*width: 200px;*/
+  padding-top: 10px;
+  padding-left: 10px;
+  text-align: left;
+  float: left;
+}
 h3{
   font-size: 16px;
 }
@@ -101,10 +147,11 @@ h4{
 }
 
 a{
+    font-size: 20px;
       color: #0075CF;
 }
 a:visited{
-      color: #FFC4CE;
+      color: blue;
 }
 .centeredList{
       width: 80%;
@@ -126,13 +173,13 @@ a:visited{
 #wrapper {
   position: absolute;
   border: 0px solid #FFC4CE;
-  top: 80px;
+  top: 130px;
   left: 0px;
   width: 100%;
   margin-top: 0;
   margin: 0 auto;
   text-align: center;
-  background: -webkit-linear-gradient(#FFF8E8, #FFFFFF);
+  background: -webkit-linear-gradient(#FFFFFE, #FFFFFF);
 }
 
 #headBar{
@@ -140,7 +187,7 @@ a:visited{
   top: 0px;
   left: 0px;
   width: 100%;
-  background-color: #C9E8FF;
+  background-color: #000000;
 }
 
 table{

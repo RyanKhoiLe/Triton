@@ -37,7 +37,7 @@
         var newRow = document.createElement("tr");
         var newData = document.createElement("td");
         var newLink = document.createElement("a");
-        newLink.setAttribute("href", "exhibit.html?id=" + key);
+        newLink.setAttribute("href", "editexhibit.html?id=" + key);
         var linkImg = document.createElement("img");
         var breakTag = document.createElement("br");
         linkImg.setAttribute("src", img);
@@ -63,13 +63,7 @@
     	<div id="wrapper">
     		<h1> Welcome to the Triton Museum Exhibit Database! </h1>
     		<img src="images/tritonLogo.png" alt="logo" width="90%">
-		<input id="specialCode" type='text' value="1234" align="center" style="background-color: #FFF7E0;">
-		<br>
-		<button type="button" id="enterCode">Go</button>
-		<br>
-		<a href='#' id="searchLink" style="padding-top: 10px;">Search for an exhibit</a>
-		<hr>
-	    <h2><b>Links to exhibits </b></h2>
+
 	    <table id="exhibitList">
 	    	<tr>
 	    		<td> <a href="exhibit1.html"> <img src="images/guernica.jpg" width="90%"><br> Guernica </a> </td>
@@ -92,9 +86,6 @@
 
   		}
   	</script>
-    <div id='museumCuratorAccess'>
-      <a href='edithome.html'> EDIT DATABASE </a>
-    </div>
 	</div>
   </body>
 </html

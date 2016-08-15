@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- created by Khoi Le 2016 !-->
+  <title> Exhibit Editor </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="tritonEditCSS.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="images/tritonIconSmall.png">
+  <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+</head>
+<body>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
+      authDomain: "learnfirebase-43e98.firebaseapp.com",
+      databaseURL: "https://learnfirebase-43e98.firebaseio.com",
+      storageBucket: "learnfirebase-43e98.appspot.com",
+    };
+    firebase.initializeApp(config);
+    var url = "https://learnfirebase-43e98.firebaseio.com";
+    var firebaseRef = firebase.database();
+
+    var thisUrl = window.location.href;
+    var keyStartAt = window.location.href.indexOf('?');
+    var idStartAt = keyStartAt + 4;
+    var fbID = thisUrl.substring(idStartAt);
+    var title, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre;
+    var symbols;
+    var videos;
+
+    console.log(fbID);
+    firebaseRef.ref('exhibits/' + fbID).on('value', function(snapshot) {
+      var exhibitData = snapshot.val();
+      console.log(exhibitData);
+      setContent(exhibitData);
+    });
+    function setContent(data){
+      title = data.title;
+      artist = data.artist;
+      year = data.year;
+      genre = data.genre;
+      media = data.media;
+      exhibitImage = data.exhibitImage;
+      summary = data.summary;
+      console.log(summary);
+      artistLastName = data.artist.substring(data.artist.indexOf(' ') + 1);
+      symbols = data.symbols;
+      historyOfPainting = data.historyOfPainting;
+      historyOfArtist = data.historyOfArtist;
+      if(data.videos != null){
+        console.log("THERE ARE VIDEOS!");
+        videos = data.videos;
+      }
+      setHTMLContent();
+    }
+    function setHTMLContent(){
+      document.getElementById("title").setAttribute('value', title);
+      document.getElementById("artist").setAttribute('value', artist);
+      document.getElementById("year").setAttribute('value', year);
+      document.getElementById("genre").setAttribute('value', genre);
+      document.getElementById("media").setAttribute('value', media);
+      document.getElementById("exhibitImage").setAttribute("value", exhibitImage);
+      document.getElementById("summary").textContent=summary;
+      //var unorderedList = document.createElement("ul");
+      document.getElementById("symbols").textContent=symbols;
+      document.getElementById("historyOfPainting").textContent=historyOfPainting;
+      document.getElementById("historyOfArtist").textContent=historyOfArtist;
+      if(videos){
+        document.getElementById("videos").textContent=videos;
+      }
+    }
+
+    function updatePage(){
+      var title = document.getElementById("title").value,
+      artist = document.getElementById("artist").value,
+      year = document.getElementById("year").value,
+      genre = document.getElementById("genre").value,
+      media = document.getElementById("media").value,
+      exhibitImage = document.getElementById("exhibitImage").value,
+      summary = document.getElementById("summary").value,
+      symbols = document.getElementById("symbols").value,
+      historyOfArtist = document.getElementById("historyOfArtist").value,
+      historyOfPainting = document.getElementById("historyOfPainting").value,
+      videos = document.getElementById("videos").value;
+
+      if(title && artist && summary && symbols){
+        firebaseRef.ref('exhibits/' + fbID).update({
+            title: title,
+            artist: artist,
+            year: year,
+            genre: genre,
+            media: media,
+            exhibitImage: exhibitImage,
+            summary: summary,
+            symbols: symbols,
+            historyOfArtist: historyOfArtist,
+            historyOfPainting: historyOfPainting,
+            videos: videos
+        });
+      }
+      document.getElementById('result').innerHTML = 'Congrats your page was updated';
+    }
+    </script>
+    <div id="headBar">
+      <h1 style="font-size: 60px; text-align: left; font-family: 'bebas_neueregular', serif; color: white" id="pageTitle"> Page Update - Triton </h1>
+      <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
+    </div>
+    <div id="wrapper" style="border: 1px solid black">
+      <form id="submitUpdate" action="#" onsubmit="event.preventDefault(); updatePage()">
+        <div class="inputContainer">
+          <h2> Title: </h2>
+          <input type="text" id="title" value="">
+          <button class="update" type="submit"> Update Title </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> Artist: </h2>
+          <input type="text" id="artist" value="">
+          <button class="update" type="submit"> Update Artist </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> Year: </h2>
+          <input type="text" id="year" value="">
+          <button class="update" type="submit"> Update Year </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> Genre: </h2>
+          <input type="text" id="genre" value="">
+          <button class="update" type="submit"> Update Genre </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> Media: </h2>
+          <input type="text" id="media" value="">
+          <button class="update" type="submit"> Update Media </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> Image (please go to imgpost.me and upload your image file. Then copy and paste the direct link here. Use 'https' for security.): </h2>
+          <input type="text" id="exhibitImage" value="">
+          <a href="http://imgpost.me/upload/local/">Imgpost site</a>
+          <button class="update" type="submit"> Update Image </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> Summary (Like a tweet! Capture the MOST interesting thing in a short but sweet summary): </h2>
+          <textarea id="summary" rows="3" cols="50" value=""></textarea>
+          <button class="update" type="submit"> Update Summary </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> Major Symbols (Separate by commas): </h2>
+          <textarea id="symbols" rows="3" cols="50" value=""></textarea>
+          <button class="update" type="submit"> Update Symbols </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> History of the Painting (Give some context or background behind the era in which it was painted): </h2>
+          <textarea id="historyOfPainting" rows="4" cols="50" value=""></textarea>
+          <button class="update" type="submit"> Update Painting History </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> History of the Artist (Give some context about the artist's life in relevance to this painting): </h2>
+          <textarea id="historyOfArtist" rows="4" cols="50" value=""></textarea>
+          <button class="update" type="submit"> Update Artist History </button>
+        </div>
+
+        <div class="inputContainer">
+          <h2> Videos (please use YouTube videos and use the "Embed URL" link and paste below, separated by commas) If no videos, please leave blank </h2>
+          <textarea id="videos" rows="3" cols="50" value=""></textarea>
+          <button class="update" type="submit"> Update Videos </button>
+        </div>
+        <br>
+
+        <button type="submit">Update page</button>
+      </form>
+      <div id="showExhibit">
+        <h1> Real-time preview (make sure to click the update button to see changes): </h1>
+        <iframe id="exhibitPreview" width="100%" height="100%" src="exhibit.html?id=-KOzAZCrb_n_1LDbtTuV"></iframe>
+      </div>
+      <script>
+        document.getElementById("exhibitPreview").setAttribute("src", "exhibit.html?id=" + fbId);
+      </script>
+      <br>
+      <h1 id="result">Click submit</h1>
+      <br>
+      <br>
+    </div>
+
+  </body>
+
+</html>

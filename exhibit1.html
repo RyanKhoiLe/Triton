@@ -36,6 +36,7 @@
     //   var email = error.email;
     //   var credential = error.credential;
     // });
+    //console.log(https://spreadsheets.google.com/feeds/worksheets/1Y8ryC6c8fl92P1H-__wfOUYoyyBrAFPrHsjmBg2w7IQ/public/basic?alt=json);
 
     function timeStamp(){
       var now = new Date();
@@ -57,7 +58,7 @@
       var name = document.getElementById("name").value,
       comment = document.getElementById("comment").value,
       time = timeStamp();
-      var badWords = ["fuck", "shit", "cock", "dick", "pussy", "bitch", "ass", "<", ">"];
+      var badWords = ["fuck", "shit", "cock", "dick", "pussy", "bitch", "ass", "<", ">"]; //excuse the language, gotta filter it out!
       for( var i = 0; i < badWords.length; i++){
         if(name.includes(badWords[i])){
           if(name.charAt(name.indexOf(badWords[i])) == 0){
