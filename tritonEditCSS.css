@@ -50,14 +50,31 @@ font-style: normal;
   background-color: #000000;
 }
 
+#lunasphereLogo {
+  float: left;
+  margin-top: 10px;
+  margin-left: 1%;
+  height: 90%;
+}
+
 #pageTitle{
+  /*border: 1px solid white;*/
+  float: left;
   font-size: 60px;
   text-align: left;
   font-family: 'economica', serif;
   color: white;
   padding-left: 20px;
+  clear: right;
 }
-
+#navBar{
+  float: left;
+  margin-top: 1px;
+  margin-left: 10px;
+  width: 75%;
+  height: 100px;
+  /*border: solid 1px white;*/
+}
 .navBarLink{
   padding-left: 20px;
   font-size: 24px;
@@ -117,8 +134,8 @@ input{
 }
 input[type="text"]:focus,
 input[type="text"].focus {
-  border: solid 1px #707070;
-  box-shadow: 0 0 5px 1px #969696;
+  border: solid 1px #0D6CB3;
+  box-shadow: 0 0 5px 1px #0DAEE0;
 }
 #comment{
   font-size: 20px;
@@ -179,7 +196,7 @@ body{
   text-decoration: none;
 }
 .update:hover {
-  background: #0795D7;
+  background: #0A99D5;
   text-decoration: none;
 }
 .inputContainer{
@@ -214,7 +231,7 @@ h2{
   /*width: 200px;*/
   font-size: 26px;
   padding-top: 10px;
-  padding-left: 10px;
+  padding-left: 30px;
   text-align: left;
   float: left;
 }
