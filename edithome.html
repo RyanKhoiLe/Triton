@@ -4,7 +4,7 @@
     <title>Triton Exhibit Database</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="tritonCSS.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/tritonLoginCSS.css">
     <link rel="icon" href="images/tritonIconSmall.png">
     <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
   </head>
@@ -53,39 +53,25 @@
       }
     </script>
 
-  	<div id="headBar">
-    		<h1> Triton DB </h1>
-    		<a href="index.html"><img id="logo" src="images/tritonIcon.png" alt="sjtech"></a>
-    		<hr>
+    <div id="headBar">
+      <a href="www.lunasphere.com"><img id="lunasphereLogo" src="images/Logo.png" alt="Lunasphere"></a>
+      <h1 id="pageTitle"> Database Home </h1>
+      <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
+      <div id="navBar">
+        <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
+        <a class="navBarLink" style="color: white" href="analytics.html"> analytics </a>
+      </div>
+    </div>
 
-    	</div>
-
-    	<div id="wrapper">
-    		<h1> Welcome to the Triton Museum Exhibit Database! </h1>
-    		<img src="images/tritonLogo.png" alt="logo" width="90%">
-
-	    <table id="exhibitList">
-	    	<tr>
-	    		<td> <a href="exhibit1.html"> <img src="images/guernica.jpg" width="90%"><br> Guernica </a> </td>
-	    	</tr>
-	    </table>
-
-	    <hr>
-	    <script>
-  		var input = document.getElementById("specialCode");
-  		var myButton = document.getElementById("enterCode");
-  		var searchLink = document.getElementById("searchLink");
-  		var searchLinkDisplay = document.getElementById("searchLinkDisplay");
-  		myButton.addEventListener("click", clickHandler, false);
-  		function clickHandler(){
-  			console.log("clicked" + input.value);
-  			if(input.value === "101"){
-  				searchLink.innerHTML = "Guernica";
-  				searchLink.setAttribute('href',"exhibit1.html");
-  			}
-
-  		}
-  	</script>
-	</div>
+    <div id="wrapper">
+      <div id="centerBar">
+        <div class="buttonContainer">
+    		    <button class="databaseHomeButton" onclick="location.href='pagecreator.html'"> Create New Exhibit </button>
+        </div>
+        <div class="buttonContainer">
+            <button class="databaseHomeButton" onclick="location.href='databaseExplorer.html'"> Edit Existing Exhibit </button>
+        </div>
+      </div>
+	  </div>
   </body>
 </html

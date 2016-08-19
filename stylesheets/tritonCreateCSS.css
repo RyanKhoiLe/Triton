@@ -54,11 +54,11 @@ font-style: normal;
 }
 #headBar{
   position: absolute;
+  height: 200px;
+  width: 100%;
   top: 0px;
   left: 0px;
-  height: 20%;
-  width: 100%;
-  background-color: #000000;
+  background-color: #0d0d0d;
 }
 #lunasphereLogo {
   float: left;
@@ -104,7 +104,12 @@ font-style: normal;
   margin-left: 90%;
   height: 70%;
 }
-
+#centerBox {
+  width: 60%;
+  border: 1px solid blue;
+  margin-left: auto;
+  margin-right: auto;
+}
 #wrapper {
   position: absolute;
   border: 0px solid #FFC4CE;
@@ -116,22 +121,60 @@ font-style: normal;
   text-align: center;
   background: -webkit-linear-gradient(#FFFFFE, #FFFFFF);
 }
-
+select{
+  font-family: 'roboto_condensed', sans-serif;
+  font-size: 26px;
+  float: left;
+  border: 1px solid #f2f2f2;
+  margin-top: 15px;
+  margin-left: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 header{
   font-size: 36px;
 }
+
+#showImgHost {
+  /*float: left;*/
+  clear: right;
+  margin-left: 30px;
+  margin-top: 0px;
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  font-family: 'roboto_condensed', sans-serif;
+  color: #000000;
+  font-size: 16px;
+  background: #ffffff;
+  padding: 10px 20px 10px 20px;
+  border: solid #dcdcdc 1px;
+  text-decoration: none;
+}
+#showImgHost:hover {
+  background: #0A99D5;
+  text-decoration: none;
+}
+#imgHostFrame {
+  margin-left: auto;
+  margin-right: auto;
+}
+button {}
 textarea{
-  margin-left: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 580px;
   float: left;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  /*width: 580px;*/
+  /*align: left;*/
   font-size: 24px;
   font-family: 'Trebuchet MS', sans-serif;
 }
 .textContainer{
   float: left;
-  width: 13%;
+  width: 10%;
+  border: none;
 }
 h2{
   font-size: 26px;
@@ -140,6 +183,9 @@ h2{
   padding-right: 30px;
   text-align: left;
   float: left;
+}
+.longDescription{
+  float: none;
 }
 input{
   margin-left: 20px;
@@ -158,6 +204,9 @@ input[type="text"]:focus,
 input[type="text"].focus {
   border: solid 1px #0D6CB3;
   box-shadow: 0 0 5px 1px #0DAEE0;
+}
+#exhibitImage {
+  float: none;
 }
 #comment{
   font-size: 20px;
@@ -178,10 +227,7 @@ input[type="text"].focus {
   //position: absolute;
   margin: auto;
 }
-button{
-  /*font-family: 'bebas_neueregular', serif;*/
-  font-size: 16px;
-}
+
 body{
   background-color: white;
   font-family: 'roboto_condensed', sans-serif;
@@ -213,7 +259,7 @@ body{
   border-radius: 7px;
   font-family: 'roboto_condensed', sans-serif;
   color: #000000;
-  font-size: 26px;
+  font-size: 16px;
   background: #ffffff;
   padding: 10px 20px 10px 20px;
   border: solid #dcdcdc 1px;
@@ -280,7 +326,7 @@ td{
   width: 30%;
 }
 
-#specialCode, textarea{
+#specialCode{
   border: 0px solid #C9E8FF;
   box-shadow: 0 0 5px 3px #C9E8FF;
   color: #000000;
