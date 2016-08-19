@@ -106,9 +106,12 @@ font-style: normal;
 }
 #centerBox {
   width: 60%;
-  border: 1px solid blue;
+  margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 #wrapper {
   position: absolute;
@@ -119,7 +122,7 @@ font-style: normal;
   margin-top: 0;
   margin: 0 auto;
   text-align: center;
-  background: -webkit-linear-gradient(#FFFFFE, #FFFFFF);
+  background: -webkit-linear-gradient(#0DB1E6, #0E6B92);
 }
 select{
   font-family: 'roboto_condensed', sans-serif;
@@ -132,6 +135,7 @@ select{
   padding-right: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
+  border-radius: 5px;
 }
 header{
   font-size: 36px;
@@ -161,7 +165,24 @@ header{
   margin-left: auto;
   margin-right: auto;
 }
-button {}
+#createPage {
+  margin-top: 0px;
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  width: 100%;
+  font-family: 'roboto_condensed', sans-serif;
+  color: #000000;
+  font-size: 36px;
+  background: #ffffff;
+  padding: 10px 20px 10px 20px;
+  border: solid #dcdcdc 1px;
+  text-decoration: none;
+}
+#createPage:hover{
+  background: #0A99D5;
+  text-decoration: none;
+}
 textarea{
   float: left;
   margin-left: 40px;
@@ -271,6 +292,7 @@ body{
 }
 .inputContainer{
     border: 1px solid lightgrey;
+    border-style: none none solid none;
     width: 100%;
     /*margin-left: auto;*/
     margin-right: auto;
