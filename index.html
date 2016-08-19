@@ -11,6 +11,7 @@
   </head>
   <body>
     <script>
+
       var config = {
         apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
         authDomain: "learnfirebase-43e98.firebaseapp.com",
@@ -34,23 +35,14 @@
       });
 
       function createLink(key, img, title){
-        var exhibitList = document.getElementById("exhibitList");
-        var newRow = document.createElement("tr");
-        var newData = document.createElement("td");
+        var exhibitList = document.getElementById("listOfExhibits");
         var newLink = document.createElement("a");
         newLink.setAttribute("href", "exhibit.html?id=" + key);
-        var linkImg = document.createElement("img");
-        var breakTag = document.createElement("br");
-        linkImg.setAttribute("src", img);
-        linkImg.setAttribute("width", "90%");
-        linkImg.appendChild(breakTag);
-        var node = document.createTextNode(title);
-        newLink.appendChild(linkImg);
-        newLink.appendChild(node);
-        newLink.innerHTML = "<img src='" + img + "' width='100%' ><br> " + title; //comment this if it gets messed up
-        newData.appendChild(newLink);
-        newRow.appendChild(newData);
-        exhibitList.appendChild(newRow);
+        var newDiv = document.createElement("div");
+        newDiv.setAttribute("class", "exhibitDisplay");
+        newLink.innerHTML = "<img src='" + img + "' width='100%' ><div class='exhibitTitle'><h1 class='exhibitTitleText'>" + title + " - " + artist + "</h1></div>"; //comment this if it gets messed up
+        newDiv.appendChild(newLink);
+        exhibitList.appendChild(newDiv);
       }
     </script>
 
@@ -71,11 +63,13 @@
 		                <hr>
 	                   <h2><b>Links to exhibits </b></h2>
                      <hr>
-                     <div class="exhibitDisplay">
-                       <a href="exhibit1.html">
-                         <img src="images/guernica.jpg" width="100%">
-                         <div class="exhibitTitle"><h1 class="exhibitTitleText">Guernica - Pablo Picasso</h1></div>
-                       </a>
+                     <div id="listOfExhibits">
+                       <div class="exhibitDisplay">
+                         <a href="exhibit1.html">
+                           <img src="images/guernica.jpg" width="100%">
+                           <div class="exhibitTitle"><h1 class="exhibitTitleText">Guernica - Pablo Picasso</h1></div>
+                         </a>
+                       </div>
                      </div>
       </div>
 
