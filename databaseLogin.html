@@ -23,24 +23,43 @@
       var firebaseRef = firebase.database();
 
       function checkUser(){
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            firebase.auth().signOut().then(function(){
+              console.log("signed out");
+            }, function(error){
+              console.log("error signing out");
+            });
+          } else {
+
+          }
+        });
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;
           console.log(errorCode + " " + errorMessage);
+          // return;
         });
-        window.open("edithome.html", "_self");
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            window.open("edithome.html", "_self");
+          } else {
+
+          }
+        });
+
       }
     </script>
     <form action="#" onsubmit="event.preventDefault(); checkUser()">
       <div class="inputContainer">
         <h2> Username (email): </h2>
-        <input type="text" id="email" placeholder="example@gmail.com">
+        <input type="email" id="email" placeholder="example@gmail.com">
       </div>
       <div class="inputContainer">
         <h2> Password </h2>
-        <input type="text" id="password" placeholder="*****">
+        <input type="password" id="password" placeholder="*****">
       </div>
       <button type="submit">Log In</button>
     </form>
