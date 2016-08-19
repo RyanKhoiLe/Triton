@@ -28,7 +28,9 @@
   var title, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre;
   var symbols = [];
   var videos = [];
+  var firstTimeLoad = false;
   console.log(fbID);
+  //TO-DO SET EVENT TRIGGER TO ONCE SINCE IT IS STATIC UI
   firebaseRef.ref('exhibits/' + fbID).on('value', function(snapshot) {
     var exhibitData = snapshot.val();
     console.log(exhibitData);
@@ -73,7 +75,8 @@
     document.getElementById("historyOfPainting").textContent = historyOfPainting;
     document.getElementById("historyOfArtistHead").textContent = "History of " + artist;
     document.getElementById("historyOfArtist").textContent = historyOfArtist;
-    if(videos){
+    if(videos && firstTimeLoad === false){
+      firstTimeLoad = true;
       for(var i = 0; i < videos.length; i++){
         var vidTitle = document.createElement("h2");
         var node = document.createTextNode("Video " + (i+1));
