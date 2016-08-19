@@ -22,19 +22,20 @@
       var url = "https://learnfirebase-43e98.firebaseio.com";
       var firebaseRef = firebase.database();
 
-      var exhibitImage, title;
+      var exhibitImage, title, artist;
       firebaseRef.ref('exhibits/').on("child_added", function(snapshot){
         var fbID = snapshot.val();
         exhibitImage = fbID.exhibitImage;
         title = fbID.title;
+        artist = fbID.artist;
       });
       var uniqueId;
       firebaseRef.ref('exhibitKeys/').on("child_added", function(snapshot){
         uniqueId = snapshot.val().key;
-        createLink(uniqueId,  exhibitImage, title);
+        createLink(uniqueId,  exhibitImage, title, artist);
       });
 
-      function createLink(key, img, title){
+      function createLink(key, img, title, artist){
         var exhibitList = document.getElementById("listOfExhibits");
         var newLink = document.createElement("a");
         newLink.setAttribute("href", "exhibit.html?id=" + key);
