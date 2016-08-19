@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "crypto-arcade-137023",
+  "private_key_id": "cdb77963d3c687191b278391c6a145f3234a7fdf",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDSG3art+DyVweZ\nRye6fKdo1vbsYsDcgGhX3Bv3NJOWXiyF33YZTV9lRzPUHMrbP5qZnCfUgYyCQUT2\nmmksOFxx9GUdAWqZUSJyj4IFJwj4jP7CvMgK2mRBKq+a4kBmxbelFqP7Z4bGv6uH\nrhuJgJNAaBlu8GfSAQmPfbP11h4PGa5RXcBaiXkfASYoirCJWmPBbQcbKz9eWGLH\nMC7XZy29B1Zi2jKSAAOu5PaKlSNQF0gED8cX4zk5lo8tM2oi2DMPqAszkptfuYOB\neCrgmfMqmFbg7+awjHspLC7unI8YcsNVzRRYLakPwgGHnxguev+NjftxpRMXkR4R\no9R9Lck1AgMBAAECggEASy3chpEjAlO1uljFlGrqFA9nBypGzB9+NoHh19CORq2n\nzLcqsN8IlVqm5uzugQj/Lpu7fMRmHG1yWbLikxoPqg7C52AMXpOzeb5zzZgsE5OP\nzOpzwb5nRRIbB5aRaLSyg3XYcyqWBSOsIr5fyBGjntYg05td6rzISPm3nO1ikA//\n9XuxFmyRnyFfesV0bCw/Tx/T5EVbwWn2ujqPxOek2DBHmq8NqMdPaF+PxQGKGo2V\nXiUPZ1pQXWrVTFS257zn2pJaDQCyLjaZNMV5XUJAF3f8WIw4NnMAfKOzPDiVF1+N\nV7w13j5pqNk0dYPizbEmss9WbMryLR5v4F0UChdR+QKBgQD5BmCHZH4Qus+O0bKb\nPPdakgYLDmZs3CpCOxF1ofAW2dvRadRc/YanuY1PaMpMmX/dZQO3JoM4y3rXY+Ov\n5eP0c2uQhYyy0DMbvRNr28BzyBH1tii0vivFJd/21fIFQXZbhSpC7j9utsY1mA6e\nZAAbVZlOuUjJvsrgyNrs340bKwKBgQDX/gd6ZTm3bsAXzp0Nv3yb2VJMBo3unzNB\nqr0VTyXkhNYQi4UIm22tGIcYjUPqjx6cjtHskVqAryNDukSULVK+x54XQZa9fqOa\nczVdlspJXxMIwbVOFUbOVusxC4CgESTVbYmrgWup3Dz/5GG58WNfUT0gkXtHnwdK\n/LSurrr9HwKBgEKJoKssf76qm6DWiPmPravmjnTP0TBPF3+A1uZucX85kNGAjHyY\nRS11l7tbDYqwDQkz321FfhRj0hvRFdo++8yqNlh0RqbUmINV3uWX3vFQyPO1S2UX\n1wwjVZdXjQY4eo5zo1ok3JARiB5z1ZweriSfl4oAWeGF+CFdqZlXFhXnAoGAPNet\nCZhMGtTSvaIQ8Zd4JXqhSRMrlgU4bg4Hd2I1PVsB5eU3U0ZdLb5UB+F7OS6Zo+ZD\nUg1b3hX3rBNjUA44Wc9nRAvQx45NzasYZEWes+5ZMUVHqjgqGuO3GrivwecyZgCW\nID6zskR81mRh9vv9TxNWUb9JZ9JvPntS9kX4HGcCgYAImdQxXDEIkjke2650TmxV\n6KGPxrF4fi36cHOKjn7b02GabWUKO5Qyc22D8Te5QrzF8lvMCmpr0feZEDHDJ49V\nx0xK40frnkoqkFpMXuDI+5c+SFm9iwDl0jYkf/OBGN/QNhw/8GVrhW5hHUPt08OX\nrCzQuFBjRQcC0CGLzbjiIw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "triton-database@crypto-arcade-137023.iam.gserviceaccount.com",
+  "client_id": "110944874954298132701",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/triton-database%40crypto-arcade-137023.iam.gserviceaccount.com"
+}

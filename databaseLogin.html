@@ -21,10 +21,28 @@
       firebase.initializeApp(config);
       var url = "https://learnfirebase-43e98.firebaseio.com";
       var firebaseRef = firebase.database();
-      function AuthenticateUser(username, password){
-        if(user)
+
+      function checkUser(){
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode + " " + errorMessage);
+        });
+        window.open("edithome.html", "_self");
       }
     </script>
-
+    <form action="#" onsubmit="event.preventDefault(); checkUser()">
+      <div class="inputContainer">
+        <h2> Username (email): </h2>
+        <input type="text" id="email" placeholder="example@gmail.com">
+      </div>
+      <div class="inputContainer">
+        <h2> Password </h2>
+        <input type="text" id="password" placeholder="*****">
+      </div>
+      <button type="submit">Log In</button>
+    </form>
   </body>
 </html>
