@@ -34,7 +34,8 @@
       historyOfArtist = document.getElementById("historyOfArtist").value,
       historyOfPainting = document.getElementById("historyOfPainting").value,
       videos = document.getElementById("videos").value,
-      timeStamp = getTimeStamp();
+      timeStamp = getTimeStamp().
+      exhibitCode = document.getElementById("exhibitCode").value;
 
       var fbKey;
       var exhKey;
@@ -52,7 +53,8 @@
             historyOfPainting: historyOfPainting,
             videos: videos,
             timeStamp: timeStamp,
-            views: 0
+            views: 0,
+            exhibitCode: exhibitCode
         }).key;
         firebaseRef.ref('exhibitKeys/').push({
           key: fbKey
@@ -143,6 +145,12 @@
               <h2> Media: </h2>
             </div>
             <input type="text" id="media" placeholder="Oil on canvas">
+          </div>
+          <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Exhibit Lookup Code: </h2>
+            </div>
+            <input type="text" id="exhibitCode" placeholder="101">
           </div>
           <div class="inputContainer">
             <h2 class="longDescription"> Image (please go to imgpost.me and upload your image file. Then copy and paste the direct link here. Use 'https' for security.): </h2><br>

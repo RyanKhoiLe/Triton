@@ -3,15 +3,12 @@
 [debug] CLI Version:  3.0.6
 [debug] Platform:     win32
 [debug] Node Version: v6.3.0
-[debug] Time:         Sun Aug 21 2016 10:36:01 GMT-0700 (Pacific Daylight Time)
+[debug] Time:         Sun Aug 21 2016 11:06:15 GMT-0700 (Pacific Daylight Time)
 [debug] ----------------------------------------------------------------------
 [debug] 
 [warn] !  "firebase" key in firebase.json is deprecated. Run firebase use --add instead
 [warn] !  Deprecation Warning: Firebase Hosting configuration should be moved under "hosting" key.
 [debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
-[debug] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token
-[debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/learnfirebase-43e98 
 [debug] <<< HTTP RESPONSE 200
 [debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/learnfirebase-43e98/tokens 
@@ -22,4 +19,4 @@
 [info] i  deploying hosting
 [info] +  database: rules ready to deploy.
 [info] i  hosting: preparing / directory for upload...
-[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/learnfirebase-43e98/uploads/-KPiA72cphFDz6YZlqS1?fileCount=640&message= 
+[debug] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/learnfirebase-43e98/uploads/-KPiH1xLXrHoB5unRETY?fileCount=660&message= 
