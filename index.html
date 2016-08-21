@@ -71,7 +71,7 @@
     		<img src="images/tritonLogo.png" alt="logo" width="95%"></img>
 		      <input id="specialCode" type='text' value="1234" align="center" style="background-color: #FFF7E0;"></input>
 		        <br>
-		          <button type="button" id="enterCode">Go</button>
+		          <button type="button" id="enterCode">Search</button>
 		            <br>
 		              <a href='#' id="searchLink" style="padding-top: 10px; font-size: 24px;">Search for an exhibit</a>
 		                <hr>
@@ -130,6 +130,9 @@
           console.log("ONE RESULT");
           console.log("change searchLink to: " + exhibitTitles[specialNum]);
           searchLink.textContent = "" + exhibitTitles[specialNum];
+        }
+        if(totalResults > 1){
+          searchLink.textContent = "See results below:";
         }
   			if(input.value === "101"){
   				searchLink.innerHTML = "Guernica";

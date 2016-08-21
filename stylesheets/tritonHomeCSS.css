@@ -228,7 +228,25 @@ table{
 td{
   width: 30%;
 }
-
+#enterCode{
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  margin-top: 5px;
+  width: auto;
+  border-radius: 7px;
+  font-family: 'roboto_condensed', sans-serif;
+  color: #000000;
+  font-size: 20px;
+  background: #ffffff;
+  padding: 5px 10px 5px 10px;
+  border: solid #dcdcdc 1px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+#enterCode:hover {
+  background: blue;
+  text-decoration: none;
+}
 #specialCode, textarea{
   border: 0px solid #C9E8FF;
   box-shadow: 0 0 5px 3px #C9E8FF;
