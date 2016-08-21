@@ -81,13 +81,78 @@ font-style: normal;
   top: 20%;
   margin-top: auto;
   margin-bottom: auto;
-  max-width: 30%;
+  max-width: 40%;
   margin-left: auto;
   margin-right: auto;
   border: none;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#footer{
+  position: absolute;
+  top: 1000px;
+  left: 0px;
+  height: 220px;
+  width: 100%;
+  background-color: #0d0d0d;
+  color: white;
+}
+#footerLinkBar{
+  /*border: 1px solid white;*/
+  /*margin-left: 20px;*/
+  margin-top: 20px;
+}
+#credits{
+  height: 40px;
+  margin-left: 30px;
+}
+.footerLinks{
+  color: gray;
+  font-size: 24px;
+  top: 20px;
+  margin-left: 30px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footerLinks:hover, .footerLinks:visited:hover{
+  color:white;
+}
+.footerLinks:hover, .footerLinks.hover{
+  color:white;
+}
+.footerLinks:visited{
+  color:gray;
+  text-decoration: none;
+}
+.h2Links{
+  color: gray;
+  font-size: 26px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.h2Links:hover, .h2Links:visited:hover{
+  color:white;
+}
+.h2Links:visited{
+  color:gray;
+  text-decoration: none;
+}
+#footerLogos {
+  /*border: 1px solid white;*/
+  height: 100px;
+}
+#lunasphereLogoFooter {
+  float: right;
+  /*margin-top: 10px;*/
+  /*margin-left: 1%;*/
+  height: 90%;
+}
+#logoPageCreatorFooter {
+  float: right;
+  margin-right: 10px;
+  /*margin-left: 90%;*/
+  height: 90%;
 }
 #navBar{
   position: absolute;

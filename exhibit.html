@@ -5,11 +5,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/tritonCSS.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="icon" href="images/tritonIconSmall.png">
+  <!-- <script src="scripts/exhibit.js"></script> -->
   <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
 </head>
 <body>
-
   <script>
+
   var config = {
     apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
     authDomain: "learnfirebase-43e98.firebaseapp.com",
@@ -20,20 +21,30 @@
   var url = "https://learnfirebase-43e98.firebaseio.com";
   var firebaseRef = firebase.database();
   var thisUrl = window.location.href;
-  console.log(thisUrl);
+  //console.log(thisUrl);
   var keyStartAt = window.location.href.indexOf('?');
   var idStartAt = keyStartAt + 4;
   var fbID = thisUrl.substring(idStartAt);
+  var fbIDFinal;
+  if(fbID.includes('#')){
+    console.log('there is a label or something in the html parameter');
+    fbIDFinal = fbID.substring(0, fbID.indexOf('#'));
+    fbID = fbID.substring(0, fbID.indexOf('#'));
+    console.log(fbID);
+  }
+  else{
+    fbIDFinal = fbID;
+  }
 
   var title, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre;
   var symbols = [];
   var videos = [];
   var firstTimeLoad = false;
-  console.log(fbID);
+  //console.log(fbID);
   //TO-DO SET EVENT TRIGGER TO ONCE SINCE IT IS STATIC UI
-  firebaseRef.ref('exhibits/' + fbID).on('value', function(snapshot) {
+  firebaseRef.ref('exhibits/' + fbIDFinal).on('value', function(snapshot) {
     var exhibitData = snapshot.val();
-    console.log(exhibitData);
+    //console.log(exhibitData);
     setContent(exhibitData);
   });
   function setContent(data){
@@ -49,7 +60,7 @@
     historyOfPainting = data.historyOfPainting;
     historyOfArtist = data.historyOfArtist;
     if(data.videos != null){
-      console.log("THERE ARE VIDEOS!");
+      //console.log("THERE ARE VIDEOS!");
       videos = data.videos.split(',');
     }
     setHTMLContent();
@@ -75,7 +86,8 @@
     document.getElementById("historyOfPainting").textContent = historyOfPainting;
     document.getElementById("historyOfArtistHead").textContent = "History of " + artist;
     document.getElementById("historyOfArtist").textContent = historyOfArtist;
-    if(videos && firstTimeLoad === false){
+    //console.log(videos);
+    if(videos.length >= 1 && videos[0]!="" && firstTimeLoad === false){
       firstTimeLoad = true;
       for(var i = 0; i < videos.length; i++){
         var vidTitle = document.createElement("h2");
@@ -190,7 +202,7 @@
       }, function(response){});
     }
   }
-  // document.title = '' +
+
   </script>
   <div id="fb-root"></div>
   <script>(function(d, s, id) {
@@ -202,7 +214,7 @@
   }(document, 'script', 'facebook-jssdk'));</script>
 
   <div id="headBar">
-    <h1 style="text-align: left" id="headBarTitle"> GUERNICA - PICASSO </h1>
+    <h1 style="text-align: left" id="headBarTitle"> LOADING </h1>
     <a href="index.html"><img id="logo" src="images/tritonIcon.png" alt="triton"></a>
   </div>
 
@@ -229,7 +241,7 @@
     <hr>
     <h2> Major Symbols </h2>
     <div id="symbols" class="centeredList">
-      LOADING EXHIBIT PLEASE WAIT
+
     </div>
     <hr>
     <h2 id="historyOfPaintingHead"> History </h2>
@@ -239,7 +251,7 @@
       <p id="historyOfArtist">history</p>
     <hr>
     <div id="vidBox"></div>
-    <hr>
+
     <!-- <h2> Related Works </h2>
     <a href="https://en.wikipedia.org/wiki/The_Dream_and_Lie_of_Franco">The Dream and Lie of Franco</a><br>
     <a href="http://www.philamuseum.org/collections/permanent/51315.html"> Dali's Guernica </a>

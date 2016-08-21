@@ -87,7 +87,15 @@ font-style: normal;
   margin-left: 1%;
   height: 90%;
 }
-
+#lunasphereLogoFooter {
+  float: left;
+  /*margin-top: 10px;*/
+  /*margin-left: 1%;*/
+  height: 120px;
+}
+#museumCuratorAccess{
+  float: none;
+}
 #pageTitle{
   /*border: 1px solid white;*/
   float: left;

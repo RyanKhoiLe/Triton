@@ -53,11 +53,16 @@ font-style: normal;
     font-style: normal;
 }
 #headBar{
-  position: relative;
+  /*position: relative;
   height: 200px;
   width: 101.15%;
   top: -8px;
-  left: -8px;
+  left: -8px;*/
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  height: 200px;
   background-color: #0d0d0d;
 }
 #lunasphereLogo {
@@ -186,7 +191,7 @@ font-style: normal;
 .imgBox{
   float: left;
   width: 5%;
-  margin-left: 9%;
+  margin-left: 5%;
   border: none;
 }
 #categoryBar {
@@ -215,6 +220,7 @@ font-style: normal;
 }
 #credits{
   height: 40px;
+
 }
 .footerLinks{
   color: gray;
@@ -449,8 +455,15 @@ th{
 }
 #searchValue{
   float: none;
+  padding-left: 20px;
+  width: 30%;
   background-image: url('../images/search.png');
   background-repeat: no-repeat;
+  transition: background-image 0.3s;
+}
+#searchValue:focus,
+#searchValue.focus{
+  background-image: none;
 }
 #addPage{
   float: none;

@@ -32,10 +32,20 @@
     var idStartAt = keyStartAt + 4;
     var fbID = thisUrl.substring(idStartAt);
     console.log(fbID);
+    var fbIDFinal;
+    if(fbID.includes('#')){
+      console.log('there is a label or something in the html parameter');
+      fbIDFinal = fbID.substring(0, fbID.indexOf('#'));
+      fbID = fbID.substring(0, fbID.indexOf('#'));
+      console.log(fbID);
+    }
+    else{
+      fbIDFinal = fbID;
+    }
 
-    firebaseRef.ref('exhibits/' + fbID).on('value', function(snapshot) {
+    firebaseRef.ref('exhibits/' + fbIDFinal).on('value', function(snapshot) {
       var exhibitData = snapshot.val();
-      console.log(exhibitData);
+      //console.log(exhibitData);
       setContent(exhibitData);
     });
     function setContent(data){
@@ -46,13 +56,13 @@
       media = data.media;
       exhibitImage = data.exhibitImage;
       summary = data.summary;
-      console.log(summary);
+      //console.log(summary);
       artistLastName = data.artist.substring(data.artist.indexOf(' ') + 1);
       symbols = data.symbols;
       historyOfPainting = data.historyOfPainting;
       historyOfArtist = data.historyOfArtist;
       if(data.videos != null){
-        console.log("THERE ARE VIDEOS!");
+        //console.log("THERE ARE VIDEOS!");
         videos = data.videos;
       }
       setHTMLContent();
@@ -101,7 +111,7 @@
       historyOfPainting = document.getElementById("historyOfPainting").value,
       videos = document.getElementById("videos").value,
       timeStamp = getTimeStamp();
-      console.log('timeStamp: ' + timeStamp);
+      //console.log('timeStamp: ' + timeStamp);
 
       if(title && artist && summary && symbols){
         firebaseRef.ref('exhibits/' + fbID).update({
@@ -121,6 +131,31 @@
       }
       //document.getElementById('result').innerHTML = 'Congrats your page was updated';
     }
+    window.onscroll = function(){
+      //console.log('scrollTop: ' + document.body.scrollTop);
+      if(document.body.scrollTop > 290 && document.body.scrollTop < 2760){
+        var showExhibit = document.getElementById("showExhibit");
+        style = showExhibit.style;
+        style.position = 'fixed';
+        style.marginLeft = '53%';
+        style.top = '15px';
+        style.marginTop = '0px';
+      }
+      if(document.body.scrollTop <= 290){
+        var showExhibit = document.getElementById("showExhibit");
+        style = showExhibit.style;
+        style.position = 'static';
+        style.marginLeft = '5%';
+
+      }
+      if(document.body.scrollTop >= 2760){
+        var showExhibit = document.getElementById("showExhibit");
+        style = showExhibit.style;
+        style.position = 'static';
+        style.marginLeft = '5%';
+        style.marginTop = '2400px';
+      }
+    }
     </script>
     <div id="headBar">
       <a href="www.lunasphere.com"><img id="lunasphereLogo" src="images/Logo.png" alt="Lunasphere"></a>
@@ -128,7 +163,7 @@
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
         <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
-        <a class="navBarLink" style="color: white" href="databaseExplorer.html"> return to explorer </a>
+        <a class="navBarLink" style="color: white" href="databaseExplorer.html"> database explorer </a>
       </div>
     </div>
     <div id="wrapper" style="border: 1px solid black">
@@ -256,7 +291,17 @@
           var keyStartAt = window.location.href.indexOf('?');
           var idStartAt = keyStartAt + 4;
           var fbID = thisUrl.substring(idStartAt);
-          console.log(fbID);
+          //console.log(fbID);
+          var fbIDFinal;
+          if(fbID.includes('#')){
+            //console.log('there is a label or something in the html parameter');
+            fbIDFinal = fbID.substring(0, fbID.indexOf('#'));
+            fbID = fbID.substring(0, fbID.indexOf('#'));
+            //console.log(fbID);
+          }
+          else{
+            fbIDFinal = fbID;
+          }
           document.getElementById("exhibitPreview").setAttribute("src", "exhibit.html?id=" + fbID);
         </script>
       </div>

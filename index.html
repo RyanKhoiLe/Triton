@@ -22,18 +22,20 @@
       var url = "https://learnfirebase-43e98.firebaseio.com";
       var firebaseRef = firebase.database();
 
-      var exhibitImage, title, artist;
+      var exhibitImage, title, artist, uniqueId;
       firebaseRef.ref('exhibits/').on("child_added", function(snapshot){
         var fbID = snapshot.val();
         exhibitImage = fbID.exhibitImage;
         title = fbID.title;
         artist = fbID.artist;
-      });
-      var uniqueId;
-      firebaseRef.ref('exhibitKeys/').on("child_added", function(snapshot){
-        uniqueId = snapshot.val().key;
+        uniqueId = snapshot.key;
         createLink(uniqueId,  exhibitImage, title, artist);
       });
+      // var uniqueId;
+      // firebaseRef.ref('exhibitKeys/').on("child_added", function(snapshot){
+      //   uniqueId = snapshot.val().key;
+      //
+      // });
 
       function createLink(key, img, title, artist){
         var exhibitList = document.getElementById("listOfExhibits");
@@ -65,12 +67,21 @@
 	                   <h2><b>Links to exhibits </b></h2>
                      <hr>
                      <div id="listOfExhibits">
-                       <div class="exhibitDisplay">
+                       <!-- <div class="exhibitDisplay">
                          <a href="exhibit1.html">
                            <img src="images/guernica.jpg" width="100%">
                            <div class="exhibitTitle"><h1 class="exhibitTitleText">Guernica - Pablo Picasso</h1></div>
                          </a>
-                       </div>
+                       </div> -->
+                     </div>
+                     <hr>
+                     <div>
+                       <h2>Powered by LunaSphere</h2>
+                       <!-- <img id='lunasphereLogoFooter' src='images/LogoTransparent.png'> -->
+                     </div>
+                     <hr>
+                     <div id='museumCuratorAccess'>
+                       <a href='databaseLogin.html'> Museum Log-in </a>
                      </div>
       </div>
 
@@ -96,8 +107,6 @@
 
   		}
   	</script>
-    <div id='museumCuratorAccess'>
-      <a href='edithome.html'> EDIT DATABASE </a>
-    </div>
+
   </body>
 </html

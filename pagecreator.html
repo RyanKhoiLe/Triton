@@ -58,9 +58,21 @@
           key: fbKey
         },function(){
           console.log("successfully written to firebase");
+          document.getElementById('result').innerHTML = 'Congrats your new page has been created';
+          var createConfirm = confirm('Congratulations, your new exhibit page was created! Create another exhibit? (If you press cancel, you will go to the database explorer)');
+          if(createConfirm){
+            location.href='pagecreator.html';
+          }
+          else{
+            location.href='databaseExplorer.html';
+          }
         });
       }
-      document.getElementById('result').innerHTML = 'Congrats your new page has been created';
+      else {
+        document.getElementById('result').innerHTML = 'We want to push your best content. Please provide a title, artist, summary, and symbols.';
+        alert('LunaSphere wants to push your best content. Please enter a title, artist, summary, and symbols');
+      }
+
     }
     function getTimeStamp(){
       var now = new Date();
@@ -77,6 +89,9 @@
 
       return date.join("/") + ", " + time.join(":") + " " + suffix;
     }
+    document.body.onscroll = function(){
+      console.log('scrollTop: ' + document.body.scrollTop);
+    }
     </script>
     <div id="headBar">
       <a href="www.lunasphere.com"><img id="lunasphereLogo" src="images/Logo.png" alt="Lunasphere"></a>
@@ -84,7 +99,7 @@
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
         <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
-        <a class="navBarLink" style="color: white" href="analytics.html"> analytics </a>
+        <a class="navBarLink" style="color: white" href="databaseExplorer.html"> database explorer </a>
       </div>
     </div>
     <div id="wrapper" width="90%">
@@ -95,7 +110,7 @@
               <h2> Exhibit: </h2>
             </div>
             <select id='exhibitDropdown' name="exhibitSelect">
-              <option value='exhibit'>Wendy Redstar</option>
+              <option value='exhibit'>Wendy Red Star</option>
               <option value='new'>Create new exhibit</option>
             </select>
           </div>
@@ -131,7 +146,7 @@
           </div>
           <div class="inputContainer">
             <h2 class="longDescription"> Image (please go to imgpost.me and upload your image file. Then copy and paste the direct link here. Use 'https' for security.): </h2><br>
-            <button id="showImgHost" onclick="toggleImgHostFrame()"> Open ImgPost </button><br>
+            <button id="showImgHost" type='button' onclick="toggleImgHostFrame()"> Open ImgPost </button><br>
             <iframe id="imgHostFrame" src="https://imgpost.me/upload/local/" width="90%" height="550px"></iframe>
             <script>
               document.getElementById("imgHostFrame").style.display = "none";

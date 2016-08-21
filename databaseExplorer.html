@@ -123,14 +123,16 @@
           "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
           "<div class='imgBox'><img class='thumbnail' src='" + exhibit.img + "'></div>" +
           "</a>";
+          //console.log(exhibit.title + 'exhibitLink'+exhibitNum);
         var newButton = document.createElement('button');
         var textContent = newSearchResult.textContent;
         console.log(textContent);
+        var thisNum = exhibitNum;
         exhibitTextContent.push(textContent);
         newButton.setAttribute('class','delete');
         newButton.innerHTML = "<img class='icon' src='images/trash.png'>";
         newButton.onclick = function(){
-          alertDelete(exhibit);
+          alertDelete(exhibit, thisNum);
         };
         newSearchResult.appendChild(newButton);
         exhibitNum++;
@@ -138,11 +140,14 @@
         centerBox.appendChild(searchTable);
         console.log('link created');
       }
-      function alertDelete(exhibit){
+      function alertDelete(exhibit, num){
         console.log("CONFIRM DELETE?");
+        console.log('exhibitLink'+num);
         var deleteConfirmation = confirm('Delete exhibit: ' + exhibit.title + '?'); //exhibit.title
 
         if(deleteConfirmation){
+          console.log('exhibitLink'+num);
+          document.getElementById("exhibitLink" + num).style.display='none';
 
           firebaseRef.ref('exhibitKeys/').once('value').then(function(snapshot){
             snapshot.forEach(function(childSnapshot){
@@ -153,10 +158,13 @@
                 firebaseRef.ref('exhibitKeys/' + keyID).remove();
                 console.log('remove key');
               }
+
             });
           });
           firebaseRef.ref('exhibits/' + exhibit.fbID).remove();
           //firebaseRef.ref(''+exhibit.fbID).parent.remove();
+          //location.href = 'databaseExplorer.html';
+
         }
         else{
           return;
@@ -200,6 +208,7 @@
       <h1 id="pageTitle"> Database Explorer </h1>
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
+        <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
         <a class="navBarLink" style="color: white" href="index.html"> triton database home </a>
         <a class="navBarLink" style="color: white" href="www.lunasphere.com"> visit lunasphere </a>
       </div>
@@ -222,7 +231,8 @@
 
 
         <button onclick="location.href='pagecreator.html'" id='addPage'>Create New Exhibit</button>
-        <input type='text' id='searchValue' onchange='updateSearch(event);'>
+        <input type='text' id='searchValue' placeholder='       Search for existing exhibit...' onchange='updateSearch(event);'>
+        <button id='addPage'>Search</button>
         <script>
           function updateSearch(event){
             console.log('change detected');
