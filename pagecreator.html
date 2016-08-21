@@ -33,9 +33,11 @@
       symbols = document.getElementById("symbols").value,
       historyOfArtist = document.getElementById("historyOfArtist").value,
       historyOfPainting = document.getElementById("historyOfPainting").value,
-      videos = document.getElementById("videos").value;
+      videos = document.getElementById("videos").value,
+      timeStamp = getTimeStamp();
 
       var fbKey;
+      var exhKey;
       if(title && artist && summary && symbols){
         fbKey = firebaseRef.ref('exhibits/').push({
             title: title,
@@ -48,15 +50,33 @@
             symbols: symbols,
             historyOfArtist: historyOfArtist,
             historyOfPainting: historyOfPainting,
-            videos: videos
+            videos: videos,
+            timeStamp: timeStamp,
+            views: 0
         }).key;
         firebaseRef.ref('exhibitKeys/').push({
           key: fbKey
-        })
+        },function(){
+          console.log("successfully written to firebase");
+        });
       }
       document.getElementById('result').innerHTML = 'Congrats your new page has been created';
     }
+    function getTimeStamp(){
+      var now = new Date();
+      var date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
+      var time = [now.getHours(), now.getMinutes()];
+      var suffix = (time[0] < 12) ? "AM" : "PM";
+      time[0] = (time[0] < 12) ? time[0] : time[0] - 12;
 
+      for(var i = 1; i < 3; i++){
+        if(time[i] < 10) {
+          time[i] = "0" + time[i];
+        }
+      }
+
+      return date.join("/") + ", " + time.join(":") + " " + suffix;
+    }
     </script>
     <div id="headBar">
       <a href="www.lunasphere.com"><img id="lunasphereLogo" src="images/Logo.png" alt="Lunasphere"></a>
@@ -150,7 +170,6 @@
             <h2 class="longDescription"> Videos (please use YouTube videos and use the "Embed URL" link and paste below, separated by commas) If no videos, please leave blank </h2><br>
             <textarea id="videos" rows="3" cols="50" placeholder="https://www.youtube.com/embed/jc1Nfx4c5LQ, https://www.youtube.com/embed/as47s12LC"></textarea>
           </div>
-
           <button id="createPage" type="submit">Create page</button>
         </form>
       </div>
@@ -159,6 +178,18 @@
       <h1 id="result"></h1>
       <br>
       <br>
+    </div>
+    <div id="footer">
+      <div id="footerLinkBar">
+        <a class="footerLinks" href="lunarsphere.io"> about lunarsphere </a>
+        <a class="footerLinks" href="index.html"> triton database </a>
+      </div>
+      <div id="footerLogos">
+        <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.io'> LunaSphere </a> in conjunction with the <a class='h2Links' href='www.triton.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
+        <img src='images/tritonIcon.png' id='logoPageCreatorFooter'></img>
+        <img src='images/LogoTransparent.png' id='lunasphereLogoFooter'></img>
+      </div>
+      <div id="credits"> <h3 style='color:gray;'>Copyright 2016: Nikolai Flowers and Khoi Le </h3> </div>
     </div>
 
   </body>

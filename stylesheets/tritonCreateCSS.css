@@ -184,13 +184,18 @@ header{
   text-decoration: none;
 }
 textarea{
-  float: left;
-  margin-left: 40px;
+  float: none;
   margin-bottom: 20px;
-  /*width: 580px;*/
+  width: 90%;
   /*align: left;*/
   font-size: 24px;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: 'roboto_condensed', sans-serif;
+  border-radius: 7px;
+}
+textarea:focus,
+textarea.focus {
+  border: solid 1px #0D6CB3;
+  box-shadow: 0 0 5px 1px #0DAEE0;
 }
 .textContainer{
   float: left;
@@ -313,13 +318,11 @@ hr {
 #commentContainer{
     margin: auto;
 }
-
 h1 {
   padding-left: 10px;
   color: black;
   /*font-family: 'bebas_neueregular', serif;*/
 }
-
 h3{
   font-size: 16px;
 }
@@ -327,7 +330,6 @@ h4{
   font-size: 20px;
   text-align: center;
 }
-
 a{
     font-size: 20px;
       color: #0075CF;

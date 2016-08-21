@@ -73,7 +73,21 @@
         document.getElementById("videos").textContent=videos;
       }
     }
+    function getTimeStamp(){
+      var now = new Date();
+      var date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
+      var time = [now.getHours(), now.getMinutes()];
+      var suffix = (time[0] < 12) ? "AM" : "PM";
+      time[0] = (time[0] < 12) ? time[0] : time[0] - 12;
 
+      for(var i = 1; i < 3; i++){
+        if(time[i] < 10) {
+          time[i] = "0" + time[i];
+        }
+      }
+
+      return date.join("/") + ", " + time.join(":") + " " + suffix;
+    }
     function updatePage(){
       var title = document.getElementById("title").value,
       artist = document.getElementById("artist").value,
@@ -85,7 +99,9 @@
       symbols = document.getElementById("symbols").value,
       historyOfArtist = document.getElementById("historyOfArtist").value,
       historyOfPainting = document.getElementById("historyOfPainting").value,
-      videos = document.getElementById("videos").value;
+      videos = document.getElementById("videos").value,
+      timeStamp = getTimeStamp();
+      console.log('timeStamp: ' + timeStamp);
 
       if(title && artist && summary && symbols){
         firebaseRef.ref('exhibits/' + fbID).update({
@@ -99,10 +115,11 @@
             symbols: symbols,
             historyOfArtist: historyOfArtist,
             historyOfPainting: historyOfPainting,
-            videos: videos
+            videos: videos,
+            timeStamp: timeStamp
         });
       }
-      document.getElementById('result').innerHTML = 'Congrats your page was updated';
+      //document.getElementById('result').innerHTML = 'Congrats your page was updated';
     }
     </script>
     <div id="headBar">
@@ -111,19 +128,36 @@
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
         <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
-        <a class="navBarLink" style="color: white" href="analytics.html"> analytics </a>
+        <a class="navBarLink" style="color: white" href="databaseExplorer.html"> return to explorer </a>
       </div>
     </div>
     <div id="wrapper" style="border: 1px solid black">
+      <div id="jumpTo">
+        <h2 id="jumpToTitle"> Jump to: </h2>
+        <a class="jumpToLinks" href="#titleLabel"> Title </a>
+        <a class="jumpToLinks" href="#artistLabel"> Artist </a>
+        <a class="jumpToLinks" href="#yearLabel"> Year </a>
+        <a class="jumpToLinks" href="#genreLabel"> Genre </a>
+        <a class="jumpToLinks" href="#mediaLabel"> Media </a>
+        <a class="jumpToLinks" href="#exhibitImageLabel"> Image </a>
+        <a class="jumpToLinks" href="#summaryLabel"> Summary </a>
+        <a class="jumpToLinks" href="#symbolsLabel"> Symbols </a>
+        <a class="jumpToLinks" href="#paintingHistoryLabel"> History of Painting </a>
+        <a class="jumpToLinks" href="#artistHistoryLabel"> History of Artist </a>
+        <a class="jumpToLinks" href="#videosLabel"> Videos </a>
+      </div>
+      <div id="centerBox">
       <form id="submitUpdate" action="#" onsubmit="event.preventDefault(); updatePage()">
+        <label id="titleLabel">
         <div class="inputContainer">
             <div class="textContainer">
+
               <h2> Title: </h2>
             </div>
           <input type="text" id="title" value="">
           <button class="update" type="submit"> Update Title </button>
         </div>
-
+        <label id="artistLabel">
         <div class="inputContainer">
           <div class="textContainer">
             <h2> Artist: </h2>
@@ -131,7 +165,7 @@
           <input type="text" id="artist" value="">
           <button class="update" type="submit"> Update Artist </button>
         </div>
-
+        <label id="yearLabel">
         <div class="inputContainer">
             <div class="textContainer">
               <h2> Year: </h2>
@@ -139,7 +173,7 @@
           <input type="text" id="year" value="">
           <button class="update" type="submit"> Update Year </button>
         </div>
-
+        <label id="genreLabel">
         <div class="inputContainer">
             <div class="textContainer">
               <h2> Genre: </h2>
@@ -147,7 +181,7 @@
           <input type="text" id="genre" value="">
           <button class="update" type="submit"> Update Genre </button>
         </div>
-
+        <label id="mediaLabel">
         <div class="inputContainer">
             <div class="textContainer">
               <h2> Media: </h2>
@@ -155,51 +189,68 @@
           <input type="text" id="media" value="">
           <button class="update" type="submit"> Update Media </button>
         </div>
-
+        <label id="exhibitImageLabel">
         <div class="inputContainer">
-          <h2> Image (please go to imgpost.me and upload your image file. Then copy and paste the direct link here. Use 'https' for security.): </h2>
-          <input type="text" id="exhibitImage" value="">
-          <a href="http://imgpost.me/upload/local/">Imgpost site</a>
+          <h2 class="longDescription"> Image (please go to imgpost.me and upload your image file. Then copy and paste the direct link here. Use 'https' for security.): </h2>
+          <div><button id="showImgHost" onclick="toggleImgHostFrame()"> Open ImgPost </button></div><br>
+          <iframe id="imgHostFrame" src="https://imgpost.me/upload/local/" width="90%" height="550px"></iframe>
+          <script>
+            document.getElementById("imgHostFrame").style.display = "none";
+            function toggleImgHostFrame(){
+              var imgHostFrame = document.getElementById("imgHostFrame");
+              var showImgHost = document.getElementById("showImgHost");
+              if(imgHostFrame.style.display == "none"){
+                imgHostFrame.style.display = "block";
+                showImgHost.textContent = "Close ImgPost";
+              }
+              else if(imgHostFrame.style.display == "block"){
+                imgHostFrame.style.display = "none";
+                showImgHost.textContent = "Open ImgPost";
+              }
+            }
+         </script>
+          <input type="text" id="exhibitImage" value=""><br>
+          <!-- <a href="http://imgpost.me/upload/local/">Imgpost site</a> -->
           <button class="update" type="submit"> Update Image </button>
         </div>
-
+        <label id="summaryLabel">
         <div class="inputContainer">
-          <h2> Summary (Like a tweet! Capture the MOST interesting thing in a short but sweet summary): </h2>
+          <h2 class="longDescription"> Summary (Like a tweet! Capture the MOST interesting thing in a short but sweet summary): </h2>
           <textarea id="summary" rows="3" cols="50" value=""></textarea>
           <button class="update" type="submit"> Update Summary </button>
         </div>
-
+        <label id="symbolsLabel">
         <div class="inputContainer">
-          <h2> Major Symbols (Separate by commas): </h2>
+          <h2 class="longDescription"> Major Symbols (Separate by commas): </h2>
           <textarea id="symbols" rows="3" cols="50" value=""></textarea>
           <button class="update" type="submit"> Update Symbols </button>
         </div>
-
+        <label id="paintingHistoryLabel">
         <div class="inputContainer">
-          <h2> History of the Painting (Give some context or background behind the era in which it was painted): </h2>
+          <h2 class="longDescription"> History of the Painting (Give some context or background behind the era in which it was painted): </h2>
           <textarea id="historyOfPainting" rows="4" cols="50" value=""></textarea>
           <button class="update" type="submit"> Update Painting History </button>
         </div>
-
+        <label id="artistHistoryLabel">
         <div class="inputContainer">
-          <h2> History of the Artist (Give some context about the artist's life in relevance to this painting): </h2>
+          <h2 class="longDescription"> History of the Artist (Give some context about the artist's life in relevance to this painting): </h2>
           <textarea id="historyOfArtist" rows="4" cols="50" value=""></textarea>
           <button class="update" type="submit"> Update Artist History </button>
         </div>
-
+        <label id="videosLabel">
         <div class="inputContainer">
-          <h2> Videos (please use YouTube videos and use the "Embed URL" link and paste below, separated by commas) If no videos, please leave blank </h2>
+          <h2 class="longDescription"> Videos (please use YouTube videos and use the "Embed URL" link and paste below, separated by commas) If no videos, please leave blank </h2>
           <textarea id="videos" rows="3" cols="50" value=""></textarea>
           <button class="update" type="submit"> Update Videos </button>
         </div>
-        <br>
-
-        <button type="submit">Update page</button>
+        <button id="updatePageButton" type="submit" style="font-size: 36px;">Update page</button>
       </form>
+    </div>
+
       <div id="showExhibit">
         <h1> Real-time preview </h1>
         <p> (make sure to click the update button to see changes): </p>
-        <iframe id="exhibitPreview" width="100%" height="100%" src="exhibit.html?id=-KOzAZCrb_n_1LDbtTuV"></iframe>
+        <iframe id="exhibitPreview" width="90%" height="70%" src="exhibit.html?id=-KOzAZCrb_n_1LDbtTuV"></iframe>
         <script>
           var thisUrl = window.location.href;
           var keyStartAt = window.location.href.indexOf('?');
@@ -210,9 +261,20 @@
         </script>
       </div>
       <br>
-        <h1 id="result">Click submit</h1>
       <br>
-      <br>
+      <div></div>
+    </div>
+    <div id="footer">
+      <div id="footerLinkBar">
+        <a class="footerLinks" href="lunarsphere.io"> about lunarsphere </a>
+        <a class="footerLinks" href="index.html"> triton database </a>
+      </div>
+      <div id="footerLogos">
+        <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.io'> LunaSphere </a> in conjunction with the <a class='h2Links' href='www.triton.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
+        <img src='images/tritonIcon.png' id='logoPageCreatorFooter'></img>
+        <img src='images/LogoTransparent.png' id='lunasphereLogoFooter'></img>
+      </div>
+      <div id="credits"> <h3 style='color:gray;'>Copyright 2016: Nikolai Flowers and Khoi Le </h3> </div>
     </div>
 
 
