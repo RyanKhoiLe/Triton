@@ -167,6 +167,16 @@ font-style: normal;
   padding-left: 20px;
   font-size: 24px;
   font-family: 'roboto_condensed', sans-serif;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+.navBarLink:visited{
+  color:white;
+}
+.navBarLink:visited:hover, .navBarLink:hover, .navBarLink.hover{
+  color: #0A99D5;
+  text-decoration: underline;
 }
 
 #logo {

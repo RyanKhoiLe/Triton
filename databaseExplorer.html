@@ -2,25 +2,26 @@
 <html>
 <head>
   <!-- created by Khoi Le 2016 !-->
-  <title> New Exhibit Page Creator </title>
+  <title> Triton Database Explorer </title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="stylesheets/tritonExploreCSS.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="icon" href="images/tritonIconSmall.png">
-  <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 </head>
   <body>
     <script>
       // Initialize Firebase
       var config = {
-        apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
-        authDomain: "learnfirebase-43e98.firebaseapp.com",
-        databaseURL: "https://learnfirebase-43e98.firebaseio.com",
-        storageBucket: "learnfirebase-43e98.appspot.com",
+        apiKey: "AIzaSyCH2GOoz3WtmgKC8gs9-P0eHk02-sX9vS0",
+        authDomain: "lunaspheretriton.firebaseapp.com",
+        databaseURL: "https://lunaspheretriton.firebaseio.com",
+        storageBucket: "lunaspheretriton.appspot.com",
       };
       firebase.initializeApp(config);
-      var url = "https://learnfirebase-43e98.firebaseio.com";
+
+    var url = "https://lunaspheretriton.firebaseio.com";
       var firebaseRef = firebase.database();
 
       function checkUser(){
@@ -121,13 +122,32 @@
           "<div class='artistBox'><h2>"+ artistLastName + ", " + artistFirstName + " </h2></div>" +
           "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
           "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
-          "<div class='imgBox'><img class='thumbnail' src='" + exhibit.img + "'></div>" +
+
           "</a>";
+          var newDivBox = document.createElement("div");
+          newDivBox.setAttribute("class", "imgBox");
+          var newImgBox = document.createElement('img');
+          newImgBox.setAttribute('id', 'exhibitImageBox' + exhibitNum);
+          newImgBox.setAttribute('class', 'thumbnail');
+          var storage = firebase.storage();
+          var storageRef = storage.ref();
+          var spaceRef = storageRef.child(exhibit.img);
+          var thisNum = exhibitNum;
+
+          storageRef.child(exhibit.img).getDownloadURL().then(function(url){
+            var test = url;
+            document.getElementById("exhibitImageBox" + thisNum).src = test;
+          }).catch(function(error){
+
+          });
+
+          newDivBox.appendChild(newImgBox);
+          newSearchResult.appendChild(newDivBox);
           //console.log(exhibit.title + 'exhibitLink'+exhibitNum);
         var newButton = document.createElement('button');
         var textContent = newSearchResult.textContent;
         console.log(textContent);
-        var thisNum = exhibitNum;
+
         exhibitTextContent.push(textContent);
         newButton.setAttribute('class','delete');
         newButton.innerHTML = "<img class='icon' src='images/trash.png'>";
@@ -208,9 +228,9 @@
       <h1 id="pageTitle"> Database Explorer </h1>
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
-        <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
-        <a class="navBarLink" style="color: white" href="index.html"> triton database home </a>
-        <a class="navBarLink" style="color: white" href="www.lunasphere.com"> visit lunasphere </a>
+        <a class="navBarLink" href="edithome.html"> database home </a>
+        <a class="navBarLink" href="index.html"> triton database home </a>
+        <a class="navBarLink" href="www.lunasphere.com"> visit lunasphere </a>
       </div>
     </div>
     <div id="wrapper">

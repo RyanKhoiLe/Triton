@@ -1,6 +1,8 @@
 {
-  "firebase": "learnfirebase-43e98",
-  "public": "/"
-  /*"ignore": [],
-  "rules": "firebase_rules.json"*/
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "/"
+  }
 }

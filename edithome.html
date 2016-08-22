@@ -6,51 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/tritonLoginCSS.css">
     <link rel="icon" href="images/tritonIconSmall.png">
-    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
   </head>
   <body>
     <script>
-      var config = {
-        apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
-        authDomain: "learnfirebase-43e98.firebaseapp.com",
-        databaseURL: "https://learnfirebase-43e98.firebaseio.com",
-        storageBucket: "learnfirebase-43e98.appspot.com",
-      };
-      firebase.initializeApp(config);
-      var url = "https://learnfirebase-43e98.firebaseio.com";
+    var config = {
+      apiKey: "AIzaSyCH2GOoz3WtmgKC8gs9-P0eHk02-sX9vS0",
+      authDomain: "lunaspheretriton.firebaseapp.com",
+      databaseURL: "https://lunaspheretriton.firebaseio.com",
+      storageBucket: "lunaspheretriton.appspot.com",
+    };
+    firebase.initializeApp(config);
+
+  var url = "https://lunaspheretriton.firebaseio.com";
       var firebaseRef = firebase.database();
 
-      var exhibitImage, title;
-      firebaseRef.ref('exhibits/').on("child_added", function(snapshot){
-        var fbID = snapshot.val();
-        exhibitImage = fbID.exhibitImage;
-        title = fbID.title;
-      });
-      var uniqueId;
-      firebaseRef.ref('exhibitKeys/').on("child_added", function(snapshot){
-        uniqueId = snapshot.val().key;
-        createLink(uniqueId,  exhibitImage, title);
-      });
-
-      function createLink(key, img, title){
-        var exhibitList = document.getElementById("exhibitList");
-        var newRow = document.createElement("tr");
-        var newData = document.createElement("td");
-        var newLink = document.createElement("a");
-        newLink.setAttribute("href", "editexhibit.html?id=" + key);
-        var linkImg = document.createElement("img");
-        var breakTag = document.createElement("br");
-        linkImg.setAttribute("src", img);
-        linkImg.setAttribute("width", "90%");
-        linkImg.appendChild(breakTag);
-        var node = document.createTextNode(title);
-        newLink.appendChild(linkImg);
-        newLink.appendChild(node);
-        newLink.innerHTML = "<img src='" + img + "' width='90%' ><br> " + title; //comment this if it gets messed up
-        newData.appendChild(newLink);
-        newRow.appendChild(newData);
-        exhibitList.appendChild(newRow);
-      }
+      // var exhibitImage, title;
+      // firebaseRef.ref('exhibits/').on("child_added", function(snapshot){
+      //   var fbID = snapshot.val();
+      //   exhibitImage = fbID.exhibitImage;
+      //   title = fbID.title;
+      // });
+      // var uniqueId;
+      // firebaseRef.ref('exhibitKeys/').on("child_added", function(snapshot){
+      //   uniqueId = snapshot.val().key;
+      //   createLink(uniqueId,  exhibitImage, title);
+      // });
+      //
+      // function createLink(key, img, title){
+      //   var exhibitList = document.getElementById("exhibitList");
+      //   var newRow = document.createElement("tr");
+      //   var newData = document.createElement("td");
+      //   var newLink = document.createElement("a");
+      //   newLink.setAttribute("href", "editexhibit.html?id=" + key);
+      //   var linkImg = document.createElement("img");
+      //   var breakTag = document.createElement("br");
+      //   linkImg.setAttribute("src", img);
+      //   linkImg.setAttribute("width", "90%");
+      //   linkImg.appendChild(breakTag);
+      //   var node = document.createTextNode(title);
+      //   newLink.appendChild(linkImg);
+      //   newLink.appendChild(node);
+      //   newLink.innerHTML = "<img src='" + img + "' width='90%' ><br> " + title; //comment this if it gets messed up
+      //   newData.appendChild(newLink);
+      //   newRow.appendChild(newData);
+      //   exhibitList.appendChild(newRow);
+      // }
     </script>
 
     <div id="headBar">
@@ -58,8 +59,8 @@
       <h1 id="pageTitle"> Database Home </h1>
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
-        <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
-        <a class="navBarLink" style="color: white" href="analytics.html"> analytics </a>
+        <a class="navBarLink" href="edithome.html"> database home </a>
+        <a class="navBarLink" href="analytics.html"> analytics </a>
       </div>
     </div>
 

@@ -1,24 +1,27 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+  <title>Exhibit</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="stylesheets/tritonCSS.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="icon" href="images/tritonIconSmall.png">
   <!-- <script src="scripts/exhibit.js"></script> -->
-  <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
 </head>
 <body>
   <script>
 
-  var config = {
-    apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
-    authDomain: "learnfirebase-43e98.firebaseapp.com",
-    databaseURL: "https://learnfirebase-43e98.firebaseio.com",
-    storageBucket: "learnfirebase-43e98.appspot.com",
-  };
-  firebase.initializeApp(config);
-  var url = "https://learnfirebase-43e98.firebaseio.com";
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCH2GOoz3WtmgKC8gs9-P0eHk02-sX9vS0",
+      authDomain: "lunaspheretriton.firebaseapp.com",
+      databaseURL: "https://lunaspheretriton.firebaseio.com",
+      storageBucket: "lunaspheretriton.appspot.com",
+    };
+    firebase.initializeApp(config);
+
+  var url = "https://lunaspheretriton.firebaseio.com";
   var firebaseRef = firebase.database();
   var thisUrl = window.location.href;
   //console.log(thisUrl);
@@ -27,16 +30,16 @@
   var fbID = thisUrl.substring(idStartAt);
   var fbIDFinal;
   if(fbID.includes('#')){
-    console.log('there is a label or something in the html parameter');
+    //console.log('there is a label or something in the html parameter');
     fbIDFinal = fbID.substring(0, fbID.indexOf('#'));
     fbID = fbID.substring(0, fbID.indexOf('#'));
-    console.log(fbID);
+    //console.log(fbID);
   }
   else{
     fbIDFinal = fbID;
   }
 
-  var title, exhibitAudio, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre;
+  var title, exhibitAudio, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre, exhibitImage;
   var symbols = [];
   var videos = [];
   var firstTimeLoad = false;
@@ -67,6 +70,7 @@
     setHTMLContent();
   }
   function setHTMLContent(){
+    document.title = title;
     document.getElementById("headBarTitle").textContent = '' + title + ' - ' + artistLastName;
     document.getElementById("title").textContent = "Title: " + title;
     document.getElementById("artist").textContent = "Artist: " + artist;
@@ -88,43 +92,46 @@
 
       storageRef.child(exhibitAudio).getDownloadURL().then(function(url){
         var test = url;
-        console.log(test);
+        //console.log(test);
         document.getElementById("exhibitAudio").src = test;
       }).catch(function(error){
 
       });
 
     document.getElementById("summary").textContent = summary;
-    var unorderedList = document.createElement("ul");
-    var listInSymbols = document.getElementById("symbols").appendChild(unorderedList);
-    for(var i = 0; i < symbols.length; i++){
-      var listNode = document.createElement("li");
-      var node = document.createTextNode('' + symbols[i]);
-      listNode.appendChild(node);
-      listInSymbols.appendChild(listNode);
+    if(firstTimeLoad === false){
+      var unorderedList = document.createElement("ul");
+      var listInSymbols = document.getElementById("symbols").appendChild(unorderedList);
+      for(var i = 0; i < symbols.length; i++){
+        var listNode = document.createElement("li");
+        var node = document.createTextNode('' + symbols[i]);
+        listNode.appendChild(node);
+        listInSymbols.appendChild(listNode);
+      }
+      if(videos.length >= 1 && videos[0]!=""){
+        for(var i = 0; i < videos.length; i++){
+          var vidTitle = document.createElement("h2");
+          var node = document.createTextNode("Video " + (i+1));
+          vidTitle.appendChild(node);
+          var iFrame = document.createElement("iframe");
+          iFrame.setAttribute("class", "video");
+          iFrame.setAttribute("src", videos[i]);
+          iFrame.setAttribute("frameborder", "0");
+          iFrame.setAttribute("allowfullscreen", true);
+          var vidBox = document.getElementById("vidBox");
+          vidBox.appendChild(vidTitle);
+          vidBox.appendChild(iFrame);
+
+        }
+      }
+      firstTimeLoad = true;
     }
     document.getElementById("historyOfPaintingHead").textContent = "History of " + title;
     document.getElementById("historyOfPainting").textContent = historyOfPainting;
     document.getElementById("historyOfArtistHead").textContent = "History of " + artist;
     document.getElementById("historyOfArtist").textContent = historyOfArtist;
     //console.log(videos);
-    if(videos.length >= 1 && videos[0]!="" && firstTimeLoad === false){
-      firstTimeLoad = true;
-      for(var i = 0; i < videos.length; i++){
-        var vidTitle = document.createElement("h2");
-        var node = document.createTextNode("Video " + (i+1));
-        vidTitle.appendChild(node);
-        var iFrame = document.createElement("iframe");
-        iFrame.setAttribute("class", "video");
-        iFrame.setAttribute("src", videos[i]);
-        iFrame.setAttribute("frameborder", "0");
-        iFrame.setAttribute("allowfullscreen", true);
-        var vidBox = document.getElementById("vidBox");
-        vidBox.appendChild(vidTitle);
-        vidBox.appendChild(iFrame);
 
-      }
-    }
   }
   function timeStamp(){
     var now = new Date();
