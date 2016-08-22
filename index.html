@@ -21,6 +21,7 @@
       firebase.initializeApp(config);
       var url = "https://learnfirebase-43e98.firebaseio.com";
       var firebaseRef = firebase.database();
+      var storage = firebase.storage();
 
       var exhibitImage, title, artist, uniqueId;
       var exhibitLinkNum = 0;
@@ -47,10 +48,28 @@
         var newLink = document.createElement("a");
         newLink.setAttribute("href", "exhibit.html?id=" + key);
         newLink.setAttribute("id","exhibitLink" + exhibitLinkNum);
-        exhibitLinkNum++;
+
         var newDiv = document.createElement("div");
         newDiv.setAttribute("class", "exhibitDisplay");
-        newLink.innerHTML = "<img src='" + img + "' width='100%' ><div class='exhibitTitle'><div style='float:left; font-size:10px;'>" + exhibitCode + "</div><h1 class='exhibitTitleText'>" + title + " - " + artist + "</h1></div>"; //comment this if it gets messed up
+        var newImage = document.createElement("img");
+        newImage.setAttribute('id','exhibitLinkImage' + exhibitLinkNum);
+        newImage.setAttribute('width','100%');
+        var newExhibitTitle = document.createElement("div");
+        newExhibitTitle.setAttribute('class','exhibitTitle');
+        newExhibitTitle.innerHTML = "<div style='float:left; padding-left: 20px; padding-top: 20px; font-size:10px;'>" + exhibitCode + "</div><h1 class='exhibitTitleText'>" + title + " - " + artist + "</h1>"; //comment this if it gets messed up
+        newLink.appendChild(newImage);
+        newLink.appendChild(newExhibitTitle);
+        var storage = firebase.storage();
+        var storageRef = storage.ref();
+        var spaceRef = storageRef.child(img);
+
+        storageRef.child(img).getDownloadURL().then(function(url){
+          var test = url;
+          newImage.src = test;
+        }).catch(function(error){
+
+        });
+        exhibitLinkNum++;
         var tc = newLink.textContent;
         tcArray.push(tc);
         newDiv.appendChild(newLink);

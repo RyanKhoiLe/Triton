@@ -34,8 +34,9 @@
       historyOfArtist = document.getElementById("historyOfArtist").value,
       historyOfPainting = document.getElementById("historyOfPainting").value,
       videos = document.getElementById("videos").value,
-      timeStamp = getTimeStamp().
-      exhibitCode = document.getElementById("exhibitCode").value;
+      timeStamp = getTimeStamp(),
+      exhibitCode = document.getElementById("exhibitCode").value,
+      exhibit = document.getElementById("exhibitDropdown").value;
 
       var fbKey;
       var exhKey;
@@ -54,7 +55,8 @@
             videos: videos,
             timeStamp: timeStamp,
             views: 0,
-            exhibitCode: exhibitCode
+            exhibitCode: exhibitCode,
+            exhibit: exhibit
         }).key;
         firebaseRef.ref('exhibitKeys/').push({
           key: fbKey
@@ -91,6 +93,8 @@
 
       return date.join("/") + ", " + time.join(":") + " " + suffix;
     }
+
+
     document.body.onscroll = function(){
       console.log('scrollTop: ' + document.body.scrollTop);
     }
@@ -100,12 +104,14 @@
       <h1 id="pageTitle"> New Exhibit </h1>
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
-        <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
-        <a class="navBarLink" style="color: white" href="databaseExplorer.html"> database explorer </a>
+        <a class="navBarLink"  href="edithome.html"> database home </a>
+        <a class="navBarLink"  href="databaseExplorer.html"> database explorer </a>
       </div>
     </div>
     <div id="wrapper" width="90%">
         <div id="centerBox">
+
+
         <form action="#" onsubmit="event.preventDefault(); createNewPage()">
           <div class="inputContainer">
             <div class="textContainer">
@@ -147,39 +153,90 @@
             <input type="text" id="media" placeholder="Oil on canvas">
           </div>
           <div class="inputContainer">
-            <div class="textContainer">
-              <h2> Exhibit Lookup Code: </h2>
-            </div>
-            <input type="text" id="exhibitCode" placeholder="101">
+
+              <h2 class="longDescription"> Exhibit Lookup Code (this is the number shown next to the QR code at the exhibit, so that people can type it into the website if they don't want to use QR): </h2>
+
+            <input type="text" id="exhibitCode" style="float: none" placeholder="101">
           </div>
           <div class="inputContainer">
-            <h2 class="longDescription"> Image (please go to imgpost.me and upload your image file. Then copy and paste the direct link here. Use 'https' for security.): </h2><br>
-            <button id="showImgHost" type='button' onclick="toggleImgHostFrame()"> Open ImgPost </button><br>
-            <iframe id="imgHostFrame" src="https://imgpost.me/upload/local/" width="90%" height="550px"></iframe>
+            <h2 class="longDescription"> Audio (please select a high-quality .mp3 file and upload below).</h2> <h3> It should be successfully uploaded and say audio/[filename] in the box below: </h3><br>
+            <input class='uploadFile' accept='audio/*' name='fileUpload' type='file' id='audioUpload'/>
+            <label for='audioUpload' id='audioUploadLabel'>Choose a file</label>
+            <p id='percentUpload'>No file selected</p>
+            <input type="text" id="exhibitAudio" style='float:none' placeholder="audio/[filename].mp3">
             <script>
-              document.getElementById("imgHostFrame").style.display = "none";
-              function toggleImgHostFrame(){
-                var imgHostFrame = document.getElementById("imgHostFrame");
-                var showImgHost = document.getElementById("showImgHost");
-                if(imgHostFrame.style.display == "none"){
-                  imgHostFrame.style.display = "block";
-                  showImgHost.textContent = "Close ImgPost";
+
+              var imageUpload = document.getElementById("audioUpload");
+              imageUpload.onchange = function(evt) {
+                var firstFile = evt.target.files[0];
+                var uploadConfirm = confirm("Upload: " + firstFile.name + "?");
+                var uploadLabel = document.getElementById("audioUploadLabel");
+                uploadLabel.innerHTML = firstFile.name;
+                if(uploadConfirm){
+                  var storageRef = firebase.storage().ref("audio/" + firstFile.name);
+                  var uploadTask = storageRef.put(firstFile);
+                  uploadTask.on('state_changed', function(snapshot){
+                    var percentUpload = document.getElementById("percentUpload");
+                    percentUpload.textContent = "Uploading...";
+                  }, function(error){
+                    alert("An error occurred: " + error);
+                  }, function() {
+                    //alert("Successfully uploaded");
+                    var percentUpload = document.getElementById("percentUpload");
+                    percentUpload.textContent = "Successfully uploaded!";
+                    var audioPath = document.getElementById("exhibitAudio");
+                    audioPath.value = "audio/"+storageRef.fullPath;
+                    console.log("successfully uploaded");
+                  });
                 }
-                else if(imgHostFrame.style.display == "block"){
-                  imgHostFrame.style.display = "none";
-                  showImgHost.textContent = "Open ImgPost";
-                }
-              }
-           </script>
-            <input type="text" id="exhibitImage" placeholder="https://imgpost.me/img/sg51hq1/las_meninas.jpg">
+              };
+            </script>
+
+
           </div>
           <div class="inputContainer">
-            <h2 class="longDescription"> Summary (Like a tweet! Capture the MOST interesting thing in a short but sweet summary): </h2><br>
+            <h2 class="longDescription"> Image (please select a high-resolution photo and upload below).</h2> <h3> It should be successfully uploaded and say images/[filename] in the box below: </h3><br>
+            <input class='uploadFile' accept='image/*' name='fileUpload' type='file' id='imageUpload'/>
+            <label for='imageUpload' id='imageUploadLabel'>Choose a file</label>
+            <p id='percentUploadImage'>No file selected</p>
+            <input type="text" id="exhibitImage" placeholder="images/[filename].jpg">
+            <script>
+
+              var imageUpload = document.getElementById("imageUpload");
+              imageUpload.onchange = function(evt) {
+                var firstFile = evt.target.files[0];
+                var uploadConfirm = confirm("Upload: " + firstFile.name + "?");
+                var uploadLabel = document.getElementById("imageUploadLabel");
+                uploadLabel.innerHTML = firstFile.name;
+                if(uploadConfirm){
+                  var storageRef = firebase.storage().ref("images/" + firstFile.name);
+                  var uploadTask = storageRef.put(firstFile);
+                  uploadTask.on('state_changed', function(snapshot){
+                    var percentUploadImage = document.getElementById("percentUploadImage");
+                    percentUploadImage.textContent = "Uploading...";
+                  }, function(error){
+                    alert("An error occurred: " + error);
+                  }, function() {
+                    //alert("Successfully uploaded");
+                    var percentUploadImage = document.getElementById("percentUploadImage");
+                    percentUploadImage.textContent = "Successfully uploaded!";
+                    var imagePath = document.getElementById("exhibitImage");
+                    imagePath.value = "images/"+storageRef.name;
+                    console.log("successfully uploaded"); //Khoi Le
+                  });
+                }
+              };
+            </script>
+
+
+          </div>
+          <div class="inputContainer">
+            <h2 class="longDescription"> Summary (Like a Tweet! Capture the MOST interesting thing in a short but sweet summary): </h2><br>
             <textarea id="summary" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
           </div>
           <div class="inputContainer">
-            <h2 class="longDescription"> Major Symbols (Separate by commas): </h2><br>
-            <textarea id="symbols" rows="3" cols="50" placeholder="Shapes capture the mood of Picasso, Mirror and shadow leaves mystery, Dark monochrome creates an ominous tone"></textarea>
+            <h2 class="longDescription"> Major Symbols (Separate by semicolons): </h2><br>
+            <textarea id="symbols" rows="3" cols="50" placeholder="Shapes capture the mood of Picasso; Mirror and shadow leaves mystery; Dark monochrome creates an ominous tone"></textarea>
           </div>
           <div class="inputContainer">
             <h2 class="longDescription"> History of the Painting: </h2><br>
@@ -190,8 +247,8 @@
             <textarea id="historyOfArtist" rows="4" cols="50" placeholder="Pablo Picasso is often referred to as the father of cubism, which can be seen in the geometric and abstract shapes of the figures in the painting"></textarea>
           </div>
           <div class="inputContainer">
-            <h2 class="longDescription"> Videos (please use YouTube videos and use the "Embed URL" link and paste below, separated by commas) If no videos, please leave blank </h2><br>
-            <textarea id="videos" rows="3" cols="50" placeholder="https://www.youtube.com/embed/jc1Nfx4c5LQ, https://www.youtube.com/embed/as47s12LC"></textarea>
+            <h2 class="longDescription"> Videos (please use YouTube or Vimeo videos). </h2><h3>Find the "Embed" option and copy the 'src=' link and paste below, separated by semicolons). If no videos, please leave blank. </h3><br>
+            <textarea id="videos" rows="3" cols="50" placeholder="https://www.youtube.com/embed/jc1Nfx4c5LQ; https://www.youtube.com/embed/as47s12LC"></textarea>
           </div>
           <button id="createPage" type="submit">Create page</button>
         </form>

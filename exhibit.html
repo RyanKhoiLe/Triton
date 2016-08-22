@@ -36,7 +36,7 @@
     fbIDFinal = fbID;
   }
 
-  var title, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre;
+  var title, exhibitAudio, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre;
   var symbols = [];
   var videos = [];
   var firstTimeLoad = false;
@@ -56,13 +56,14 @@
     exhibitImage = data.exhibitImage;
     summary = data.summary;
     artistLastName = data.artist.substring(data.artist.indexOf(' ') + 1);
-    symbols = data.symbols.split(',');
+    symbols = data.symbols.split(';');
     historyOfPainting = data.historyOfPainting;
     historyOfArtist = data.historyOfArtist;
     if(data.videos != null){
       //console.log("THERE ARE VIDEOS!");
-      videos = data.videos.split(',');
+      videos = data.videos.split(';');
     }
+    exhibitAudio = data.exhibitAudio;
     setHTMLContent();
   }
   function setHTMLContent(){
@@ -72,7 +73,27 @@
     document.getElementById("year").textContent = "Year: " + year;
     document.getElementById("genre").textContent = "Genre: " + genre;
     document.getElementById("media").textContent = "Media: " + media;
-    document.getElementById("exhibitImage").setAttribute("src", exhibitImage);
+    //document.getElementById("exhibitImage").setAttribute("src", exhibitImage);
+      var storage = firebase.storage();
+      var storageRef = storage.ref();
+      var spaceRef = storageRef.child(exhibitImage);
+      var spaceRefAudio = storageRef.child(exhibitAudio);
+
+      storageRef.child(exhibitImage).getDownloadURL().then(function(url){
+        var test = url;
+        document.getElementById("exhibitImage").src = test;
+      }).catch(function(error){
+
+      });
+
+      storageRef.child(exhibitAudio).getDownloadURL().then(function(url){
+        var test = url;
+        console.log(test);
+        document.getElementById("exhibitAudio").src = test;
+      }).catch(function(error){
+
+      });
+
     document.getElementById("summary").textContent = summary;
     var unorderedList = document.createElement("ul");
     var listInSymbols = document.getElementById("symbols").appendChild(unorderedList);
@@ -228,8 +249,8 @@
      <h2 id="year"> <strong> LOADING EXHIBIT PLEASE WAIT </strong> </h2>
     <h2 id="genre"><strong> LOADING EXHIBIT PLEASE WAIT </strong></h2>
    <h2 id="media"><strong> LOADING EXHIBIT PLEASE WAIT </strong> </h2>
-    <audio controls>
-      <source src="audio/Guernica.mp3" type="audio/mpeg">
+    <audio controls id='exhibitAudio'>
+      <!-- <source id='exhibitAudio' src="" type="audio/mpeg"> -->
       No audio for this browser
     </audio>
 

@@ -89,6 +89,16 @@ font-style: normal;
   padding-left: 20px;
   font-size: 24px;
   font-family: 'roboto_condensed', sans-serif;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+.navBarLink:visited{
+  color:white;
+}
+.navBarLink:visited:hover, .navBarLink:hover, .navBarLink.hover{
+  color: #0A99D5;
+  text-decoration: underline;
 }
 
 #logo {
@@ -184,6 +194,32 @@ header{
   background: #0A99D5;
   text-decoration: none;
 }
+.uploadFile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.uploadFile + label {
+  background-color: white;
+  color: black;
+  font-size: 24px;
+  padding: 10px 20px 10px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+/*.uploadFile + label,*/
+.uploadFile + label:hover{
+  background-color: #0A99D5;
+}
+.uploadFile:focus + label{
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
 textarea{
   float: none;
   margin-bottom: 20px;
@@ -216,9 +252,9 @@ h2{
 }
 #footer{
   position: absolute;
-  top: 3150px;
+  top: 3200px;
   left: 0px;
-  height: 220px;
+  height: 250px;
   width: 100%;
   background-color: #0d0d0d;
   color: white;
@@ -266,7 +302,7 @@ h2{
   text-decoration: none;
 }
 #credits{
-  margin-left: 30px;
+  /*margin-left: 30px;*/
   height: 40px;
 }
 #footerLogos {
@@ -390,7 +426,9 @@ h1 {
   /*font-family: 'bebas_neueregular', serif;*/
 }
 h3{
-  font-size: 16px;
+  font-size: 22px;
+  text-align: left;
+  padding-left: 30px;
 }
 h4{
   font-size: 20px;
