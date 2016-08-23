@@ -67,6 +67,7 @@
       videos = data.videos.split(';');
     }
     exhibitAudio = data.exhibitAudio;
+    console.log(exhibitAudio);
     setHTMLContent();
   }
   function setHTMLContent(){
@@ -80,23 +81,32 @@
     //document.getElementById("exhibitImage").setAttribute("src", exhibitImage);
       var storage = firebase.storage();
       var storageRef = storage.ref();
-      var spaceRef = storageRef.child(exhibitImage);
-      var spaceRefAudio = storageRef.child(exhibitAudio);
 
-      storageRef.child(exhibitImage).getDownloadURL().then(function(url){
-        var test = url;
-        document.getElementById("exhibitImage").src = test;
-      }).catch(function(error){
+      if(exhibitAudio != ''){
+        document.getElementById('exhibitAudio').style.display = 'block';
+        document.getElementById('exhibitAudio').style.float = 'none';
+          var spaceRefAudio = storageRef.child(exhibitAudio);
+          storageRef.child(exhibitAudio).getDownloadURL().then(function(url){
+            var test = url;
+            //console.log(test);
+            document.getElementById("exhibitAudio").src = test;
+          }).catch(function(error){
 
-      });
+          });
+      }
 
-      storageRef.child(exhibitAudio).getDownloadURL().then(function(url){
-        var test = url;
-        //console.log(test);
-        document.getElementById("exhibitAudio").src = test;
-      }).catch(function(error){
+      if(exhibitImage != ''){
+        var spaceRef = storageRef.child(exhibitImage);
+        storageRef.child(exhibitImage).getDownloadURL().then(function(url){
+          var test = url;
+          document.getElementById("exhibitImage").src = test;
+        }).catch(function(error){
 
-      });
+        });
+      }
+
+
+
 
     document.getElementById("summary").textContent = summary;
     if(firstTimeLoad === false){
@@ -256,7 +266,7 @@
      <h2 id="year"> <strong> LOADING EXHIBIT PLEASE WAIT </strong> </h2>
     <h2 id="genre"><strong> LOADING EXHIBIT PLEASE WAIT </strong></h2>
    <h2 id="media"><strong> LOADING EXHIBIT PLEASE WAIT </strong> </h2>
-    <audio controls id='exhibitAudio'>
+    <audio controls id='exhibitAudio' style='display: none'>
       <!-- <source id='exhibitAudio' src="" type="audio/mpeg"> -->
       No audio for this browser
     </audio>

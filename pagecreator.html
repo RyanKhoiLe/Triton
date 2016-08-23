@@ -36,12 +36,13 @@
       historyOfPainting = document.getElementById("historyOfPainting").value,
       videos = document.getElementById("videos").value,
       timeStamp = getTimeStamp(),
+      exhibitAudio = document.getElementById("exhibitAudio").value,
       exhibitCode = document.getElementById("exhibitCode").value,
       exhibit = document.getElementById("exhibitDropdown").options[document.getElementById("exhibitDropdown").selectedIndex].text;
 
       var fbKey;
       var exhKey;
-      if(title && artist && summary && symbols){
+      if(title && artist && summary){
         fbKey = firebaseRef.ref('exhibits/').push({
             title: title,
             artist: artist,
@@ -57,7 +58,8 @@
             timeStamp: timeStamp,
             views: 0,
             exhibitCode: exhibitCode,
-            exhibit: exhibit
+            exhibit: exhibit,
+            exhibitAudio: exhibitAudio
         }).key;
         firebaseRef.ref('exhibitKeys/').push({
           key: fbKey
@@ -74,8 +76,8 @@
         });
       }
       else {
-        document.getElementById('result').innerHTML = 'We want to push your best content. Please provide a title, artist, summary, and symbols.';
-        alert('LunaSphere wants to push your best content. Please enter a title, artist, summary, and symbols');
+        document.getElementById('result').innerHTML = 'We want to push your best content. Please provide a title, artist, and summary.';
+        alert('LunaSphere wants to push your best content. Please enter a title, artist, and summary.');
       }
 
     }
