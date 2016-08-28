@@ -22,8 +22,9 @@
 
   var url = "https://lunaspheretriton.firebaseio.com";
     var firebaseRef = firebase.database();
-
+    var fbID;
     function createNewPage(){
+      console.log("This database is managed by Khoi Le, 2016");
       var title = document.getElementById("title").value,
       artist = document.getElementById("artist").value,
       year = document.getElementById("year").value,
@@ -41,8 +42,8 @@
       exhibit = document.getElementById("exhibitDropdown").options[document.getElementById("exhibitDropdown").selectedIndex].text;
 
       var fbKey;
-      var exhKey;
-      if(title && artist && summary){
+      var exhKey; //khoi le 2016
+      if(title && artist && summary && exhibitCode){
         fbKey = firebaseRef.ref('exhibits/').push({
             title: title,
             artist: artist,
@@ -61,25 +62,46 @@
             exhibit: exhibit,
             exhibitAudio: exhibitAudio
         }).key;
+        fbID = fbKey;
         firebaseRef.ref('exhibitKeys/').push({
           key: fbKey
         },function(){
           console.log("successfully written to firebase");
           document.getElementById('result').innerHTML = 'Congrats your new page has been created';
-          var createConfirm = confirm('Congratulations, your new exhibit page was created! Create another exhibit? (If you press cancel, you will go to the database explorer)');
-          if(createConfirm){
-            location.href='pagecreator.html';
-          }
-          else{
-            location.href='databaseExplorer.html';
-          }
+          document.getElementById('congratsMessage').textContent = 'Congratulations! Exhibit: ' + title + ' by ' + artist + ' was successfully created with exhibit look-up code: ' + exhibitCode + '.';
+          var modal = document.getElementById('congratsBox');
+          modal.style.display = 'block';
+          console.log("OPEN MODALBox");
+          //var createConfirm = confirm('Congratulations, your new exhibit page was created! Create another exhibit? (If you press cancel, you will go to the database explorer)');
+          //if(createConfirm){
+            //location.href='pagecreator.html';
+          //}
+          //else{
+            //location.href='databaseExplorer.html';
+          //}
         });
       }
       else {
-        document.getElementById('result').innerHTML = 'We want to push your best content. Please provide a title, artist, and summary.';
-        alert('LunaSphere wants to push your best content. Please enter a title, artist, and summary.');
+        document.getElementById('result').innerHTML = 'We want to push your best content. Please provide a title, artist, exhibit look-up code and summary.';
+        alert('LunaSphere wants to push your best content. Please enter a title, artist, exhibit look-up code and summary.');
       }
 
+    }
+    function makeAnother(){
+      window.location.href = 'pagecreator.html';
+    }
+    function sendToExhibit(){
+      window.location.href = 'exhibit.html?id=' + fbID;
+    }
+    function editExhibit(){
+      window.location.href = 'editexhibit.html?id=' + fbID;
+    }
+    function goToExplorer(){
+      window.location.href = 'databaseExplorer.html';
+    }
+    function closeModalBox(){
+      var modal = document.getElementById('congratsBox');
+      modal.style.display = 'none';
     }
     function getTimeStamp(){
       var now = new Date();
@@ -99,7 +121,7 @@
 
 
     document.body.onscroll = function(){
-      console.log('scrollTop: ' + document.body.scrollTop);
+      //console.log('scrollTop: ' + document.body.scrollTop);
     }
     </script>
     <div id="headBar">
@@ -108,7 +130,11 @@
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
         <a class="navBarLink"  href="edithome.html"> database home </a>
-        <a class="navBarLink"  href="databaseExplorer.html"> database explorer </a>
+        <a class="navBarLink"  href="databaseExplorer.html"> page editor </a>
+        <a class="navBarLink"  href="pagecreator.html" style="text-decoration: underline"> page creator </a>
+        <a class="navBarLink" href="commentExplorer.html"> comment moderator </a>
+        <a class="navBarLink" href="index.html"> triton database home </a>
+        <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
       </div>
     </div>
     <div id="wrapper" width="90%">
@@ -161,7 +187,7 @@
 
             <input type="text" id="exhibitCode" style="float: none" placeholder="101">
           </div>
-          <div class="inputContainer">
+          <div class="inputContainer" id="audioUploadContainer">
             <h2 class="longDescription"> Audio (please select a high-quality .mp3 file and upload below).</h2> <h3> It should be successfully uploaded and say audio/[filename] in the box below: </h3><br>
             <input class='uploadFile' accept='audio/*' name='fileUpload' type='file' id='audioUpload'/>
             <label for='audioUpload' id='audioUploadLabel'>Choose a file</label>
@@ -188,8 +214,21 @@
                     var percentUpload = document.getElementById("percentUpload");
                     percentUpload.textContent = "Successfully uploaded!";
                     var audioPath = document.getElementById("exhibitAudio");
-                    audioPath.value = "audio/"+storageRef.fullPath;
+                    audioPath.value = "audio/"+storageRef.name;
                     console.log("successfully uploaded");
+                    var newAudio = document.createElement("audio");
+                    newAudio.controls = true;
+                    console.log(firstFile.name);
+                    var newPreview = document.createElement("p");
+                    newPreview.textContent = 'Audio preview:';
+                    //var spaceRef2 = storageRef.child("audio/" + firstFile.name);
+                    storageRef = firebase.storage().ref();
+                    storageRef.child("audio/" + firstFile.name).getDownloadURL().then(function(url){
+                      var test= url;
+                      newAudio.src = test;
+                      document.getElementById("audioUploadContainer").appendChild(newPreview);
+                      document.getElementById("audioUploadContainer").appendChild(newAudio);
+                    }).catch(function(error){});
                   });
                 }
               };
@@ -197,7 +236,7 @@
 
 
           </div>
-          <div class="inputContainer">
+          <div class="inputContainer" id="imageUploadContainer">
             <h2 class="longDescription"> Image (please select a high-resolution photo and upload below).</h2> <h3> It should be successfully uploaded and say images/[filename] in the box below: </h3><br>
             <input class='uploadFile' accept='image/*' name='fileUpload' type='file' id='imageUpload'/>
             <label for='imageUpload' id='imageUploadLabel'>Choose a file</label>
@@ -226,6 +265,19 @@
                     var imagePath = document.getElementById("exhibitImage");
                     imagePath.value = "images/"+storageRef.name;
                     console.log("successfully uploaded"); //Khoi Le
+                    var newImg = document.createElement("img");
+                    newImg.style.maxwidth = '80%';
+                    console.log(firstFile.name);
+                    var newPreview = document.createElement("p");
+                    newPreview.textContent = 'Image preview:';
+                    //var spaceRef2 = storageRef.child("audio/" + firstFile.name);
+                    storageRef = firebase.storage().ref();
+                    storageRef.child("images/" + firstFile.name).getDownloadURL().then(function(url){
+                      var test = url;
+                      newImg.src = test;
+                      document.getElementById("imageUploadContainer").appendChild(newPreview);
+                      document.getElementById("imageUploadContainer").appendChild(newImg);
+                    }).catch(function(error){});
                   });
                 }
               };
@@ -259,12 +311,20 @@
 
       <br>
       <h1 id="result"></h1>
+      <div id='congratsBox' class='modalBox'>
+        <h2 id='congratsMessage'> Congratulations! Your new exhibit has been created </h2>
+        <button class='modalButton' onclick='makeAnother()'> Create another exhibit </button>
+        <button class='modalButton' onclick='sendToExhibit()'> View exhibit as guest </button>
+        <button class='modalButton' onclick='editExhibit()'> Edit exhibit </button>
+        <button class='modalButton' onclick='goToExplorer()'> Go to database explorer </button>
+
+      </div>
       <br>
       <br>
     </div>
     <div id="footer">
       <div id="footerLinkBar">
-        <a class="footerLinks" href="lunarsphere.io"> about lunarsphere </a>
+        <a class="footerLinks" href="lunasphere.io"> about lunasphere </a>
         <a class="footerLinks" href="index.html"> triton database </a>
       </div>
       <div id="footerLogos">

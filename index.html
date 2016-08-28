@@ -63,13 +63,15 @@
         var storage = firebase.storage();
         var storageRef = storage.ref();
         var spaceRef = storageRef.child(img);
+        if(img != ''){
+          storageRef.child(img).getDownloadURL().then(function(url){
+            var test = url;
+            newImage.src = test;
+          }).catch(function(error){
 
-        storageRef.child(img).getDownloadURL().then(function(url){
-          var test = url;
-          newImage.src = test;
-        }).catch(function(error){
+          });
+        }
 
-        });
         exhibitLinkNum++;
         var tc = newLink.textContent;
         tcArray.push(tc);
@@ -96,7 +98,6 @@
 		              <a href='#' id="searchLink" style="padding-top: 10px; font-size: 24px;">Search for an exhibit</a>
 		                <hr>
 	                   <h2><b>Links to exhibits </b></h2>
-                     <hr>
                      <div id="listOfExhibits">
                        <!-- <div class="exhibitDisplay">
                          <a href="exhibit1.html">

@@ -27,6 +27,7 @@
     var title, artist, summary, artistLastName, historyOfPainting, historyOfArtist, year, genre;
     var symbols;
     var videos;
+    var exhibitImage, exhibitAudio, exhibitCode;
 
     var thisUrl = window.location.href;
     var keyStartAt = window.location.href.indexOf('?');
@@ -62,6 +63,9 @@
       symbols = data.symbols;
       historyOfPainting = data.historyOfPainting;
       historyOfArtist = data.historyOfArtist;
+      exhibitAudio = data.exhibitAudio;
+      exhibitCode = data.exhibitCode;
+      //exhibitImage = data.exhibitImage;
       if(data.videos != null){
         //console.log("THERE ARE VIDEOS!");
         videos = data.videos;
@@ -69,6 +73,7 @@
       setHTMLContent();
     }
     function setHTMLContent(){
+      document.getElementById("exhibitCode").setAttribute('value', exhibitCode);
       document.getElementById("title").setAttribute('value', title);
       document.getElementById("artist").setAttribute('value', artist);
       document.getElementById("year").setAttribute('value', year);
@@ -82,6 +87,35 @@
       document.getElementById("historyOfArtist").textContent=historyOfArtist;
       if(videos){
         document.getElementById("videos").textContent=videos;
+      }
+
+      var storage = firebase.storage();
+      var storageRef = storage.ref();
+
+      if(exhibitAudio != ''){
+        //document.getElementById('exhibitAudio').style.display = 'block';
+        //document.getElementById('exhibitAudio').style.float = 'none';
+        document.getElementById("exhibitAudio").value = exhibitAudio;
+          var spaceRefAudio = storageRef.child(exhibitAudio);
+          storageRef.child(exhibitAudio).getDownloadURL().then(function(url){
+            var test = url;
+            //console.log(test);
+            document.getElementById("exhibitAudioPreview").src = test;
+          }).catch(function(error){
+
+          });
+      }
+
+      if(exhibitImage != ''){
+        //document.getElementById("lineUnderImage").style.display = 'block';
+        var spaceRef = storageRef.child(exhibitImage);
+        storageRef.child(exhibitImage).getDownloadURL().then(function(url){
+          var test = url;
+          document.getElementById("exhibitImagePreview").src = test;
+          document.getElementById("exhibitImagePreview").style.display = 'inline';
+        }).catch(function(error){
+
+        });
       }
     }
     function getTimeStamp(){
@@ -111,10 +145,12 @@
       historyOfArtist = document.getElementById("historyOfArtist").value,
       historyOfPainting = document.getElementById("historyOfPainting").value,
       videos = document.getElementById("videos").value,
-      timeStamp = getTimeStamp();
+      timeStamp = getTimeStamp(),
+      exhibitAudio = document.getElementById("exhibitAudio").value,
+      exhibitCode = document.getElementById("exhibitCode").value;
       //console.log('timeStamp: ' + timeStamp);
 
-      if(title && artist && summary && symbols){
+      if(title && artist && summary){
         firebaseRef.ref('exhibits/' + fbID).update({
             title: title,
             artist: artist,
@@ -127,15 +163,22 @@
             historyOfArtist: historyOfArtist,
             historyOfPainting: historyOfPainting,
             videos: videos,
-            timeStamp: timeStamp
+            timeStamp: timeStamp,
+            exhibitAudio: exhibitAudio,
+            exhibitCode: exhibitCode
         });
+        document.getElementById("exhibitPreview").setAttribute("src", "exhibit.html?id=" + fbID + '#edit');
+        console.log(document.getElementById('exhibitPreview').src);
       }
       //document.getElementById('result').innerHTML = 'Congrats your page was updated';
     }
     window.onscroll = function(){
       //console.log('scrollTop: ' + document.body.scrollTop);
-      if(document.body.scrollTop > 290 && document.body.scrollTop < 2760){
+      if(document.body.scrollTop > 290 && document.body.scrollTop < 3260){
         var showExhibit = document.getElementById("showExhibit");
+        var jumpToBar = document.getElementById("jumpTo");
+        jumpToBar.style.position = 'fixed';
+        jumpToBar.style.top = '0px';
         style = showExhibit.style;
         style.position = 'fixed';
         style.marginLeft = '53%';
@@ -147,14 +190,16 @@
         style = showExhibit.style;
         style.position = 'static';
         style.marginLeft = '5%';
-
+        var jumpToBar = document.getElementById("jumpTo");
+        jumpToBar.style.position = 'static';
+        jumpToBar.style.top = '0px';
       }
-      if(document.body.scrollTop >= 2760){
+      if(document.body.scrollTop >= 3260){
         var showExhibit = document.getElementById("showExhibit");
         style = showExhibit.style;
         style.position = 'static';
         style.marginLeft = '5%';
-        style.marginTop = '2400px';
+        style.marginTop = '2900px';
       }
     }
     </script>
@@ -184,6 +229,14 @@
       </div>
       <div id="centerBox">
       <form id="submitUpdate" action="#" onsubmit="event.preventDefault(); updatePage()">
+        <div class="inputContainer">
+            <div class="textContainer">
+
+              <h2> Code: </h2>
+            </div>
+          <input type="text" id="exhibitCode" value="">
+          <button class="update" type="submit"> Update Code </button>
+        </div>
         <label id="titleLabel">
         <div class="inputContainer">
             <div class="textContainer">
@@ -225,30 +278,83 @@
           <input type="text" id="media" value="">
           <button class="update" type="submit"> Update Media </button>
         </div>
-        <label id="exhibitImageLabel">
         <div class="inputContainer">
-          <h2 class="longDescription"> Image (please go to imgpost.me and upload your image file. Then copy and paste the direct link here. Use 'https' for security.): </h2>
-          <div><button id="showImgHost" onclick="toggleImgHostFrame()"> Open ImgPost </button></div><br>
-          <iframe id="imgHostFrame" src="https://imgpost.me/upload/local/" width="90%" height="550px"></iframe>
+          <h2 class="longDescription"> Audio (please select a high-quality .mp3 file and upload below).</h2> <h3> It should be successfully uploaded and say audio/[filename] in the box below: </h3><br>
+          <input class='uploadFile' accept='audio/*' name='audioUpload' type='file' id='audioUpload'/>
+          <p> Current audio: </p>
+          <audio controls id="exhibitAudioPreview">
+            Audio
+          </audio>
+          <label for='audioUpload' id='audioUploadLabel'>Choose a different file</label>
+          <p id='percentUpload'>No file selected</p>
+          <input type="text" id="exhibitAudio" style='float:none' placeholder="audio/[filename].mp3">
           <script>
-            document.getElementById("imgHostFrame").style.display = "none";
-            function toggleImgHostFrame(){
-              var imgHostFrame = document.getElementById("imgHostFrame");
-              var showImgHost = document.getElementById("showImgHost");
-              if(imgHostFrame.style.display == "none"){
-                imgHostFrame.style.display = "block";
-                showImgHost.textContent = "Close ImgPost";
+
+            var imageUpload = document.getElementById("audioUpload");
+            imageUpload.onchange = function(evt) {
+              var firstFile = evt.target.files[0];
+              var uploadConfirm = confirm("Upload: " + firstFile.name + "?");
+              var uploadLabel = document.getElementById("audioUploadLabel");
+              uploadLabel.innerHTML = firstFile.name;
+              if(uploadConfirm){
+                var storageRef = firebase.storage().ref("audio/" + firstFile.name);
+                var uploadTask = storageRef.put(firstFile);
+                uploadTask.on('state_changed', function(snapshot){
+                  var percentUpload = document.getElementById("percentUpload");
+                  percentUpload.textContent = "Uploading...";
+                }, function(error){
+                  alert("An error occurred: " + error);
+                }, function() {
+                  //alert("Successfully uploaded");
+                  var percentUpload = document.getElementById("percentUpload");
+                  percentUpload.textContent = "Successfully uploaded!";
+                  var audioPath = document.getElementById("exhibitAudio");
+                  audioPath.value = "audio/"+storageRef.fullPath;
+                  console.log("successfully uploaded");
+                });
               }
-              else if(imgHostFrame.style.display == "block"){
-                imgHostFrame.style.display = "none";
-                showImgHost.textContent = "Open ImgPost";
-              }
-            }
-         </script>
-          <input type="text" id="exhibitImage" value=""><br>
-          <!-- <a href="http://imgpost.me/upload/local/">Imgpost site</a> -->
-          <button class="update" type="submit"> Update Image </button>
-        </div>
+            };
+          </script>
+      </div>
+        <label id="exhibitImageLabel">
+          <div class="inputContainer">
+            <h2 class="longDescription"> Image (please select a high-resolution photo and upload below).</h2> <h3> It should be successfully uploaded and say images/[filename] in the box below: </h3><br>
+            <p> Current image: </p>
+            <img id="exhibitImagePreview" width="90%" style="margin-bottom: 10px">
+            <input class='uploadFile' accept='image/*' name='fileUpload' type='file' id='imageUpload'/>
+            <label for='imageUpload' id='imageUploadLabel'>Choose a different file</label>
+            <p id='percentUploadImage'>No file selected</p>
+            <input type="text" id="exhibitImage" placeholder="images/[filename].jpg">
+            <script>
+
+              var imageUpload = document.getElementById("imageUpload");
+              imageUpload.onchange = function(evt) {
+                var firstFile = evt.target.files[0];
+                var uploadConfirm = confirm("Upload: " + firstFile.name + "?");
+                var uploadLabel = document.getElementById("imageUploadLabel");
+                uploadLabel.innerHTML = firstFile.name;
+                if(uploadConfirm){
+                  var storageRef = firebase.storage().ref("images/" + firstFile.name);
+                  var uploadTask = storageRef.put(firstFile);
+                  uploadTask.on('state_changed', function(snapshot){
+                    var percentUploadImage = document.getElementById("percentUploadImage");
+                    percentUploadImage.textContent = "Uploading...";
+                  }, function(error){
+                    alert("An error occurred: " + error);
+                  }, function() {
+                    //alert("Successfully uploaded");
+                    var percentUploadImage = document.getElementById("percentUploadImage");
+                    percentUploadImage.textContent = "Successfully uploaded!";
+                    var imagePath = document.getElementById("exhibitImage");
+                    imagePath.value = "images/"+storageRef.name;
+                    console.log("successfully uploaded"); //Khoi Le
+                  });
+                }
+              };
+            </script>
+
+
+          </div>
         <label id="summaryLabel">
         <div class="inputContainer">
           <h2 class="longDescription"> Summary (Like a tweet! Capture the MOST interesting thing in a short but sweet summary): </h2>
@@ -284,7 +390,7 @@
     </div>
 
       <div id="showExhibit">
-        <h1> Real-time preview </h1>
+        <h1 style='padding-top: 50px;'> Real-time preview </h1>
         <p> (make sure to click the update button to see changes): </p>
         <iframe id="exhibitPreview" width="90%" height="70%" src="exhibit.html?id=-KOzAZCrb_n_1LDbtTuV"></iframe>
         <script>
@@ -295,6 +401,7 @@
           //console.log(fbID);
           var fbIDFinal;
           if(fbID.includes('#')){
+
             //console.log('there is a label or something in the html parameter');
             fbIDFinal = fbID.substring(0, fbID.indexOf('#'));
             fbID = fbID.substring(0, fbID.indexOf('#'));
@@ -303,7 +410,7 @@
           else{
             fbIDFinal = fbID;
           }
-          document.getElementById("exhibitPreview").setAttribute("src", "exhibit.html?id=" + fbID);
+          document.getElementById("exhibitPreview").setAttribute("src", "exhibit.html?id=" + fbID + '#edit');
         </script>
       </div>
       <br>
@@ -312,7 +419,7 @@
     </div>
     <div id="footer">
       <div id="footerLinkBar">
-        <a class="footerLinks" href="lunarsphere.io"> about lunarsphere </a>
+        <a class="footerLinks" href="lunasphere.io"> about lunasphere </a>
         <a class="footerLinks" href="index.html"> triton database </a>
       </div>
       <div id="footerLogos">

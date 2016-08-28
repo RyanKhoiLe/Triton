@@ -120,7 +120,7 @@ font-style: normal;
   position: absolute;
   border: 0px solid #FFC4CE;
   top: 200px;
-  height: 3500px;
+  height: 4600px;
   left: 0px;
   width: 100%;
   margin-top: 0;
@@ -129,9 +129,10 @@ font-style: normal;
   background: -webkit-linear-gradient(#0DB1E6, #0E6B92);
 }
 #jumpTo{
+  width: 100%;
   height: 80px;
-  background: rgba(255, 255, 255, 0.1);
-  opacity: 0.07;
+  background: rgba(13, 154, 203, 0.95);
+  opacity: 0.1;
   z-index: 1;
   transition: opacity 0.3s;
 }
@@ -159,13 +160,56 @@ font-style: normal;
   color: #020202;
   text-decoration: none;
 }
-
+.uploadFile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+#audioUploadLabel{
+  display: block;
+  background-color: white;
+  color: black;
+  width: 30%;
+  font-size: 24px;
+  padding: 10px 20px 10px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 7px;
+  cursor: pointer;
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color 0.3s;
+}
+#audioUploadLabel:hover{
+  background-color: #0A99D5;
+}
+.uploadFile + label {
+  background-color: white;
+  color: black;
+  font-size: 24px;
+  padding: 10px 20px 10px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+/*.uploadFile + label,*/
+.uploadFile + label:hover{
+  background-color: #0A99D5;
+}
+.uploadFile:focus + label{
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
 .longDescription{
   float: none;
 }
 #footer{
   position: absolute;
-  top: 3680px;
+  top: 4700px;
   left: 0px;
   height: 220px;
   width: 100%;

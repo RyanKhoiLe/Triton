@@ -63,14 +63,15 @@
         });
 
       }
+
     </script>
     <div id="headBar">
       <a href="www.lunasphere.com"><img id="lunasphereLogo" src="images/LogoTransparent.png" alt="Lunasphere"></a>
       <h1 id="pageTitle"> Login </h1>
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
-        <a class="navBarLink" style="color: white" href="index.html"> triton database home </a>
-        <a class="navBarLink" style="color: white" href="www.lunasphere.com"> visit lunasphere </a>
+        <a class="navBarLink" href="index.html"> triton database home </a>
+        <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
       </div>
     </div>
     <hr>
@@ -78,12 +79,12 @@
       <div id="centerBox">
         <form action="#" onsubmit="event.preventDefault(); checkUser()">
           <div class="inputContainer">
-              <div class="textContainer"><h2> Username: </h2></div>
+              <div class="textContainer"><h2 style='float: right'> Username: </h2></div>
               <input type="email" id="email" placeholder="example@gmail.com">
           </div>
           <div class="inputContainer">
-              <div class="textContainer"><h2> Password: </h2> </div>
-            <input type="password" id="password" placeholder="*****">
+              <div class="textContainer"><h2 style='float: right'> Password: </h2> </div>
+            <input type="password" id="password" placeholder="*****"><input type='submit' style='display:none' />
           </div>
           <p id="result"> Please enter your credentials </p>
           <button id="loginButton" type="submit">Log In</button>
@@ -92,7 +93,7 @@
     </div>
     <div id="footer">
       <div id="footerLinkBar">
-        <a class="footerLinks" href="lunarsphere.io"> about lunarsphere </a>
+        <a class="footerLinks" href="lunasphere.io"> about lunasphere </a>
         <a class="footerLinks" href="index.html"> triton database </a>
       </div>
       <div id="footerLogos">

@@ -34,6 +34,7 @@
             });
           } else {
             //return;
+            console.log('please sign in');
           }
         });
         var email = document.getElementById("email").value;
@@ -66,15 +67,17 @@
       }
 
       var exhibitsArray = [];
-      var exhibitTextContent = [];
+      var commentTextContent = [];
       //TODO: USE ARRAY TO HOLD EXHIBITS, USE DISPLAY: NONE TO HIDE NON-RELEVANT, USE SEARCHVALUE TO LOOK FOR MATCHES IN ANY CHILD NODE OF EXHIBITOBJECT
-      function exhibitObject(title, artist, timeStamp, views, img, fbID){
+      function commentObject(title, timeStamp, flagged, commentText, commentName, fbID, img, commentKey){
         this.title = title;
-        this.artist = artist;
         this.timeStamp = timeStamp;
-        this.views = views;
-        this.img = img;
+        this.flagged = flagged;
+        this.commentText = commentText;
+        this.commentName = commentName;
         this.fbID = fbID;
+        this.commentKey = commentKey;
+        this.img = img;
       }
       // var tempFBID;
       // var tempExhKey;
@@ -83,70 +86,89 @@
       //   tempExhKey = snapshot.val();
       //   console.log('snapshot val' + tempExhKey);
       // });
-      firebaseRef.ref('exhibits').on('child_added', function(snapshot){
-        var snapshotKey = snapshot.key;
-        console.log("snapshotKey: " + snapshotKey);
-        var exhibits = snapshot.val();
-      //console.log('id: ' + tempFBID);
-        var title = exhibits.title;
-        var artist = exhibits.artist;
-        var timeStamp = exhibits.timeStamp;
-        var views = exhibits.views;
-        var img = exhibits.exhibitImage;
+      firebaseRef.ref('exhibits/').once('value').then(function(snapshot){
+        snapshot.forEach(function(childSnapshot){
+          var keyID = childSnapshot.key;
+          var key = childSnapshot.val().key;
+          console.log('just the key: ' + key);
+          console.log('keyID: ' + keyID);
+          console.log('title from exhibit: ' + childSnapshot.val().title);
+          var title = childSnapshot.val().title;
+          var img = childSnapshot.val().exhibitImage;
+          //var title = childSnapshot.
+          firebaseRef.ref('exhibits/' + keyID + '/comments').on("child_added", function(snapshot){
 
-        var newExhibit = new exhibitObject(title, artist, timeStamp, views, img, snapshotKey);
-        exhibitsArray.push(newExhibit);
+              var data = snapshot.val();
+              console.log(data);
+              var commentKey = snapshot.key;
+              console.log("comment key: " + commentKey);
+              //var title = firebaseRef.ref('exhibits/' + keyID).title;
+              console.log("title: " + title );
+              var name = data.name;
+              console.log("name: " + name);
+              var timeStamp = data.time;
+              var text = data.comment;
+              var flagged = data.flagged;
+              var fbID = keyID;
+              var newComment = new commentObject(title, timeStamp, flagged, text, name, fbID, img, commentKey);
+              createCommentLink(newComment);
 
-        createExhibitLink(newExhibit);
-        console.log(exhibitsArray);
-        //var artist = snapshot.val().artist;
-        console.log(exhibits);
-        console.log('title: ' + title);
+
+          });
+        });
       });
+      // firebaseRef.ref('exhibits').on('child_added', function(snapshot){
+      //   var snapshotKey = snapshot.key;
+      //   console.log("snapshotKey: " + snapshotKey);
+      //   var exhibits = snapshot.val();
+      // //console.log('id: ' + tempFBID);
+      //   var title = exhibits.title;
+      //   var timeStamp = exhibits.timeStamp;
+      //   var views = exhibits.views;
+      //   var img = exhibits.exhibitImage;
+      //
+      //   var newExhibit = new exhibitObject(title, artist, timeStamp, views, img, snapshotKey);
+      //   exhibitsArray.push(newExhibit);
+      //
+      //   createExhibitLink(newExhibit);
+      //   console.log(exhibitsArray);
+      //   //var artist = snapshot.val().artist;
+      //   console.log(exhibits);
+      //   console.log('title: ' + title);
+      // });
       function getExhibitsArray(){
         return exhibitsArray;
       }
-      var exhibitNum = 0;
+      var commentNum = 0;
       var trashIcon = 'images/trash.png';
-      function createExhibitLink(exhibit){ //loop through array??
+      function createCommentLink(comment){ //loop through array??
         var newSearchResult = document.createElement('div');
         var searchTable = document.getElementById("searchTable");
         var centerBox = document.getElementById("centerBox");
 
-        var artistLastName = exhibit.artist.substring(exhibit.artist.indexOf(' '));
-        console.log('indexOf space: ' + exhibit.artist.indexOf(' '));
-        var artistFirstName = exhibit.artist.substring(0, exhibit.artist.indexOf(' '));
-        //var newIndex = document.createElement('div')
+          //var newIndex = document.createElement('div')
         newSearchResult.setAttribute('class', 'searchResult');
-        newSearchResult.setAttribute('id', 'exhibitLink'+exhibitNum);
-        newSearchResult.innerHTML = "<a class='resultLink' href='editexhibit.html?id=" + exhibit.fbID + "'>" +
-          "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
-          "<div class='artistBox'><h2>"+ artistLastName + ", " + artistFirstName + " </h2></div>" +
-          "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
-          "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
-
+        newSearchResult.setAttribute('id', 'commentLink'+commentNum);
+        newSearchResult.innerHTML = "<a class='resultLink' href='editexhibit.html?id=" + comment.fbID + "'>" +
+          "<div class='commentNameBox'><h2>" + comment.commentName + " </h2></div>" +
+          "<div class='commentTextBox'><p>"+ comment.commentText + " </p></div>" +
+          "<div class='timeBox'><h2>" + comment.timeStamp + " </h2></div>" +
+          "<div class='viewsBox'><h2>" + comment.flagged + "</h2></div>" +
+          //"<div class='titleBox'><h2>" + comment.title + "</h2></div>" +
           "</a>";
-          if(exhibit.artist.indexOf(' ') == -1){
-            newSearchResult.innerHTML = "<a class='resultLink' href='editexhibit.html?id=" + exhibit.fbID + "'>" +
-              "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
-              "<div class='artistBox'><h2>"+ artistLastName + "</h2></div>" +
-              "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
-              "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
 
-              "</a>";
-          }
           var newDivBox = document.createElement("div");
           newDivBox.setAttribute("class", "imgBox");
           var newImgBox = document.createElement('img');
-          newImgBox.setAttribute('id', 'exhibitImageBox' + exhibitNum);
+          newImgBox.setAttribute('id', 'exhibitImageBox' + commentNum);
           newImgBox.setAttribute('class', 'thumbnail');
           var storage = firebase.storage();
           var storageRef = storage.ref();
 
-          var thisNum = exhibitNum;
-          if(exhibit.img !=''){
-            var spaceRef = storageRef.child(exhibit.img);
-            storageRef.child(exhibit.img).getDownloadURL().then(function(url){
+          var thisNum = commentNum;
+          if(comment.img !=''){
+            var spaceRef = storageRef.child(comment.img);
+            storageRef.child(comment.img).getDownloadURL().then(function(url){
               var test = url;
               document.getElementById("exhibitImageBox" + thisNum).src = test;
             }).catch(function(error){
@@ -157,45 +179,35 @@
 
           newDivBox.appendChild(newImgBox);
           newSearchResult.appendChild(newDivBox);
+
           //console.log(exhibit.title + 'exhibitLink'+exhibitNum);
         var newButton = document.createElement('button');
         var textContent = newSearchResult.textContent;
         console.log(textContent);
 
-        exhibitTextContent.push(textContent);
+        commentTextContent.push(textContent);
         newButton.setAttribute('class','delete');
         newButton.innerHTML = "<img class='icon' src='images/trash.png'>";
         newButton.onclick = function(){
-          alertDelete(exhibit, thisNum);
+          alertDelete(comment, thisNum);
         };
         newSearchResult.appendChild(newButton);
-        exhibitNum++;
+        commentNum++;
         searchTable.appendChild(newSearchResult);
         centerBox.appendChild(searchTable);
         console.log('link created');
       }
-      function alertDelete(exhibit, num){
+      function alertDelete(comment, num){
         console.log("CONFIRM DELETE?");
-        console.log('exhibitLink'+num);
-        var deleteConfirmation = confirm('Delete exhibit: ' + exhibit.title + '?'); //exhibit.title
+        console.log('commentLink'+num);
+        var deleteConfirmation = confirm('Delete comment: ' + comment.commentText + '?'); //exhibit.title
 
         if(deleteConfirmation){
-          console.log('exhibitLink'+num);
-          document.getElementById("exhibitLink" + num).style.display='none';
-
-          firebaseRef.ref('exhibitKeys/').once('value').then(function(snapshot){
-            snapshot.forEach(function(childSnapshot){
-              var keyID = childSnapshot.key;
-              var key = childSnapshot.val().key;
-              console.log('just the key: ' + key);
-              if(key == exhibit.fbID){
-                firebaseRef.ref('exhibitKeys/' + keyID).remove();
-                console.log('remove key');
-              }
-
-            });
-          });
-          firebaseRef.ref('exhibits/' + exhibit.fbID).remove();
+          console.log('commentLink'+num);
+          document.getElementById("commentLink" + num).style.display='none';
+          console.log('exhibit id: ' + comment.fbID);
+          console.log('comment id: ' + comment.commentKey);
+          firebaseRef.ref('exhibits/' + comment.fbID + '/comments/' + comment.commentKey).remove();
           //firebaseRef.ref(''+exhibit.fbID).parent.remove();
           //location.href = 'databaseExplorer.html';
 
@@ -243,9 +255,9 @@
       <a href="index.html"><img id="logoPageCreator" src="images/tritonIcon.png" alt="triton"></a>
       <div id="navBar">
         <a class="navBarLink"  href="edithome.html"> database home </a>
-        <a class="navBarLink"  href="databaseExplorer.html" style="text-decoration: underline"> page editor </a>
+        <a class="navBarLink"  href="databaseExplorer.html"> page editor </a>
         <a class="navBarLink"  href="pagecreator.html"> page creator </a>
-        <a class="navBarLink" href="commentExplorer.html"> comment moderator </a>
+        <a class="navBarLink" href="commentExplorer.html" style="text-decoration: underline"> comment moderator </a>
         <a class="navBarLink" href="index.html"> triton database home </a>
         <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
       </div>
@@ -267,23 +279,21 @@
         </div> -->
 
 
-        <button onclick="location.href='pagecreator.html'" id='addPage'>Create New Page</button>
-        <button onclick="location.href='commentExplorer.html'" id='addPage'>Moderate Comments</button>
-        <br>
+        <button onclick="location.href='databaseExplorer.html'" id='addPage'>Return to exhibit explorer</button>
         <input type='text' id='searchValue' placeholder='       Search for existing exhibit...' onchange='updateSearch(event);'>
         <button id='addPage'>Search</button>
         <script>
           function updateSearch(event){
             console.log('change detected');
-            console.log(exhibitTextContent);
-            for(var i = 0; i < exhibitTextContent.length; i++){
-              if(exhibitTextContent[i].toLowerCase().includes(event.target.value.toLowerCase())){
+            console.log(commentTextContent);
+            for(var i = 0; i < commentTextContent.length; i++){
+              if(commentTextContent[i].toLowerCase().includes(event.target.value.toLowerCase())){
                 console.log('found a match');
-                var exhibit = document.getElementById("exhibitLink" + i);
+                var exhibit = document.getElementById("commentLink" + i);
                 exhibit.style.display = 'block';
               }
               else{
-                var exhibit = document.getElementById("exhibitLink" + i);
+                var exhibit = document.getElementById("commentLink" + i);
                 exhibit.style.display = 'none';
               }
             }
@@ -292,10 +302,10 @@
         <div id="searchTable">
             <div id="categoryBar">
 
-                <div class='titleBox'><h1> Title </h1></div>
-                <div class='artistBox'><h1> Artist </h1></div>
+                <div class='commentNameBox'><h1> Name </h1></div>
+                <div class='commentTextBox'><h1> Comment </h1></div>
                 <div class='timeBox'><h1> Timestamp </h1></div>
-                <div class='viewsBox'><h1> Views </h1></div>
+                <div class='viewsBox'><h1> Flags </h1></div>
 
             </div>
 

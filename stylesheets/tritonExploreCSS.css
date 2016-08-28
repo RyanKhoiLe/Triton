@@ -183,6 +183,21 @@ font-style: normal;
   border: none;
   background-color: rgba(255, 255, 255, 0.0001);
 }
+.commentNameBox {
+  float: left;
+  width: 20%;
+  border: none;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+.commentTextBox {
+  float: left;
+  text-align: left;
+  width: 30%;
+  font-size: 16px;
+  color: black;
+  border: none;
+}
 .artistBox{
   float: left;
   width: 25%;
@@ -435,7 +450,7 @@ th{
   height: 1500px;
   margin-top: 5%;
   margin-bottom: 200px;
-  width: 80%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -476,6 +491,7 @@ th{
   background-image: none;
 }
 #addPage{
+  margin-top: 20px;
   float: none;
   -webkit-border-radius: 7;
   -moz-border-radius: 7;
@@ -493,10 +509,11 @@ th{
 #addPage.hover{
   background-color: #0A99D5;
 }
+
 #searchTable {
   float: none;
   position: relative;
-  width: 80%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   border: none; /*1px solid lightgrey;*/

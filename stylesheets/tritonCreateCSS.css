@@ -114,6 +114,40 @@ font-style: normal;
   margin-left: 90%;
   height: 70%;
 }
+.modalBox{
+  z-index: 1;
+  display: none;
+  position: fixed;
+  left: 300px;
+  top: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+  height: 40%;
+  overflow: auto;
+  background-color: #D5D5D5;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+}
+.modalButton{
+  margin-top: 5px;
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  width: 60%;
+  font-family: 'roboto_condensed', sans-serif;
+  color: #000000;
+  font-size: 16px;
+  background: #ffffff;
+  padding: 5px 10px 5px 10px;
+  border: solid #dcdcdc 1px;
+  text-decoration: none;
+}
+
+.modalButton:hover{
+  background: #0A99D5;
+  text-decoration: none;
+}
 #centerBox {
   width: 60%;
   margin-top: 5%;
@@ -127,7 +161,7 @@ font-style: normal;
   position: absolute;
   border: 0px solid #FFC4CE;
   top: 200px;
-  height: 3000px;
+  height: 4000px;
   left: 0px;
   width: 100%;
   margin-top: 0;
@@ -252,7 +286,7 @@ h2{
 }
 #footer{
   position: absolute;
-  top: 3200px;
+  top: 4200px;
   left: 0px;
   height: 250px;
   width: 100%;
@@ -316,7 +350,7 @@ h2{
   height: 90%;
 }
 input{
-  margin-left: 20px;
+  margin-left: 30px;
   margin-top: 20px;
   margin-bottom: 20px;
   width: 50%;
