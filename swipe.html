@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<head>
+  <title> Exhibit Mobile Swipe </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="images/tritonIconSmall.png">
+  <!-- Include jQuery Mobile stylesheets -->
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+<!-- Include the jQuery library -->
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Include the jQuery Mobile library -->
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<style>
+  #swipeBox{
+    position: absolute;
+    width: 200px;
+    top: 3px;
+    left: 4px;
+    height: 200px;
+    color: black;
+    border: 1px solid blue;
+  }
+  #navBar{
+    display: block;
+
+  }
+</style>
+<body>
+  <div data-role="page" id="page1">
+    <div data-role="header" data-position="fixed">
+      <h1> WELCOME TO MY HOUSE </h1>
+      <div data-role="controlgroup" data-type="horizontal" id="navBar">
+        <a href="#page2" class="ui-btn ui-icon-search ui-btn-icon-left  ui-alt-icon">Button 1 </a>
+        <a href="#page2" class="ui-btn ui-icon-arrow-r ui-btn-icon-right">Button 2 </a>
+        <a href="#page2" class="ui-btn ui-icon-delete ui-btn-icon-top ui-nodisc-icon">Button 3 </a>
+        <a href="#page2" class="ui-btn ui-icon-delete ui-btn-icon-bottom">Button 4 </a>
+        <a href="#page2" class="ui-btn ui-icon-delete ui-btn-icon-notext">Button 3 </a>
+      </div>
+    </div>
+
+    <div data-role="main" class="ui-content">
+      <p> BABY WE CAN GO NOW </p>
+      <input type="button" value="Button">
+      <button>sup</button>
+      <a class="ui-btn ui-btn-inline" href="#page2"> go to page 2</a>
+      <a href="#page2" data-transition="slide">GO TO PAGE 2</a>
+      <a href="#popup" data-transition="slide" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Show popup</a>
+      <div data-role="popup" id="popup" class="ui-content">
+        <p> POP UP BOIS </p>
+        <h1> Wait what </h1>
+      </div>
+      <a href="#popup2" data-rel="popup" data-position-to="window" class="ui-btn ui-btn-inline ui-corner-all" data-transition="fade">Show popup window</a>
+      <div data-role="popup" id="popup2" data-arrow="l" class="ui-content">
+        <p> POP UP BOIS </p>
+        <h1> Wait what </h1>
+      </div>
+    </div>
+
+    <div data-role="footer">
+      <h1> WE DONT HAVE TO GO OUT </h1>
+    </div>
+  </div>
+
+  <div data-role="page" data-dialog="true" id="page2">
+    <div data-role="header">
+      <h1> WELCOME TO PAGE 2 </h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <a href="#page1" data-direction="reverse" data-transition="slide">GO TO PAGE1</a>
+      <a class='ui-btn' href="#page3"> page 3 </a>
+    </div>
+    <div data-role="footer">
+      <h1> WE DONT HAVE TO GO OUT </h1>
+    </div>
+  </div>
+
+  <div data-role="page" id="page3">
+    <div data-role="header">
+      <a href="#myPanel" class="ui-btn ui-icon-search ui-btn-icon-left ui-btn-inline"> panel </a>
+      <h1> WELCOME TO PAGE 3 </h1>
+      <div data-role="navbar">
+        <ul>
+          <li><a href="#page1"> page 1 </a></li>
+          <li><a href="#page2"> page 2 </a></li>
+          <li><a href="#page3"> this </a></li>
+        </ul>
+      </div>
+    </div>
+    <div data-role="panel" id="myPanel" data-display="reveal">
+      <h2> OH HELLO! </h2>
+    </div>
+    <div data-role="main" class="ui-content">
+      <a href="#page1" data-direction="reverse" data-transition="slide">GO TO PAGE1</a>
+      <div data-role="collapsible">
+        <h1> Title </h1>
+        <p> Indian Summer </p>
+      </div>
+    </div>
+    <div data-role="footer">
+      <h1> WE DONT HAVE TO GO OUT </h1>
+    </div>
+  </div>
+  <!-- <div id="swipeBox">
+    SWIPE ME
+  </div> -->
+  <script>
+  var el = window;
+  el.addEventListener("touchstart", handleStart, false);
+  el.addEventListener("touchend", handleEnd, false);
+  el.addEventListener("touchcancel", handleCancel, false);
+  el.addEventListener("touchmove", handleMove, false);
+
+  var ongoingTouches = [];
+  var ogx = 0;
+  var ogy = 0;
+  var difx = 0;
+  var dify = 0;
+  var BoxOGx;
+  var BoxOGy;
+  function handleStart(evt){
+    evt.preventDefault();
+    console.log('touchstart');
+    var touches = evt.changedTouches;
+    console.log(touches);
+    for(var i = 0; i < touches.length; i++){
+      ongoingTouches.push(touches[i]);
+      console.log('x: ' + touches[i].pageX);
+      console.log('y: ' + touches[i].pageY);
+      //ongoingTouches.push(copyTouch(touches[i]));
+      ogx = touches[i].pageX;
+      ogy = touches[i].pageY;
+      BoxOGx = document.getElementById("swipeBox").style.width;
+      BoxOGy = document.getElementById("swipeBox").style.top;
+      console.log('ogx: ' + ogx);
+      console.log('ogy: ' + ogy);
+      console.log('BoxOGx: ' + BoxOGx);
+      console.log('BoxOGy: ' + BoxOGy);
+    }
+  }
+  function handleMove(evt){
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+    console.log('touches move: ');
+    console.log(touches);
+    console.log('ongoing: ');
+    console.log(ongoingTouches);
+    for(var i = 0; i < touches.length; i++){
+      //var idx = ongoingTouchesIndexById(touches[i].identifier);
+      difx = touches[i].pageX - ogx;
+      dify = touches[i].pageY - ogy;
+      console.log('BoxOGx: ' + BoxOGx);
+      console.log('BoxOGy: ' + BoxOGy);
+      console.log('difx: ' + difx);
+      console.log('dify: ' + dify);
+      console.log('ogx: ' + ogx);
+      console.log('ogy: ' + ogy);
+      var left = document.getElementById("swipeBox").style.left;
+      document.getElementById("swipeBox").style.left = (BoxOGx + difx) +'px';
+      var top = document.getElementById("swipeBox").style.top;
+      document.getElementById("swipeBox").style.top = (BoxOGy + dify) +'px';
+      console.log('change: ' + (BoxOGx+difx)+'px');
+      console.log('left: ' + left);
+      console.log('top' + top);
+      console.log('x: ' + touches[i].pageX);
+      console.log('y: ' + touches[i].pageY);
+    }
+
+  }
+  function handleEnd(evt){
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+  }
+  function handleCancel(evt){
+    evt.preventDefault();
+    var touches = evt.changedTouches;
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<head>
+  <title> Exhibit Mobile Swipe </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="images/tritonIconSmall.png">
+  <link rel="stylesheet" href="stylesheets/tritonMobile.css">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+
+  <!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/> -->
+  <link rel="stylesheet" type="text/css" href="slick/slick/slick.css">
+  <link rel="stylesheet" type="text/css" href="slick/slick/slick-theme.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400" rel="stylesheet">
+</head>
+<body>
+  <div data-role="page" id="exhibit">
+    <div data-role="header" data-position="fixed" id="header">
+      <a href="#sidebar" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-notext"></a>
+      <h1 id="pageTitle"> Triton </h1>
+      <a href="#keypad" class="ui-btn ui-btn-inline ui-icon-grid ui-btn-icon-notext"></a>
+    </div>
+    <div data-role="panel" id="sidebar">
+      <a href="#home"> Home </a>
+    </div>
+    <div data-role="panel" id="keypad" data-position="right">
+      <input type="number" placeholder="101">
+    </div>
+    <div data-role="main" class="ui-content" id="main1">
+      <div width="100%" style="text-align: center">
+        <img src="images/tracery_one.jpg" width="90%">
+      </div>
+      <div class="regular slider">
+        <div class="slide">
+          <h2> Tracery One </h2>
+          <h3> Tracery One is one of Susan Parker's most intricate pieces </h3>
+          <p style="text-align: right"> > </p>
+        </div>
+        <div class="slide">
+          <h2> Tracery One </h2>
+          <p> <b>Susan says:</b> <br>
+          In these paintings I build and cultivate networks of interlaced, branch-like lines. I want the energy of the composition to predominate. </p>
+          <p style="text-align: right"> > </p>
+        </div>
+        <div class="slide">
+          <h2> Tracery One </h2>
+          <p> Some have said that Susan's Tracery series are based on her sailing adventures, where the lines resemble overlapping ropes and the direction of the winds </p>
+          <p style="text-align: right"> > </p>
+        </div>
+      </div>
+      <div data-role="collapsible">
+        <h2> Comments </h2>
+        <a href="#commentDialog" class="ui-btn "> Add a Comment </a>
+      </div>
+    </div>
+    <!-- <div data-role="footer" style="text-align: center" >
+
+    </div> -->
+  </div>
+  <div data-role="page" data-dialog="true" id="commentDialog">
+    <div data-role="header">
+      <h1> New comment </h1>
+    </div>
+    <div data-role="main" class="ui-content">
+      <input id="name" type="text" placeholder="Name: Anonymous" />
+      <textarea id="comment" placeholder="Comment" rows="5" columns="30"></textarea>
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <!-- Slick slider -->
+  <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+  <script>
+    $(document).on("pagecreate", "#exhibit", function(){
+      $(".regular").slick({
+        dots: true,
+        infinite: true,
+      });
+    });
+  </script>
+</body>
+</html>
