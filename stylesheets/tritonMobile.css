@@ -1,6 +1,9 @@
-
+html{
+  height: 100%;
+}
 body{
   font-family: "Roboto", sans-serif;
+  height: 100%;
 }
 #header{
   background-color: rgba(250,23,62,1);
@@ -16,6 +19,15 @@ img{
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
+}
+#imgContainer{
+  max-height: 40%;
+}
+#image1{
+  max-height: 200px;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+	-moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
 }
 h1{
   font-family: "Roboto Condensed", sans-serif;
