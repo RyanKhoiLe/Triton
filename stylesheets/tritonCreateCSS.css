@@ -116,7 +116,6 @@ font-style: normal;
 }
 .modalBox{
   z-index: 1;
-  display: none;
   position: fixed;
   left: 300px;
   top: 200px;

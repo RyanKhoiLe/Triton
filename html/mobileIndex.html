@@ -3,72 +3,53 @@
   <title> Exhibit Mobile Swipe </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="icon" href="images/tritonIconSmall.png">
-  <link rel="stylesheet" href="stylesheets/tritonMobile.css">
+  <link rel="icon" href="../images/tritonIconSmall.png">
+  <link rel="stylesheet" href="../stylesheets/tritonMobile.css">
   <!-- Include jQuery Mobile stylesheets -->
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
   <!-- Include the jQuery library -->
 
   <!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/> -->
-  <link rel="stylesheet" type="text/css" href="slick/slick/slick.css">
-  <link rel="stylesheet" type="text/css" href="slick/slick/slick-theme.css">
+  <link rel="stylesheet" type="text/css" href="../slick/slick/slick.css">
+  <link rel="stylesheet" type="text/css" href="../slick/slick/slick-theme.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400" rel="stylesheet">
 </head>
-<body>
-  <div data-role="page" id="exhibit" ng-app="mobileIndex">
+<body ng-app="mobileIndex">
+  <div data-role="page" id="exhibit" >
     <div data-role="header" data-position="fixed" id="header">
       <a href="#sidebar" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-notext"></a>
       <h1 id="pageTitle"> Triton </h1>
       <a href="#keypad" class="ui-btn ui-btn-inline ui-icon-grid ui-btn-icon-notext"></a>
     </div>
     <div data-role="panel" id="sidebar">
-      <a href="#home"> Home </a>
+      <a href="mobileHome.html"> Home </a>
     </div>
     <div data-role="panel" id="keypad" data-position="right">
       <input type="number" placeholder="101">
     </div>
     <div data-role="main" class="ui-content" id="main1">
       <div width="100%" style="text-align: center" id="imgContainer">
-        <img src="images/tracery_one.jpg" id="image1">
+        <img src="../images/tracery_one.jpg" id="image1">
       </div>
-      <div class="regular slider" ng-controller="slideInfo">
-        <div class="slide">
-          <h2> {{ title }} </h2>
-          <h3> {{ summary }} </h3>
-          <!-- <p style="text-align: right"> > </p> -->
-        </div>
-        <div class="slide">
-          <h2> {{title}} </h2>
-          <p> {{ slide2 }} </p>
-          <!-- <p style="text-align: right"> > </p> -->
-        </div>
-        <div class="slide">
-          <h2> {{ title }} </h2>
-          <p> {{ slide3 }} </p>
-          <!-- <p style="text-align: right"> > </p> -->
-        </div>
-        <div class="slide">
-          <h2> Tracery One: Details </h2>
-          <table id="details">
-            <tr>
-              <td> <b> Title: </b> {{ title }} </td>
 
-            </tr>
-            <tr>
-              <td> <b> Artist: </b> {{ artist }} </td>
-            </tr>
-            <tr>
-              <td> <b> Genre: </b> {{ genre }}  </td>
-
-            </tr>
-            <tr>
-              <td> <b>Media:</b> {{ media }} </td>
-            </tr>
-            <tr>
-              <td> <b> Year: </b> {{ year }} </td>
-            </tr>
-          </table>
-          <!-- <p style="text-align: right"> > </p> -->
+      <div id="slider" class="regular slider" ng-controller="slideInfo">
+        <div>
+          <h1> {{ title }} </h1>
+          <h3> {{ slides[0] }} </h1>
+        </div>
+        <div>
+          <h1> {{ title }} </h1>
+          <h3> {{ slides[1] }} </h1>
+        </div>
+        <div>
+          <h1> {{ title }} </h1>
+          <h3> {{ slides [2] }} </h1>
+        </div>
+        <div>
+          <h1> {{ title }}: Details </h1>
+          <p> Title: {{title}} <br>
+            Artist: {{artist}} <br>
+          </p>
         </div>
       </div>
       <div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
@@ -96,10 +77,10 @@
   <!-- Include the jQuery Mobile library -->
   <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
   <!-- Slick slider -->
-  <script type="text/javascript" src="slick/slick/slick.js"></script>
+  <script type="text/javascript" src="../slick/slick/slick.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-  <script type="text/javascript" src="scripts/mobile.js"></script>
+  <script type="text/javascript" src="../scripts/mobile.js"></script>
 </body>
 </html>
