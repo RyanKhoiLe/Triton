@@ -32,7 +32,7 @@
         <img src="../images/tracery_one.jpg" id="image1">
       </div>
 
-      <div id="slider" class="regular slider" ng-controller="slideInfo">
+      <!-- <div id="slider" class="regular slider" ng-controller="slideInfo">
         <div>
           <h1> {{ title }} </h1>
           <h3> {{ slides[0] }} </h1>
@@ -51,25 +51,30 @@
             Artist: {{artist}} <br>
           </p>
         </div>
-      </div>
-      <div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
+      </div> -->
+      <div ng-controller="slideInfo" data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
         <h2> Comments </h2>
         <a href="#commentDialog" class="ui-btn "> Add a Comment </a>
+        <div style="text-align: center" ng-repeat="comment in comments">
+          <h2> {{ comment.name }} says: </h2>
+          <h3> {{ comment.comment }} </h3>
+          <p> {{ comment.time }} </p>
+        </div>
       </div>
     </div>
     <!-- <div data-role="footer" style="text-align: center" >
 
     </div> -->
   </div>
-  <div data-role="page" data-dialog="true" id="commentDialog">
+  <div data-role="page" data-dialog="true" id="commentDialog" ng-controller="commentPost">
     <div data-role="header">
       <h1> New comment </h1>
     </div>
     <div data-role="main" class="ui-content">
       <form>
-        <input id="name" type="text" placeholder="Name: Anonymous" />
-        <textarea id="comment" placeholder="Comment: I love the Triton, and this piece is fantastic." rows="5" columns="30"></textarea>
-        <button type="submit" class="ui-btn"> Post </button>
+        <input id="name" ng-model="name" type="text" placeholder="Name: Anonymous" />
+        <textarea id="comment" ng-model="comment" placeholder="Comment: I love the Triton, and this piece is fantastic." rows="5" columns="30"></textarea>
+        <button ng-click="postComment()" class="ui-btn"> Post </button>
       </form>
     </div>
   </div>

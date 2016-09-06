@@ -16,6 +16,7 @@ $(document).on("pagecreate", function(){
     app.controller("mobileHome", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
       $scope.fbID = window.location.href.substring(window.location.href.indexOf("?") + 4);
       $scope.title = "HELLO!";
+      $scope.logo = "../images/tritonLogo.png";
       // function makeExhibit(title, artist, id){
       //   this.title = title;
       //   this.artist = artist;
@@ -39,7 +40,33 @@ $(document).on("pagecreate", function(){
       // console.log($scope.exhibitList);
       // console.log($scope.exhibitList[2]);
       $scope.ExhibitList = $firebaseArray(exhibitRef);
+      $scope.imagesUpdated = false;
+      $scope.ExhibitList.$loaded().then(function(){
+        angular.forEach($scope.ExhibitList, function(exhibit){
+          if(exhibit.exhibitImage){
+            console.log(exhibit);
+            var imgPath = exhibit.exhibitImage;
+            console.log(imgPath);
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+
+            storageRef.child(imgPath).getDownloadURL().then(function(url){
+              var test = url;
+              exhibit.exhibitImage = test;
+              document.getElementById(exhibit.title).setAttribute('src', test);
+              console.log(exhibit.exhibitImage);
+              console.log(ExhibitList);
+            }).catch(function(error){
+
+            });
+
+          }
+        });
+        $scope.imagesUpdated = true;
+      });
+
       console.log($scope.ExhibitList);
+      //$scope.$apply();
     }]);
 
     app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $firebaseArray){
@@ -84,7 +111,8 @@ $(document).on("pagecreate", function(){
             // }
           }
         });
-
+        var commentRef = firebase.database().ref().child("exhibits").child(fbID).child("comments");
+        $scope.comments = $firebaseArray(commentRef);
         console.log($scope.title);
         //console.log(exhibitData);
         console.log(exhibitData);
@@ -114,8 +142,93 @@ $(document).on("pagecreate", function(){
         // //document.getElementById("angularContainer").appendChild(slider);
 
         $scope.$apply();
-
       });
+
+    }]);
+
+    app.controller("commentPost", ["$scope","$firebaseArray", function($scope,$firebaseArray){
+      $scope.name = "";
+      $scope.comment ="";
+      function getTimeStamp(){
+        var now = new Date();
+        var date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
+        var time = [now.getHours(), now.getMinutes()];
+        var suffix = (time[0] < 12) ? "AM" : "PM";
+        time[0] = (time[0] < 12) ? time[0] : time[0] - 12;
+
+        for(var i = 1; i < 3; i++){
+          if(time[i] < 10) {
+            time[i] = "0" + time[i];
+          }
+        }
+
+        return date.join("/") + ", " + time.join(":") + " " + suffix;
+      }
+      $scope.postComment = function(){
+        var time = getTimeStamp();
+        var name = $scope.name;
+        var comment = $scope.comment;
+        var badWords = ["fuck", "shit", "cock", "dick", "pussy", "bitch", "ass", "<", ">"]; //excuse the language, gotta filter it out!
+        for( var i = 0; i < badWords.length; i++){
+          if(name.includes(badWords[i])){
+            if(name.charAt(name.indexOf(badWords[i])) == 0){
+              if(name.charAt(name.indexOf(badWords[i]) + 1) == ' ' || name.charAt(name.indexOf(badWords[i]) + 1) == ',' || name.charAt(name.indexOf(badWords[i]) + 1) == '.'){
+                $scope.comment += "\n I'm sorry, your name includes inappropriate language.";
+                return;
+              }
+            }
+            if(name.charAt(name.indexOf(badWords[i] - 1)) == " " && name.charAt(name.indexOf(badWords[i]) + badWords[i].length) == " "){
+              $scope.comment += "\n I'm sorry, your name includes inappropriate language.";
+              return;
+            }
+            if(name.charAt(name.indexOf(badWords[i] - 1)) == " " && name.indexOf(badWords[i]) + badWords[i].length == name.length){
+              $scope.comment += "\n I'm sorry, your name includes inappropriate language.";
+              return;
+            }
+          }
+          if(comment.includes(badWords[i])){
+            if(comment.charAt(comment.indexOf(badWords[i])) == 0){
+              if(comment.charAt(comment.indexOf(badWords[i]) + 1) == ' ' || comment.charAt(comment.indexOf(badWords[i]) + 1) == ',' || comment.charAt(comment.indexOf(badWords[i]) + 1) == '.'){
+                $scope.comment += "\n I'm sorry, your comment includes inappropriate language.";
+                return;
+              }
+            }
+            if(comment.charAt(comment.indexOf(badWords[i] - 1)) == " " && comment.charAt(comment.indexOf(badWords[i]) + badWords[i].length) == " "){
+              $scope.comment += "\n I'm sorry, your comment includes inappropriate language.";
+              return;
+            }
+            if(comment.charAt(comment.indexOf(badWords[i] - 1)) == " " && comment.indexOf(badWords[i]) + badWords[i].length == comment.length){
+              $scope.comment += "\n I'm sorry, your comment includes inappropriate language.";
+              return;
+            }
+          }
+        }
+        var ref = firebase.database().ref();
+        var thisUrl = window.location.href;
+        var idQ = thisUrl.indexOf('?');
+        var idStartAt = idQ + 4;
+        var idEnd = thisUrl.indexOf("#");
+        var fbID = thisUrl.substring(idStartAt, idEnd);
+        console.log(fbID);
+        if(comment){
+          if(name === ''){
+            name = "Anonymous";
+          }
+
+          firebase.database().ref('exhibits/' + fbID + '/comments').push({
+            name: $scope.name,
+            comment: $scope.comment,
+            time: time,
+            flagged: 0
+          },function(){
+            $scope.name = '';
+            $scope.comment = '';
+            window.location.href = "mobileIndex.html?id="+fbID;
+          });
+        }
+
+
+      }
     }]);
   })();
 

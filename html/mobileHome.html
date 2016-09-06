@@ -27,9 +27,21 @@
     <div data-role="panel" id="keypad" data-position="right">
       <input type="number" placeholder="101">
     </div>
-    <div data-role="main" ng-controller="mobileHome" class="ui-content" id="mainHome">
-      <img src="../images/tritonLogo.png" width="100%">
-      <a href="mobileIndex.html?id={{exhibit.$id}}" ng-repeat="exhibit in ExhibitList"><h1> {{exhibit.title}} </h1> </a>
+    <div data-role="main" ng-controller="mobileHome" id="mainHome">
+      <img ng-src="{{logo}}" width="100%">
+      <h1> Click the number pad in the upper right corner to search! </h1>
+      <h2><b>Links to exhibits </b></h2>
+      <div id="ListOfExhibits">
+        <div class="exhibitLink" ng-repeat="exhibit in ExhibitList">
+          <a ng-href="mobileIndex.html?id={{exhibit.$id}}">
+          <div class="linkBanner">
+            <h3 class="linkCode"> {{exhibit.exhibitCode}}</h3>
+            <h1 class="linkTitle"> {{exhibit.title}} - {{exhibit.artist}} </h1>
+          </div>
+          <img class="imageLink" id="{{exhibit.title}}" ng-if="imagesUpdated">
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -57,3 +57,44 @@ p{
   /*padding-bottom: -5px;*/
   /*box-shadow: 1px 1px 2px rgba(100,100,100,0.2);*/
 }
+.imageLink{
+  width: 100%;
+
+}
+.linkBanner{
+  position: absolute;
+  float: left;
+  margin: 0;
+  padding: 0px;
+  z-index: 2;
+  height: 80px;
+  width: 100%;
+  background-color: rgba(250,23,62,0.8);
+  text-decoration: none;
+  color: black;
+}
+.linkCode{
+  position: relative;
+  top: 20px;
+  left: 20px;
+  text-decoration: none;
+}
+.linkTitle{
+  position: relative;
+  top: -30px;
+  text-align: right;
+  padding-right: 20px;
+  text-decoration: none;
+  z-index: 1;
+}
+.exhibitLink{
+  /*border: 1px solid green;*/
+  position: static;
+  float: left;
+  margin: 0;
+  padding: 0px;
+  width: 100%;
+}
+#mainHome{
+  overflow-y: hidden;
+}
