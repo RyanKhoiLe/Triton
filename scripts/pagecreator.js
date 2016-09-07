@@ -10,7 +10,7 @@
     firebase.initializeApp(config);
   });
 
-  app.controller("createNewPage", ["$scope", function($scope){
+  app.controller("createNewPage", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
     $scope.numberOfSlides = 3;
     $scope.oneImage = true;
     $scope.exhibitSelect = "";
@@ -28,6 +28,8 @@
     $scope.exhibitImage = "";
     $scope.showModal = false;
     $scope.inputtedExhibit = "";
+    $scope.allExhibits = $firebaseArray(firebase.database().ref('exhibits'));
+    console.log($scope.allExhibits);
 
     for(var i = 0; i < 10; i++){
       $scope.slideIds.push(false);
@@ -93,6 +95,9 @@
         }
         console.log(slides);
         if(title && exhibitCode && slides){
+          firebase.database().ref("allExhibits/").push({
+            exhibit: exhibit
+          });
           var key = firebase.database().ref('exhibits/').push({
             title: title,
             artist: artist,
