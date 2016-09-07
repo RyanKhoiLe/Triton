@@ -107,7 +107,7 @@
         return exhibitsArray;
       }
       var exhibitNum = 0;
-      var trashIcon = 'images/trash.png';
+      var trashIcon = 'images/icons/trash.png';
       function createExhibitLink(exhibit){ //loop through array??
         var newSearchResult = document.createElement('div');
         var searchTable = document.getElementById("searchTable");
@@ -144,7 +144,8 @@
           var storageRef = storage.ref();
 
           var thisNum = exhibitNum;
-          if(exhibit.img !=''){
+          console.log(exhibit.img);
+          if(exhibit.img){
             var spaceRef = storageRef.child(exhibit.img);
             storageRef.child(exhibit.img).getDownloadURL().then(function(url){
               var test = url;
@@ -164,7 +165,7 @@
 
         exhibitTextContent.push(textContent);
         newButton.setAttribute('class','delete');
-        newButton.innerHTML = "<img class='icon' src='images/trash.png'>";
+        newButton.innerHTML = "<img class='icon' src='images/icons/trash.png'>";
         newButton.onclick = function(){
           alertDelete(exhibit, thisNum);
         };
@@ -244,9 +245,9 @@
       <div id="navBar">
         <a class="navBarLink"  href="edithome.html"> database home </a>
         <a class="navBarLink"  href="databaseExplorer.html" style="text-decoration: underline"> page editor </a>
-        <a class="navBarLink"  href="pagecreator.html"> page creator </a>
+        <a class="navBarLink"  href="pagecreatorMobile.html"> page creator </a>
         <a class="navBarLink" href="commentExplorer.html"> comment moderator </a>
-        <a class="navBarLink" href="index.html"> triton database home </a>
+        <a class="navBarLink" href="mobileHome.html"> triton database home </a>
         <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
       </div>
     </div>

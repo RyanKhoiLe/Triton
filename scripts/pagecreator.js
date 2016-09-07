@@ -72,10 +72,10 @@
         year = $scope.year,
         genre = $scope.genre,
         media = $scope.media,
-        //exhibitImage = $scope.exhibitImage,
-        //videos = $scope.videos,
-        //timeStamp = getTimeStamp(),
-        //exhibitAudio = $scope.exhibitAudio,
+        exhibitImage = document.getElementById("exhibitImage").value,
+        videos = $scope.videos,
+        timeStamp = getTimeStamp(),
+        exhibitAudio = document.getElementById("exhibitAudio").value,
         exhibitCode = $scope.exhibitCode,
         exhibit = $scope.exhibitSelect,
         slides = [];
@@ -99,14 +99,14 @@
             year: year,
             genre: genre,
             media: media,
-            //exhibitImage: exhibitImage,
-            //videos: videos,
-            //timeStamp: timeStamp,
+            exhibitImage: exhibitImage,
+            videos: videos,
+            timeStamp: timeStamp,
             views: 0,
             exhibitCode: exhibitCode,
             slides: slides,
-            exhibit: exhibit
-            //exhibitAudio: exhibitAudio
+            exhibit: exhibit,
+            exhibitAudio: exhibitAudio
           }, function(){
             console.log("successfully written to khoi le's firebase");
             $scope.showModal = true;

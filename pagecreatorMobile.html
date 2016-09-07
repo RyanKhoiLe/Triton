@@ -150,6 +150,7 @@
             <label for='audioUpload' id='audioUploadLabel'>Choose a file</label>
             <p id='percentUpload'>No file selected</p>
             <input type="text" id="exhibitAudio" style='float:none' placeholder="audio/[filename].mp3">
+
             <script>
 
               var imageUpload = document.getElementById("audioUpload");
@@ -199,6 +200,7 @@
             <label for='imageUpload' id='imageUploadLabel'>Choose a file</label>
             <p id='percentUploadImage'>No file selected</p>
             <input type="text" id="exhibitImage" placeholder="images/[filename].jpg">
+            
             <script>
 
               var imageUpload = document.getElementById("imageUpload");
@@ -220,10 +222,11 @@
                     var percentUploadImage = document.getElementById("percentUploadImage");
                     percentUploadImage.textContent = "Successfully uploaded!";
                     var imagePath = document.getElementById("exhibitImage");
+                    console.log(imagePath);
                     imagePath.value = "images/"+storageRef.name;
                     console.log("successfully uploaded"); //Khoi Le
                     var newImg = document.createElement("img");
-                    newImg.style.maxwidth = '80%';
+                    newImg.style.maxwidth = '600px';
                     console.log(firstFile.name);
                     var newPreview = document.createElement("p");
                     newPreview.textContent = 'Image preview:';

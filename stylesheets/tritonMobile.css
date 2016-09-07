@@ -4,10 +4,15 @@ html{
 body{
   font-family: "Roboto", sans-serif;
   height: 100%;
+  max-width: 100%:
+  overflow: hidden;
 }
 #header{
   background-color: rgba(250,23,62,1);
   font-family: "Roboto", sans-serif;
+  box-shadow: 0px 2px 3px rgba(100,100,100,0.5);
+  border: none;
+  font-size: 18px;
 }
 #pageTitle{
   text-shadow: none;
@@ -82,16 +87,18 @@ p{
   text-shadow: none;
   text-decoration: none;
   font-size: 12px;
+  overflow: hidden;
 }
 .linkTitle{
   position: relative;
   top: -30px;
   text-align: right;
-  padding-right: 20px;
+  right: 20px;
   text-shadow: none;
   text-decoration: none;
   z-index: 1;
   font-size: 16px;
+  overflow: hidden;
 }
 .exhibitLink{
   /*border: 1px solid green;*/
@@ -101,7 +108,16 @@ p{
   margin: 0;
   padding: 0px;
   width: 100%;
+  overflow: hidden;
 }
 #mainHome{
   overflow-y: hidden;
+}
+.padding{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.centered{
+  display: block;
+  margin: 0 auto;
 }

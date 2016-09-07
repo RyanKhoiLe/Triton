@@ -29,10 +29,11 @@
     </div>
     <div data-role="main" class="ui-content" id="main1">
       <div width="100%" style="text-align: center" id="imgContainer">
-        <img src="../images/tracery_one.jpg" id="image1">
+        <img ng-src="{{ exhibitImage }}" id="image1">
+        <audio controls id="exhibitAudio" ng-if="exhibitAudio"> No audio in this browser </audio>
       </div>
 
-      <!-- <div id="slider" class="regular slider" ng-controller="slideInfo">
+      <div id="slider" class="regular slider" ng-controller="slideInfo">
         <div>
           <h1> {{ title }} </h1>
           <h3> {{ slides[0] }} </h1>
@@ -47,16 +48,30 @@
         </div>
         <div>
           <h1> {{ title }}: Details </h1>
-          <p> Title: {{title}} <br>
-            Artist: {{artist}} <br>
-          </p>
+          <table>
+            <tr>
+              <td>Title: {{title}} </td>
+            </tr>
+            <tr>
+              <td> Artist: {{artist}} </td>
+            </tr>
+            <tr ng-if="year">
+              <td> Year: {{year}} </td>
+            </tr>
+            <tr ng-if="media">
+              <td> Media: {{ media }} </td>
+            </tr>
+            <tr ng-if="genre">
+              <td> Genre: {{ genre }} </td>
+            </tr>
+          </table>
         </div>
-      </div> -->
+      </div>
       <div ng-controller="slideInfo" data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
         <h2> Comments </h2>
         <a href="#commentDialog" class="ui-btn "> Add a Comment </a>
         <div style="text-align: center" ng-repeat="comment in comments">
-          <h2> {{ comment.name }} says: </h2>
+          <h3> <i> {{ comment.name }} says: </i> </h2>
           <h3> {{ comment.comment }} </h3>
           <p> {{ comment.time }} </p>
         </div>

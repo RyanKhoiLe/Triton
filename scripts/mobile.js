@@ -98,17 +98,18 @@ $(document).on("pagecreate", function(){
             // if(key==='symbols'){
             //   $scope.symbols = exhibitData.symbols.split(';');
             // }
-            // if(key==='exhibitImage'){
-            //   var storage = firebase.storage();
-            //   var storageRef = storage.ref();
-            //   var spaceRefAudio = storageRef.child(exhibitData[key]);
-            //   storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
-            //     var test = url;
-            //     $scope.exhibitImage = test;
-            //     console.log($scope.exhibitImage);
-            //   }).catch(function(error){
-            //   });
-            // }
+            if(key==='exhibitImage'){
+              var storage = firebase.storage();
+              var storageRef = storage.ref();
+              var spaceRefAudio = storageRef.child(exhibitData[key]);
+              storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
+                var test = url;
+                $scope.exhibitImage = test;
+                document.getElementById("image1").setAttribute("src", test);
+                console.log($scope.exhibitImage);
+              }).catch(function(error){
+              });
+            }
           }
         });
         var commentRef = firebase.database().ref().child("exhibits").child(fbID).child("comments");
