@@ -35,6 +35,7 @@ td{
   background-color: rgba(250,23,62,0.9);
   box-shadow: 0px 2px 3px rgba(100,100,100,0.5);
   text-align: center;
+  z-index: 2;
 }
 #headerTitle{
   font-size: 40px;
@@ -67,7 +68,7 @@ td{
   width: 0;
   position: fixed;
   z-index: 3;
-  top: 0;
+  top: 50px;
   left: 0;
   background-color: rgba(20,20,20,0.95);
   overflow-x: hidden;

@@ -1,8 +1,17 @@
+var sidebarOpen = false;
 function openSideNav(){
+  console.log("clicked");
+  if(sidebarOpen){
+    console.log('it is open!');
+    closeNav();
+    return;
+  }
   document.getElementById("sidenav").style.width = "250px";
+  sidebarOpen = true;
 }
 function closeNav(){
   document.getElementById("sidenav").style.width = "0";
+  sidebarOpen = false;
 }
 var app = angular.module("app", ["ngRoute", "firebase"]);
 
