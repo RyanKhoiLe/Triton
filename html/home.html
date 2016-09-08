@@ -1,10 +1,12 @@
 <!-- <a href="#exhibit"> Exhibit </a> -->
+<link rel="stylesheet" type="text/css" href="../stylesheets/tritonMobileYES.css">
+
 <img class="padding centered" ng-src="{{logo}}" width="90%">
 <h1 class="padding"> Click the number pad in the upper right corner to search! </h1>
 <h2 class="padding"><b>Links to exhibits </b></h2>
 <div id="ListOfExhibits">
   <div class="exhibitLink" ng-repeat="exhibit in ExhibitList">
-    <a ng-href="#exhibit?id={{exhibit.$id}}">
+    <a ng-href="#exhibit?id={{exhibit.$id}}" onclick="newPage()">
       <!-- mobileIndex.html?id={{exhibit.$id}} -->
       <div class="linkBanner">
         <h3 class="linkCode"> {{exhibit.exhibitCode}}</h3>

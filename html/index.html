@@ -21,16 +21,20 @@
 <body ng-app="app">
   <header>
     <div id="navBar">
-      <a href="" onclick="openSideNav()"><i class="fa fa-bars" id="sidebarButton"></i></a>
-      <a href="#"><i class="fa fa-search" id="keypadButton"></i></a>
+      <a href="javascript:void(0)" onclick="openSideNav()"><i class="fa fa-bars" id="sidebarButton"></i></a>
+      <a href="javascript:void(0)" onclick="openKeypad()"><i class="fa fa-search" id="keypadButton"></i></a>
       <a href="#" id="headerTitle"> Triton </a>
     </div>
   </header>
   <div id="sidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">Home</a>
-    <a href="#about">About Triton</a>
-    <a href="#contact">Contact Triton</a>
+    <a href="#" onclick="newPage()">Home</a>
+    <a href="#about" onclick="newPage()">About Triton</a>
+    <a href="#contact" onclick="newPage()">Contact Triton</a>
+  </div>
+  <div id="keypad" class="keypad">
+    <a href="javascript:void(0)" class="closebtn1" onclick="closeKeypad()">&times;</a>
+    <input type="number" placeholder="101" />
   </div>
   <div id="main" ng-controller="mainController">
 

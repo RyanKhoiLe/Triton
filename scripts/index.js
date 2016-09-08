@@ -1,4 +1,5 @@
 var sidebarOpen = false;
+var keypadOpen = false;
 function openSideNav(){
   console.log("clicked");
   if(sidebarOpen){
@@ -14,6 +15,31 @@ function closeNav(){
   document.getElementById("sidenav").style.width = "0";
   document.getElementById("sidebarButton").style.color = "black";
   sidebarOpen = false;
+}
+function newPage(){
+  closeNav();
+  closeSlick();
+}
+function closeSlick(){
+  $(document).ready(function(){
+    $('.regular').slick('unslick');
+  });
+}
+function openKeypad(){
+  console.log("clicked");
+  if(keypadOpen){
+    console.log('it is open!');
+    closeNav();
+    return;
+  }
+  document.getElementById("keypad").style.width = "250px";
+  document.getElementById("keypadButton").style.color = "white";
+  keypadOpen = true;
+}
+function closeKeypad(){
+  document.getElementById("keypad").style.width = "0";
+  document.getElementById("keypadButton").style.color = "black";
+  keypadOpen = false;
 }
 var app = angular.module("app", ["ngRoute", "firebase"]);
 
