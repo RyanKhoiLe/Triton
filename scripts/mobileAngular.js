@@ -1,9 +1,33 @@
 $(document).on("pagecreate", function(){
 
   (function(){
-    var app = angular.module("mobileIndex", ["firebase"]); //
+    var app = angular.module("mobileIndex", ["firebase", "ngRoute"]); //
 
-    app.config(function(){ //
+    app.config(function($routeProvider){ //
+      // $urlRouterProvider.otherwise('html/mobileHome.html');
+      // $stateProvider
+      //   .state('home', {
+      //     url: '/',
+      //     templateUrl: 'mobileHomeAngular.html',
+      //     controller: 'mobileHome'
+      //   })
+      //   .state('exhibit', {
+      //     url: 'html/mobileIndexAngular.html?id',
+      //     templateUrl: 'mobileIndexAngular.html',
+      //     controller: function($scope, $stateParams){
+      //       $scope.id = $stateParams.id;
+      //     }
+      //   });
+      $routeProvider
+
+        .when('/', {
+          templateUrl: "home.html",
+          controller: "mobileHome"
+        })
+        .when('/exhibit', {
+          templateUrl: "exhibit.html",
+          controller: "slideInfo"
+        });
 
       var config = {
         apiKey: "AIzaSyCH2GOoz3WtmgKC8gs9-P0eHk02-sX9vS0",
@@ -119,7 +143,6 @@ $(document).on("pagecreate", function(){
         console.log($scope.title);
         //console.log(exhibitData);
         console.log(exhibitData);
-
         // var slider = document.getElementById("slider");
         // //slider.setAttribute("class", "regular slider");
         // for(var i = 0; i < $scope.slides.length; i++){
@@ -242,9 +265,4 @@ $(document).on("pagecreate", function(){
     focusOnSelect: false
   });
 
-
 });
-
-function closeSlick(){
-  $('.regular').slick('unslick');
-}

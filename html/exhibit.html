@@ -1,0 +1,57 @@
+<script type="text/javascript" src="../slick/slick/slick.js"></script>
+<link rel="stylesheet" type="text/css" href="../slick/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="../slick/slick/slick-theme.css">
+
+<div>
+  BOIIIII
+</div>
+<div width="100%" style="text-align: center" id="imgContainer">
+  <h1>{{ title }}</h1>
+  <img  id="image1">
+  <audio controls id="exhibitAudio" ng-if="exhibitAudio"> No audio in this browser </audio>
+</div>
+
+<div id="slider" class="regular slider">
+  <div>
+    <h1 ng-bind="title">  </h1>
+    <h3 ng-bind="slides[0]">  </h1>
+  </div>
+  <div>
+    <h1 ng-bind="title">  </h1>
+    <h3 ng-bind="slides[1]"></h1>
+  </div>
+  <div>
+    <h1 ng-bind="title">  </h1>
+    <h3 ng-bind="slides[2]">  </h3>
+  </div>
+  <div>
+    <h1 ng-bind="title + ': Details'">  </h1>
+    <table>
+      <tr>
+        <td ng-bind="'Title: ' + title"></td>
+      </tr>
+      <tr>
+        <td ng-bind="'Artist: ' + artist"> </td>
+      </tr>
+      <tr ng-if="year">
+        <td ng-bind="'Year: ' + year"> </td>
+      </tr>
+      <tr ng-if="media">
+        <td ng-bind="'Media: ' + media"> </td>
+      </tr>
+      <tr ng-if="genre">
+        <td ng-bind="'Genre: ' + genre"> </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div ng-controller="slideInfo" data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
+  <h2> Comments </h2>
+  <a href="#commentDialog" class="ui-btn "> Add a Comment </a>
+  <div style="text-align: center" ng-repeat="comment in comments">
+    <h3> <i> {{ comment.name }} says: </i> </h2>
+    <h3> {{ comment.comment }} </h3>
+    <p> {{ comment.time }} </p>
+  </div>
+</div>
+</div>

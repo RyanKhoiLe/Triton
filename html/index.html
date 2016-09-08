@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<head>
+  <title> Triton </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/tritonMobileYES.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="../images/tritonIconSmall.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="../slick/slick/slick.css">
+  <link rel="stylesheet" type="text/css" href="../slick/slick/slick-theme.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="../slick/slick/slick.js"></script>
+  <script src="../scripts/index.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400" rel="stylesheet">
+</head>
+<body ng-app="app">
+  <header>
+    <div id="navBar">
+      <a href="#" onclick="openSideNav()"><i class="fa fa-bars" id="sidebarButton"></i></a>
+      <a href="#"><i class="fa fa-search" id="keypadButton"></i></a>
+      <a href="#" id="headerTitle"> Triton </a>
+    </div>
+  </header>
+  <div id="sidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Home</a>
+    <a href="#about">About Triton</a>
+    <a href="#contact">Contact Triton</a>
+  </div>
+  <div id="main" ng-controller="mainController">
+
+    <div ng-view> </div>
+  </div>
+</body>
+</html>

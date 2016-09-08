@@ -1,15 +1,15 @@
-15<!DOCTYPE HTML>
+<!-- <!DOCTYPE HTML>
 <head>
   <title> Exhibit Mobile Swipe </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="icon" href="../images/tritonIconSmall.png">
   <link rel="stylesheet" href="../stylesheets/tritonMobile.css">
-  <!-- Include jQuery Mobile stylesheets -->
+  Include jQuery Mobile stylesheets
   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-  <!-- Include the jQuery library -->
+  Include the jQuery library
 
-  <!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/> -->
+  <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
   <link rel="stylesheet" type="text/css" href="../slick/slick/slick.css">
   <link rel="stylesheet" type="text/css" href="../slick/slick/slick-theme.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400" rel="stylesheet">
@@ -17,19 +17,19 @@
 <body ng-app="mobileIndex">
   <div data-role="page" id="exhibit" >
     <div data-role="header" data-position="fixed" id="header">
-      <a href="#sidebar" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-notext"></a>
+      <a href="#sidebar" data-transition="overlay" class="ui-btn ui-btn-inline ui-icon-info ui-btn-icon-notext"></a>
       <h1 id="pageTitle"> Triton </h1>
-      <a href="#keypad"  class="ui-btn ui-btn-inline ui-icon-grid ui-btn-icon-notext"></a>
+      <a href="#keypad" data-transition="overlay" class="ui-btn ui-btn-inline ui-icon-grid ui-btn-icon-notext"></a>
     </div>
-    <div data-role="panel" data-display="overlay" id="sidebar">
-      <a href="mobileHome.html" onclick="closeSlick()"> Home </a>
+    <div data-role="panel" id="sidebar">
+      <a href="mobileHome.html"> Home </a>
     </div>
-    <div data-role="panel" data-display="overlay" id="keypad" data-position="right">
+    <div data-role="panel" id="keypad" data-position="right">
       <input type="number" placeholder="101">
     </div>
-    <div data-role="main" class="ui-content" id="main1"  ng-controller="slideInfo">
+    <div data-role="main" class="ui-content" id="main1"  ng-controller="slideInfo"> -->
       <div width="100%" style="text-align: center" id="imgContainer">
-        <h1 class='titleText'>{{ title }}</h1>
+        <h1>{{ title }}</h1>
         <img  id="image1">
         <audio controls id="exhibitAudio" ng-if="exhibitAudio"> No audio in this browser </audio>
       </div>
@@ -81,7 +81,7 @@
     <!-- <div data-role="footer" style="text-align: center" >
 
     </div> -->
-  </div>
+  <!-- </div> -->
   <div data-role="page" data-dialog="true" id="commentDialog" ng-controller="commentPost">
     <div data-role="header">
       <h1> New comment </h1>
@@ -94,14 +94,15 @@
       </form>
     </div>
   </div>
-  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <!-- Include the jQuery Mobile library -->
+  <!-- <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  Include the jQuery Mobile library
   <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <!-- Slick slider -->
+  Slick slider
   <script type="text/javascript" src="../slick/slick/slick.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-  <script type="text/javascript" src="../scripts/mobile.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="../scripts/mobileAngular.js"></script>
 </body>
-</html>
+</html> -->

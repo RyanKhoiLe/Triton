@@ -27,21 +27,11 @@
     <div data-role="panel" id="keypad" data-position="right">
       <input type="number" placeholder="101">
     </div>
-    <div data-role="main" ng-controller="mobileHome" id="mainHome">
-      <img class="padding centered" ng-src="{{logo}}" width="90%">
-      <h1 class="padding"> Click the number pad in the upper right corner to search! </h1>
-      <h2 class="padding"><b>Links to exhibits </b></h2>
-      <div id="ListOfExhibits">
-        <div class="exhibitLink" ng-repeat="exhibit in ExhibitList">
-          <a ng-href="mobileIndex.html?id={{exhibit.$id}}">
-          <div class="linkBanner">
-            <h3 class="linkCode"> {{exhibit.exhibitCode}}</h3>
-            <h1 class="linkTitle"> {{exhibit.title}} - {{exhibit.artist}} </h1>
-          </div>
-          <img class="imageLink" id="{{exhibit.title}}" ng-if="imagesUpdated">
-          </a>
-        </div>
+    <div data-role="main" id="mainHome">
+      <a href="#exhibit"> EXHIBIT </a>
+      <div ng-view>
       </div>
+
     </div>
   </div>
 
@@ -53,7 +43,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-  
-  <script type="text/javascript" src="../scripts/mobile.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script type="text/javascript" src="../scripts/mobileAngular.js"></script>
 </body>
 </html>
