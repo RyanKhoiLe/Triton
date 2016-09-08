@@ -7,10 +7,12 @@ function openSideNav(){
     return;
   }
   document.getElementById("sidenav").style.width = "250px";
+  document.getElementById("sidebarButton").style.color = "white";
   sidebarOpen = true;
 }
 function closeNav(){
   document.getElementById("sidenav").style.width = "0";
+  document.getElementById("sidebarButton").style.color = "black";
   sidebarOpen = false;
 }
 var app = angular.module("app", ["ngRoute", "firebase"]);
