@@ -35,8 +35,10 @@
   </div>
   <div id="keypad" class="keypad" ng-controller="mobileHome">
     <a href="javascript:void(0)" class="closebtn1" onclick="closeKeypad()">&times;</a>
-    <input type="number" placeholder="101" ng-model="exhibitCode"/>
-    <button class="btn btn-primary" ng-click="goToExhibit()"> Go </button>
+    <form ng-submit="event.preventDefault(); goToExhibit()">
+      <input type="number" placeholder="101" ng-model="exhibitCode"/>
+      <button class="btn btn-primary" type="submit"> Go </button>
+    </form>
   </div>
   <div id="main" ng-controller="mainController">
 
