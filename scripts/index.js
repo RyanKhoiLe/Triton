@@ -1,5 +1,16 @@
 var sidebarOpen = false;
 var keypadOpen = false;
+var commentOpen = false;
+function toggleComment(){
+  if(!commentOpen){
+    document.getElementById("showComment").innerHTML = "<i class='fa fa-caret-up' style='padding-right: 5px;'></i> Hide Comments ";
+    commentOpen = true;
+  }
+  else if(commentOpen){
+    document.getElementById("showComment").innerHTML = "<i class='fa fa-caret-down' style='padding-right: 5px;'></i> Show Comments ";
+    commentOpen = false;
+  }
+}
 function openSideNav(){
   console.log("clicked");
   if(sidebarOpen){
@@ -29,7 +40,7 @@ function openKeypad(){
   console.log("clicked");
   if(keypadOpen){
     console.log('it is open!');
-    closeNav();
+    closeKeypad();
     return;
   }
   document.getElementById("keypad").style.width = "250px";
@@ -162,7 +173,98 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
     console.log($scope.title);
     //console.log(exhibitData);
     console.log(exhibitData);
+
     $scope.$apply();
   });
+  $scope.name = "";
+  $scope.comment ="";
+  function getTimeStamp(){
+    var now = new Date();
+    var date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
+    var time = [now.getHours(), now.getMinutes()];
+    var suffix = (time[0] < 12) ? "AM" : "PM";
+    time[0] = (time[0] < 12) ? time[0] : time[0] - 12;
+
+    for(var i = 1; i < 3; i++){
+      if(time[i] < 10) {
+        time[i] = "0" + time[i];
+      }
+    }
+
+    return date.join("/") + ", " + time.join(":") + " " + suffix;
+  }
+    $scope.postComment = function(){
+      var time = getTimeStamp();
+      var name = $scope.name;
+      var comment = $scope.comment;
+      var thisUrl = window.location.href;
+      //window.location.href = thisUrl;
+      var idQ = thisUrl.indexOf('?');
+      var idStartAt = idQ + 4;
+      var fbID = thisUrl.substring(idStartAt);
+      console.log(fbID);
+      var badWords = ["fuck", "shit", "cock", "dick", "pussy", "bitch", "ass", "<", ">"]; //excuse the language, gotta filter it out!
+
+      for( var i = 0; i < badWords.length; i++){
+        if(name.includes(badWords[i])){
+          if(name.charAt(name.indexOf(badWords[i])) == 0){
+            if(name.charAt(name.indexOf(badWords[i]) + 1) == ' ' || name.charAt(name.indexOf(badWords[i]) + 1) == ',' || name.charAt(name.indexOf(badWords[i]) + 1) == '.'){
+              $scope.comment += "\n I'm sorry, your name includes inappropriate language.";
+              return;
+            }
+          }
+          if(name.charAt(name.indexOf(badWords[i] - 1)) == " " && name.charAt(name.indexOf(badWords[i]) + badWords[i].length) == " "){
+            $scope.comment += "\n I'm sorry, your name includes inappropriate language.";
+            return;
+          }
+          if(name.charAt(name.indexOf(badWords[i] - 1)) == " " && name.indexOf(badWords[i]) + badWords[i].length == name.length){
+            $scope.comment += "\n I'm sorry, your name includes inappropriate language.";
+            return;
+          }
+        }
+        if(comment.includes(badWords[i])){
+          if(comment.charAt(comment.indexOf(badWords[i])) == 0){
+            if(comment.charAt(comment.indexOf(badWords[i]) + 1) == ' ' || comment.charAt(comment.indexOf(badWords[i]) + 1) == ',' || comment.charAt(comment.indexOf(badWords[i]) + 1) == '.'){
+              $scope.comment += "\n I'm sorry, your comment includes inappropriate language.";
+              return;
+            }
+          }
+          if(comment.charAt(comment.indexOf(badWords[i] - 1)) == " " && comment.charAt(comment.indexOf(badWords[i]) + badWords[i].length) == " "){
+            $scope.comment += "\n I'm sorry, your comment includes inappropriate language.";
+            return;
+          }
+          if(comment.charAt(comment.indexOf(badWords[i] - 1)) == " " && comment.indexOf(badWords[i]) + badWords[i].length == comment.length){
+            $scope.comment += "\n I'm sorry, your comment includes inappropriate language.";
+            return;
+          }
+        }
+      }
+      var ref = firebase.database().ref();
+      var thisUrl = window.location.href;
+      var idQ = thisUrl.indexOf('?');
+      var idStartAt = idQ + 4;
+      //var idEnd = //thisUrl.indexOf("#");
+      var fbID = thisUrl.substring(idStartAt);
+      console.log(fbID);
+      if(comment){
+        if(name === ''){
+          name = "Anonymous";
+        }
+
+        firebase.database().ref('exhibits/' + fbID + '/comments').push({
+
+          name: $scope.name,
+          comment: $scope.comment,
+          time: time,
+          flagged: 0
+        },function(){
+          console.log("pushed!");
+          $scope.name = '';
+          $scope.comment = '';
+          //window.location.href = "mobileIndex.html?id="+fbID;
+        });
+      }
+    }
+
 
 }]);

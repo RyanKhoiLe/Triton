@@ -1,7 +1,9 @@
 <script type="text/javascript" src="../slick/slick/slick.js"></script>
 <link rel="stylesheet" type="text/css" href="../slick/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="../slick/slick/slick-theme.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="../stylesheets/tritonMobileYES.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <div id="newContent">
   <div width="100%" style="text-align: center" id="imgContainer">
@@ -11,19 +13,19 @@
   </div>
 
   <div id="slider" class="regular slider">
-    <div>
+    <div class="slide">
       <h1 ng-bind="title">  </h1>
       <h3 ng-bind="slides[0]">  </h1>
     </div>
-    <div>
+    <div class="slide">
       <h1 ng-bind="title">  </h1>
       <h3 ng-bind="slides[1]"></h1>
     </div>
-    <div>
+    <div class="slide">
       <h1 ng-bind="title">  </h1>
       <h3 ng-bind="slides[2]">  </h3>
     </div>
-    <div>
+    <div class="slide">
       <h1 ng-bind="title + ': Details'">  </h1>
       <table>
         <tr>
@@ -44,13 +46,26 @@
       </table>
     </div>
   </div>
-  <!-- <div>
-    <h2> Comments </h2>
-    <a href="#commentDialog" class="ui-btn "> Add a Comment </a>
-    <div style="text-align: center" ng-repeat="comment in comments">
-      <h3> <i> {{ comment.name }} says: </i> </h2>
-      <h3> {{ comment.comment }} </h3>
-      <p> {{ comment.time }} </p>
+  <div>
+
+    <button id="showComment" data-toggle="collapse" data-target="#commentList" onclick="toggleComment()"> <i class="fa fa-caret-down" style="padding-right: 5px;"></i> Show Comments </button>
+    <div id="commentList" class="collapse">
+      <h2>  Comments </h2>
+      <div class="header"> <h2> Add a comment here <h2></div>
+      <form>
+        <div>
+          <input ng-model="name" type="text" id="name" placeholder="Name">
+        </div>
+        <div>
+          <textarea ng-model="comment" id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
+        </div>
+        <button ng-click="postComment()">POST</button>
+      </form>
+      <div style="text-align: center" ng-repeat="comment in comments">
+        <h3> <i> {{ comment.name }} says: </i> </h2>
+        <h3> {{ comment.comment }} </h3>
+        <p> {{ comment.time }} </p>
+      </div>
     </div>
-  </div> -->
+  </div>
 </div>
