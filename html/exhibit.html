@@ -50,21 +50,35 @@
 
     <button id="showComment" data-toggle="collapse" data-target="#commentList" onclick="toggleComment()"> <i class="fa fa-caret-down" style="padding-right: 5px;"></i> Show Comments </button>
     <div id="commentList" class="collapse">
-      <h2>  Comments </h2>
-      <div class="header"> <h2> Add a comment here <h2></div>
-      <form>
-        <div>
-          <input ng-model="name" type="text" id="name" placeholder="Name">
-        </div>
-        <div>
-          <textarea ng-model="comment" id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
-        </div>
-        <button ng-click="postComment()">POST</button>
-      </form>
-      <div style="text-align: center" ng-repeat="comment in comments">
-        <h3> <i> {{ comment.name }} says: </i> </h2>
-        <h3> {{ comment.comment }} </h3>
+
+        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#createComment"> Add a comment </button>
+
+      <div style="text-align: center" ng-repeat="comment in comments | reverse">
+        <h4> <i> <b>{{ comment.name }}</b> says: </i> </h4>
+        <h4> {{ comment.comment }} </h4>
         <p> {{ comment.time }} </p>
+        <hr>
+      </div>
+    </div>
+    <div id="createComment" class="modal fade" role="dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3> New comment </h3>
+        </div>
+        <div class="modal-body">
+          <form id="addComment">
+            <div>
+              <input ng-model="name" type="text" id="name" placeholder="Name">
+            </div>
+            <div>
+              <textarea ng-model="comment" id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
+            </div>
+            <button class="btn btn-primary" ng-click="postComment()" data-dismiss="modal">POST</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+
+        </div>
       </div>
     </div>
   </div>

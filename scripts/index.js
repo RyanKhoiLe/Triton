@@ -74,7 +74,11 @@ app.config(function($routeProvider){
   };
   firebase.initializeApp(config);
 });
-
+app.filter('reverse', function() {
+    return function(items) {
+      return items.slice().reverse();
+    };
+  });
 app.controller("mainController", ['$scope', function($scope){
   $scope.message = "SUP";
 }]);

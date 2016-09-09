@@ -201,6 +201,13 @@ p{
 #showComment:focus{
   outline: none;
 }
+#addComment {
+  /*display: block;
+  margin-left: 100px;*/
+}
+#name, #comment{
+  font-family: "Roboto", sans-serif;
+}
 .imageLink{
   width: 100%;
 
