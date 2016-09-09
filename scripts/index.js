@@ -87,12 +87,31 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", function($scope, $fire
   $scope.fbID = window.location.href.substring(window.location.href.indexOf("?") + 4);
   $scope.title = "HELLO!";
   $scope.logo = "../images/tritonLogo.png";
+  $scope.exhibitCode = "";
+  $scope.exhibitKeys = [];
+  $scope.goToExhibit = function(){
+    console.log("typed in a number");
+    $scope.exhibitKeys.forEach(function(Object){
+      console.log(Object);
+      console.log(Object.thisCode);
+      if($scope.exhibitCode == Object.thisCode){
+        window.location.href += "exhibit?id=" + Object.thisId;
+        closeKeypad();
+      }
+    });
+  }
+
   var ref = firebase.database().ref();
   var exhibitRef = ref.child('exhibits');
   $scope.ExhibitList = $firebaseArray(exhibitRef);
   $scope.imagesUpdated = false;
   $scope.ExhibitList.$loaded().then(function(){
     angular.forEach($scope.ExhibitList, function(exhibit){
+      var thisId = exhibit.$id;
+      var thisCode = exhibit.exhibitCode;
+      console.log(thisId, thisCode);
+      $scope.exhibitKeys.push({thisId, thisCode});
+      //$scope.exhibitKeys.push({exhibit.exhibitCode, exhibit.$id});
       if(exhibit.exhibitImage){
         console.log(exhibit);
         var imgPath = exhibit.exhibitImage;
@@ -113,6 +132,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", function($scope, $fire
       }
     });
     $scope.imagesUpdated = true;
+    console.log($scope.exhibitKeys);
   });
 
   console.log($scope.ExhibitList);
