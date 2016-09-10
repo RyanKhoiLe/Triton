@@ -1,12 +1,15 @@
 html{
   min-height: 100%;
   overflow-y: hidden;
-  width: auto;
+  overflow-x: hidden;
+  /*width: auto;*/
 }
 body{
   height: 100%;
   /*max-width: 100%;*/
-  width: auto;
+  /*width: auto;*/
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 img{
   position: relative;
