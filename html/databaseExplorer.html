@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- created by Khoi Le 2016 !-->
+  <title> Triton Database Explorer </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/tritonExploreCSS.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="../images/tritonIconSmall.png">
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+</head>
+  <body>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCH2GOoz3WtmgKC8gs9-P0eHk02-sX9vS0",
+        authDomain: "lunaspheretriton.firebaseapp.com",
+        databaseURL: "https://lunaspheretriton.firebaseio.com",
+        storageBucket: "lunaspheretriton.appspot.com",
+      };
+      firebase.initializeApp(config);
+
+    var url = "https://lunaspheretriton.firebaseio.com";
+      var firebaseRef = firebase.database();
+
+      function checkUser(){
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            firebase.auth().signOut().then(function(){
+              console.log("signed out");
+            }, function(error){
+              console.log("error signing out");
+            });
+          } else {
+            //return;
+          }
+        });
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var resultDisplay = document.getElementById("result");
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode + " " + errorMessage);
+          if(error.code === "auth/wrong-password"){
+            resultDisplay.textContent = "Sorry, that password is incorrect";
+          }
+          if(error.code === "auth/user-not-found"){
+            resultDisplay.textContent = "Sorry, that username is incorrect";
+          }
+          if(error.code === "auth/invalid-email"){
+            resultDisplay.textContent = "Sorry, that is not a valid email";
+          }
+          // return;
+        });
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            resultDisplay.textContent = "Logging in . . .";
+            window.open("edithome.html", "_self");
+          } else {
+            //return;
+          }
+        });
+
+      }
+
+      var exhibitsArray = [];
+      var exhibitTextContent = [];
+      //TODO: USE ARRAY TO HOLD EXHIBITS, USE DISPLAY: NONE TO HIDE NON-RELEVANT, USE SEARCHVALUE TO LOOK FOR MATCHES IN ANY CHILD NODE OF EXHIBITOBJECT
+      function exhibitObject(title, artist, timeStamp, views, img, fbID){
+        this.title = title;
+        this.artist = artist;
+        this.timeStamp = timeStamp;
+        this.views = views;
+        this.img = img;
+        this.fbID = fbID;
+      }
+      // var tempFBID;
+      // var tempExhKey;
+      // firebaseRef.ref('exhibitKeys/').on('child_added', function(snapshot){
+      //   tempFBID = snapshot.val().key;
+      //   tempExhKey = snapshot.val();
+      //   console.log('snapshot val' + tempExhKey);
+      // });
+      firebaseRef.ref('exhibits').on('child_added', function(snapshot){
+        var snapshotKey = snapshot.key;
+        console.log("snapshotKey: " + snapshotKey);
+        var exhibits = snapshot.val();
+      //console.log('id: ' + tempFBID);
+        var title = exhibits.title;
+        var artist = exhibits.artist;
+        var timeStamp = exhibits.timeStamp;
+        var views = exhibits.views;
+        var img = exhibits.exhibitImage;
+
+        var newExhibit = new exhibitObject(title, artist, timeStamp, views, img, snapshotKey);
+        exhibitsArray.push(newExhibit);
+
+        createExhibitLink(newExhibit);
+        console.log(exhibitsArray);
+        //var artist = snapshot.val().artist;
+        console.log(exhibits);
+        console.log('title: ' + title);
+      });
+      function getExhibitsArray(){
+        return exhibitsArray;
+      }
+      var exhibitNum = 0;
+      var trashIcon = '../images/icons/trash.png';
+      function createExhibitLink(exhibit){ //loop through array??
+        var newSearchResult = document.createElement('div');
+        var searchTable = document.getElementById("searchTable");
+        var centerBox = document.getElementById("centerBox");
+
+        var artistLastName = exhibit.artist.substring(exhibit.artist.indexOf(' '));
+        console.log('indexOf space: ' + exhibit.artist.indexOf(' '));
+        var artistFirstName = exhibit.artist.substring(0, exhibit.artist.indexOf(' '));
+        //var newIndex = document.createElement('div')
+        newSearchResult.setAttribute('class', 'searchResult');
+        newSearchResult.setAttribute('id', 'exhibitLink'+exhibitNum);
+        newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?id=" + exhibit.fbID + "'>" +
+          "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
+          "<div class='artistBox'><h2>"+ artistLastName + ", " + artistFirstName + " </h2></div>" +
+          "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
+          "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
+
+          "</a>";
+          if(exhibit.artist.indexOf(' ') == -1){
+            newSearchResult.innerHTML = "<a class='resultLink' href='editexhibit.html?id=" + exhibit.fbID + "'>" +
+              "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
+              "<div class='artistBox'><h2>"+ artistLastName + "</h2></div>" +
+              "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
+              "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
+
+              "</a>";
+          }
+          var newDivBox = document.createElement("div");
+          newDivBox.setAttribute("class", "imgBox");
+          var newImgBox = document.createElement('img');
+          newImgBox.setAttribute('id', 'exhibitImageBox' + exhibitNum);
+          newImgBox.setAttribute('class', 'thumbnail');
+          var storage = firebase.storage();
+          var storageRef = storage.ref();
+
+          var thisNum = exhibitNum;
+          console.log(exhibit.img);
+          if(exhibit.img){
+            var spaceRef = storageRef.child(exhibit.img);
+            storageRef.child(exhibit.img).getDownloadURL().then(function(url){
+              var test = url;
+              document.getElementById("exhibitImageBox" + thisNum).src = test;
+            }).catch(function(error){
+
+            });
+          }
+
+
+          newDivBox.appendChild(newImgBox);
+          newSearchResult.appendChild(newDivBox);
+          //console.log(exhibit.title + 'exhibitLink'+exhibitNum);
+        var newButton = document.createElement('button');
+        var textContent = newSearchResult.textContent;
+        console.log(textContent);
+
+        exhibitTextContent.push(textContent);
+        newButton.setAttribute('class','delete');
+        newButton.innerHTML = "<img class='icon' src='../images/icons/trash.png'>";
+        newButton.onclick = function(){
+          alertDelete(exhibit, thisNum);
+        };
+        newSearchResult.appendChild(newButton);
+        exhibitNum++;
+        searchTable.appendChild(newSearchResult);
+        centerBox.appendChild(searchTable);
+        console.log('link created');
+      }
+      function alertDelete(exhibit, num){
+        console.log("CONFIRM DELETE?");
+        console.log('exhibitLink'+num);
+        var deleteConfirmation = confirm('Delete exhibit: ' + exhibit.title + '?'); //exhibit.title
+
+        if(deleteConfirmation){
+          console.log('exhibitLink'+num);
+          document.getElementById("exhibitLink" + num).style.display='none';
+
+          firebaseRef.ref('exhibitKeys/').once('value').then(function(snapshot){
+            snapshot.forEach(function(childSnapshot){
+              var keyID = childSnapshot.key;
+              var key = childSnapshot.val().key;
+              console.log('just the key: ' + key);
+              if(key == exhibit.fbID){
+                firebaseRef.ref('exhibitKeys/' + keyID).remove();
+                console.log('remove key');
+              }
+
+            });
+          });
+          firebaseRef.ref('exhibits/' + exhibit.fbID).remove();
+          //firebaseRef.ref(''+exhibit.fbID).parent.remove();
+          //location.href = 'databaseExplorer.html';
+
+        }
+        else{
+          return;
+        }
+      }
+
+      // var app = angular.module("exhibitSearchList",[]); TODO: Figure out angular!
+      // var angularExhibitsList = getExhibitsArray();
+      // app.controller("exhibitController", function($scope){
+      //   $scope.exhibitsArray = [
+      //     {title: 'Guernica', artist: 'Pablo Picasso', timeStamp: '8/6/14, 3:01PM', views: 24, img: 'images/guernica.jpg'},
+      //     {title: 'Las Meninas', artist: 'Pablo Picasso', timeStamp: '8/6/14, 12:04AM', views: 15, img: 'images/las_meninas.jpg'}
+      //   ];
+      // });
+      // app.service('getExhibitList', function(){
+      //   var exhibitListAngular = [];
+      //   var firebaseRef = firebase.database();
+
+      //   this.getList = function(){
+      //     return exhibitListAngular;
+      //   }
+      // });
+      // app.config(function(){
+      //   var config = {
+      //     apiKey: "AIzaSyCVFksGcDoYDk23wAG58XdYdfyDL7urzUY",
+      //     authDomain: "learnfirebase-43e98.firebaseapp.com",
+      //     databaseURL: "https://learnfirebase-43e98.firebaseio.com",
+      //     storageBucket: "learnfirebase-43e98.appspot.com",
+      //   };
+      //   firebase.initializeApp(config);
+      // });
+      // app.controller("exhibitController", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
+      //   $scope.ref = firebase.database().ref();
+      //   $scope.exhibitRef = $scope.ref.child("exhibits");
+      //   $scope.exhibitsArray = $firebaseArray($scope.exhibitRef);
+      // }]);
+
+    </script>
+    <div id="headBar">
+      <a href="www.lunasphere.com"><img id="lunasphereLogo" src="../images/LogoTransparent.png" alt="Lunasphere"></a>
+      <h1 id="pageTitle"> Database Explorer </h1>
+      <a href="index.html"><img id="logoPageCreator" src="../images/tritonIcon.png" alt="triton"></a>
+      <div id="navBar">
+        <a class="navBarLink"  href="edithome.html"> database home </a>
+        <a class="navBarLink"  href="databaseExplorer.html" style="text-decoration: underline"> page editor </a>
+        <a class="navBarLink"  href="pagecreatorMobile.html"> page creator </a>
+        <a class="navBarLink" href="commentExplorer.html"> comment moderator </a>
+        <a class="navBarLink" href="mobileHome.html"> triton database home </a>
+        <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
+      </div>
+    </div>
+    <div id="wrapper">
+      <div id="centerBox">
+        <!-- <div id='angularExhibits' ng-app="exhibitSearchList" ng-controller="exhibitController">
+        <label> Search: <input ng-model='searchText' id="searchValue"></label>
+        <table id='searchTextResults'>
+          <tr><th>Title</th><th>Artist</th><th>Last edited</th><th>Views</th><th>Preview</th></tr>
+          <tr ng-repeat="exhibitObject in exhibitsArray | filter:searchText">
+            <td>{{exhibitObject.title}}</td>
+            <td>{{exhibitObject.artist}}</td>
+            <td>{{exhibitObject.timeStamp}}</td>
+            <td>{{exhibitObject.views}}</td>
+            <td><img src={{exhibitObject.img}} height='55px'></td>
+          </tr>
+        </table>
+        </div> -->
+
+
+        <button onclick="location.href='pagecreator.html'" id='addPage'>Create New Page</button>
+        <button onclick="location.href='commentExplorer.html'" id='addPage'>Moderate Comments</button>
+        <br>
+        <input type='text' id='searchValue' placeholder='       Search for existing exhibit...' onchange='updateSearch(event);'>
+        <button id='addPage'>Search</button>
+        <script>
+          function updateSearch(event){
+            console.log('change detected');
+            console.log(exhibitTextContent);
+            for(var i = 0; i < exhibitTextContent.length; i++){
+              if(exhibitTextContent[i].toLowerCase().includes(event.target.value.toLowerCase())){
+                console.log('found a match');
+                var exhibit = document.getElementById("exhibitLink" + i);
+                exhibit.style.display = 'block';
+              }
+              else{
+                var exhibit = document.getElementById("exhibitLink" + i);
+                exhibit.style.display = 'none';
+              }
+            }
+          }
+        </script>
+        <div id="searchTable">
+            <div id="categoryBar">
+
+                <div class='titleBox'><h1> Title </h1></div>
+                <div class='artistBox'><h1> Artist </h1></div>
+                <div class='timeBox'><h1> Timestamp </h1></div>
+                <div class='viewsBox'><h1> Views </h1></div>
+
+            </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="footer">
+    <div id="footerLinkBar">
+      <a class="footerLinks" href="lunasphere.io"> about lunasphere </a>
+      <a class="footerLinks" href="index.html"> triton database </a>
+    </div>
+    <div id="footerLogos">
+      <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.io'> LunaSphere </a> in conjunction with the <a class='h2Links' href='www.triton.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
+      <img src='../images/tritonIcon.png' id='logoPageCreatorFooter'></img>
+      <img src='../images/LogoTransparent.png' id='lunasphereLogoFooter'></img>
+    </div>
+    <div id="credits"> <h3 style='color:gray;'>Copyright 2016: Nikolai Flowers and Khoi Le </h3> </div>
+  </div>
+  </body>
+</html>

@@ -75,15 +75,17 @@ app.config(function($routeProvider){
   firebase.initializeApp(config);
 });
 app.filter('reverse', function() {
-    return function(items) {
-      return items.slice().reverse();
+    return function(input, start) {
+        if (!input || !input.length) { return; }
+        start = +start; //parse to int
+        return input.slice(start);
     };
   });
 app.controller("mainController", ['$scope', function($scope){
   $scope.message = "SUP";
 }]);
 
-app.controller("mobileHome", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
+app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function($scope, $firebaseArray, $location){
   $scope.fbID = window.location.href.substring(window.location.href.indexOf("?") + 4);
   $scope.title = "HELLO!";
   $scope.logo = "../images/tritonLogo.png";
@@ -95,7 +97,8 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", function($scope, $fire
       console.log(Object);
       console.log(Object.thisCode);
       if($scope.exhibitCode == Object.thisCode){
-        window.location.href += "exhibit?id=" + Object.thisId;
+        $location.path("/exhibit").search('id', Object.thisId);
+        console.log($location.path);
         closeKeypad();
       }
     });
@@ -155,6 +158,14 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   var idQ = thisUrl.indexOf('?');
   var idStartAt = idQ + 4;
   var fbID = thisUrl.substring(idStartAt);
+  if(thisUrl.includes("#")){
+    var idEndAt = thisUrl.indexOf("#");
+    if(idEndAt > idStartAt){
+      fbID = thisUrl.substring(idStartAt, idEndAt);
+    }
+
+  }
+
   console.log(fbID);
   ref.child("exhibits").child(fbID).once('value').then(function(snapshot){
     var exhibitData = snapshot.val();
@@ -226,6 +237,13 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       var idQ = thisUrl.indexOf('?');
       var idStartAt = idQ + 4;
       var fbID = thisUrl.substring(idStartAt);
+      if(thisUrl.includes("#")){
+        var idEndAt = thisUrl.indexOf("#");
+        if(idEndAt > idStartAt){
+          fbID = thisUrl.substring(idStartAt, idEndAt);
+        }
+
+      }
       console.log(fbID);
       var badWords = ["fuck", "shit", "cock", "dick", "pussy", "bitch", "ass", "<", ">"]; //excuse the language, gotta filter it out!
 
@@ -268,7 +286,15 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       var idQ = thisUrl.indexOf('?');
       var idStartAt = idQ + 4;
       //var idEnd = //thisUrl.indexOf("#");
-      var fbID = thisUrl.substring(idStartAt);
+        var fbID = thisUrl.substring(idStartAt);
+      if(thisUrl.includes("#")){
+        var idEndAt = thisUrl.indexOf("#");
+        if(idEndAt > idStartAt){
+          fbID = thisUrl.substring(idStartAt, idEndAt);
+        }
+
+      }
+
       console.log(fbID);
       if(comment){
         if(name === ''){

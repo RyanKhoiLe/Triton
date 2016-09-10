@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- created by Khoi Le 2016 !-->
+  <title> Exhibit Editor </title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="../images/tritonIconSmall.png">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" /> -->
+  <link rel="stylesheet" type="text/css" href="../slick/slick/slick.css">
+  <link rel="stylesheet" type="text/css" href="../slick/slick/slick-theme.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- <script type="text/javascript" src="../slick/slick/slick.js"></script> -->
+  <script src="../scripts/database.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/tritonEditCSS.css">
+</head>
+<body ng-app="database">
+
+    <div id="headBar">
+      <a href="www.lunasphere.com"><img id="lunasphereLogo" src="../images/Logo.png" alt="Lunasphere"></a>
+      <h1 id="pageTitle"> Exhibit Editor </h1>
+      <a href="index.html"><img id="logoPageCreator" src="../images/tritonIcon.png" alt="triton"></a>
+      <div id="navBar">
+        <a class="navBarLink" style="color: white" href="edithome.html"> database home </a>
+        <a class="navBarLink" style="color: white" href="databaseExplorer.html"> database explorer </a>
+      </div>
+    </div>
+    <div id="wrapper" style="border: 1px solid black" ng-controller="editExhibit">
+      <div id="jumpTo">
+        <h2 id="jumpToTitle"> Jump to: </h2>
+        <a class="jumpToLinks" href="#titleLabel"> Title </a>
+        <a class="jumpToLinks" href="#artistLabel"> Artist </a>
+        <a class="jumpToLinks" href="#yearLabel"> Year </a>
+        <a class="jumpToLinks" href="#genreLabel"> Genre </a>
+        <a class="jumpToLinks" href="#mediaLabel"> Media </a>
+        <a class="jumpToLinks" href="#exhibitImageLabel"> Image </a>
+        <a class="jumpToLinks" href="#videosLabel"> Videos </a>
+      </div>
+      <div id="centerBox">
+      <form id="submitUpdate" ng-submit="updatePage()">
+        <div class="inputContainer">
+            <div class="textContainer">
+
+              <h2> Code: </h2>
+            </div>
+          <input type="text" ng-model="exhibitCode" id="exhibitCode" value="">
+          <button class="update" type="submit"> Update Code </button>
+        </div>
+        <label id="titleLabel">
+        <div class="inputContainer">
+            <div class="textContainer">
+
+              <h2> Title: </h2>
+            </div>
+          <input type="text" ng-model="title" id="title" value="">
+          <button class="update" type="submit"> Update Title </button>
+        </div>
+        <label id="artistLabel">
+        <div class="inputContainer">
+          <div class="textContainer">
+            <h2> Artist: </h2>
+          </div>
+          <input type="text" ng-model="artist" id="artist" value="">
+          <button class="update" type="submit"> Update Artist </button>
+        </div>
+        <label id="yearLabel">
+        <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Year: </h2>
+            </div>
+          <input type="text" ng-model="year" id="year" value="">
+          <button class="update" type="submit"> Update Year </button>
+        </div>
+        <label id="genreLabel">
+        <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Genre: </h2>
+            </div>
+          <input type="text" ng-model="genre" id="genre" value="">
+          <button class="update" type="submit"> Update Genre </button>
+        </div>
+        <label id="mediaLabel">
+        <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Media: </h2>
+            </div>
+          <input type="text" ng-model="media" id="media" value="">
+          <button class="update" type="submit"> Update Media </button>
+        </div>
+        <div class="inputContainer">
+          <h2 class="longDescription"> Audio (please select a high-quality .mp3 file and upload below).</h2> <h3> It should be successfully uploaded and say audio/[filename] in the box below: </h3><br>
+          <input class='uploadFile' accept='audio/*' name='audioUpload' type='file' id='audioUpload'/>
+          <p> Current audio: </p>
+          <audio controls id="exhibitAudioPreview">
+            Audio
+          </audio>
+          <label for='audioUpload' id='audioUploadLabel'>Choose a different file</label>
+          <p id='percentUpload'>No file selected</p>
+          <input type="text" id="exhibitAudio" style='float:none' placeholder="audio/[filename].mp3">
+          <script>
+
+            var imageUpload = document.getElementById("audioUpload");
+            imageUpload.onchange = function(evt) {
+              var firstFile = evt.target.files[0];
+              var uploadConfirm = confirm("Upload: " + firstFile.name + "?");
+              var uploadLabel = document.getElementById("audioUploadLabel");
+              uploadLabel.innerHTML = firstFile.name;
+              if(uploadConfirm){
+                var storageRef = firebase.storage().ref("audio/" + firstFile.name);
+                var uploadTask = storageRef.put(firstFile);
+                uploadTask.on('state_changed', function(snapshot){
+                  var percentUpload = document.getElementById("percentUpload");
+                  percentUpload.textContent = "Uploading...";
+                }, function(error){
+                  alert("An error occurred: " + error);
+                }, function() {
+                  //alert("Successfully uploaded");
+                  var percentUpload = document.getElementById("percentUpload");
+                  percentUpload.textContent = "Successfully uploaded!";
+                  var audioPath = document.getElementById("exhibitAudio");
+                  audioPath.value = "audio/"+storageRef.fullPath;
+                  console.log("successfully uploaded");
+                });
+              }
+            };
+          </script>
+      </div>
+        <label id="exhibitImageLabel">
+          <div class="inputContainer">
+            <h2 class="longDescription"> Image (please select a high-resolution photo and upload below).</h2> <h3> It should be successfully uploaded and say images/[filename] in the box below: </h3><br>
+            <p> Current image: </p>
+            <img id="exhibitImagePreview" width="90%" style="margin-bottom: 10px">
+            <input class='uploadFile' accept='image/*' name='fileUpload' type='file' id='imageUpload'/>
+            <label for='imageUpload' id='imageUploadLabel'>Choose a different file</label>
+            <p id='percentUploadImage'>No file selected</p>
+            <input type="text" id="exhibitImage" placeholder="images/[filename].jpg">
+            <script>
+
+              var imageUpload = document.getElementById("imageUpload");
+              imageUpload.onchange = function(evt) {
+                var firstFile = evt.target.files[0];
+                var uploadConfirm = confirm("Upload: " + firstFile.name + "?");
+                var uploadLabel = document.getElementById("imageUploadLabel");
+                uploadLabel.innerHTML = firstFile.name;
+                if(uploadConfirm){
+                  var storageRef = firebase.storage().ref("images/" + firstFile.name);
+                  var uploadTask = storageRef.put(firstFile);
+                  uploadTask.on('state_changed', function(snapshot){
+                    var percentUploadImage = document.getElementById("percentUploadImage");
+                    percentUploadImage.textContent = "Uploading...";
+                  }, function(error){
+                    alert("An error occurred: " + error);
+                  }, function() {
+                    //alert("Successfully uploaded");
+                    var percentUploadImage = document.getElementById("percentUploadImage");
+                    percentUploadImage.textContent = "Successfully uploaded!";
+                    var imagePath = document.getElementById("exhibitImage");
+                    imagePath.value = "images/"+storageRef.name;
+                    console.log("successfully uploaded"); //Khoi Le
+                  });
+                }
+              };
+            </script>
+
+
+          </div>
+
+
+          <div class="inputContainer" ng-show="slideIds[0]">
+
+              <h2 class="longDescription"> Slide 1: </h2>
+
+            <textarea id="slide1" ng-model="slides[0]" rows="3" cols="50" placeholder="Picasso's Las Meninas is a 58 piece series, lovingly borrowed from Velasquez's original Las Meninas painted in 1656."></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[1]">
+
+              <h2 class="longDescription"> Slide 2: </h2>
+
+            <textarea id="slide2" ng-model="slides[1]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[2]">
+
+              <h2 class="longDescription"> Slide 3: </h2>
+
+            <textarea id="slide3" ng-model="slides[2]" rows="3" cols="50" placeholder="Picasso is known as the father of cubism, which is evident in the shapes and geometry presented in the painting"></textarea>
+          </div>
+        <label id="videosLabel">
+        <div class="inputContainer">
+          <h2 class="longDescription"> Videos (please use YouTube videos and use the "Embed URL" link and paste below, separated by commas) If no videos, please leave blank </h2>
+          <textarea ng-model="videos" id="videos" rows="3" cols="50" value=""></textarea>
+          <button class="update" type="submit"> Update Videos </button>
+        </div>
+        <button id="updatePageButton" type="submit" style="font-size: 36px;">Update page</button>
+      </form>
+    </div>
+
+      <div id="showExhibit">
+        <h1 style='padding-top: 50px;'> Real-time preview </h1>
+        <p> (make sure to click the update button to see changes): </p>
+        <hr>
+        <iframe id="exhibitPreview" width="90%" height="70%"></iframe>
+        <script>
+          var thisUrl = window.location.href;
+          //window.location.href = thisUrl;
+          var idQ = thisUrl.indexOf('?');
+          var idStartAt = idQ + 4;
+          var fbID = thisUrl.substring(idStartAt);
+          console.log(fbID);
+          document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?id=" + fbID);
+        </script>
+
+        <!-- <div id="newContent" ng-controller="slideInfo">
+          <div width="100%" style="text-align: center" id="imgContainer">
+            <h1>{{ title }}</h1>
+            <img id="image1">
+            <audio controls id="exhibitAudio" ng-if="exhibitAudio"> No audio in this browser </audio>
+          </div>
+
+          <div id="slider" class="regular slider">
+            <div class="slide">
+              <h1 ng-bind="title">  </h1>
+              <h3 ng-bind="slides[0]">  </h1>
+            </div>
+            <div class="slide">
+              <h1 ng-bind="title">  </h1>
+              <h3 ng-bind="slides[1]"></h1>
+            </div>
+            <div class="slide">
+              <h1 ng-bind="title">  </h1>
+              <h3 ng-bind="slides[2]">  </h3>
+            </div>
+            <div class="slide">
+              <h1 ng-bind="title + ': Details'">  </h1>
+              <table>
+                <tr>
+                  <td ng-bind="'Title: ' + title"></td>
+                </tr>
+                <tr>
+                  <td ng-bind="'Artist: ' + artist"> </td>
+                </tr>
+                <tr ng-if="year">
+                  <td ng-bind="'Year: ' + year"> </td>
+                </tr>
+                <tr ng-if="media">
+                  <td ng-bind="'Media: ' + media"> </td>
+                </tr>
+                <tr ng-if="genre">
+                  <td ng-bind="'Genre: ' + genre"> </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+      </div> -->
+      <br>
+      <br>
+      <div></div>
+    </div>
+    <div id="footer">
+      <div id="footerLinkBar">
+        <a class="footerLinks" href="lunasphere.io"> about lunasphere </a>
+        <a class="footerLinks" href="index.html"> triton database </a>
+      </div>
+      <div id="footerLogos">
+        <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.io'> LunaSphere </a> in conjunction with the <a class='h2Links' href='www.triton.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
+        <img src='../images/tritonIcon.png' id='logoPageCreatorFooter'></img>
+        <img src='../images/LogoTransparent.png' id='lunasphereLogoFooter'></img>
+      </div>
+      <div id="credits"> <h3 style='color:gray;'>Copyright 2016: Nikolai Flowers and Khoi Le </h3> </div>
+    </div>
+
+
+  </body>
+
+</html>

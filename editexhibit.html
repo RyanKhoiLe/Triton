@@ -28,6 +28,7 @@
     var symbols;
     var videos;
     var exhibitImage, exhibitAudio, exhibitCode;
+    var slides =[];
 
     var thisUrl = window.location.href;
     var keyStartAt = window.location.href.indexOf('?');
@@ -58,6 +59,7 @@
       media = data.media;
       exhibitImage = data.exhibitImage;
       summary = data.summary;
+      slides = data.slides;
       //console.log(summary);
       artistLastName = data.artist.substring(data.artist.indexOf(' ') + 1);
       symbols = data.symbols;
@@ -171,7 +173,7 @@
         console.log(document.getElementById('exhibitPreview').src);
       }
       //document.getElementById('result').innerHTML = 'Congrats your page was updated';
-    }
+    // }
     window.onscroll = function(){
       //console.log('scrollTop: ' + document.body.scrollTop);
       if(document.body.scrollTop > 290 && document.body.scrollTop < 3260){

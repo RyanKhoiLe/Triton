@@ -85,22 +85,22 @@
           </div>
 
           <div class="inputContainer" ng-show="slideIds[0]">
-            <div class="textContainer">
-              <h2> Slide 1: </h2>
-            </div>
-            <textarea id="slide1" ng-model="slideValues[0]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+
+              <h2 class="longDescription"> Slide 1: </h2>
+
+            <textarea id="slide1" ng-model="slideValues[0]" rows="3" cols="50" placeholder="Picasso's Las Meninas is a 58 piece series, lovingly borrowed from Velasquez's original Las Meninas painted in 1656."></textarea>
           </div>
           <div class="inputContainer" ng-show="slideIds[1]">
-            <div class="textContainer">
-              <h2> Slide 2: </h2>
-            </div>
+
+              <h2 class="longDescription"> Slide 2: </h2>
+
             <textarea id="slide2" ng-model="slideValues[1]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
           </div>
           <div class="inputContainer" ng-show="slideIds[2]">
-            <div class="textContainer">
-              <h2> Slide 3: </h2>
-            </div>
-            <textarea id="slide3" ng-model="slideValues[2]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+
+              <h2 class="longDescription"> Slide 3: </h2>
+
+            <textarea id="slide3" ng-model="slideValues[2]" rows="3" cols="50" placeholder="Picasso is known as the father of cubism, which is evident in the shapes and geometry presented in the painting"></textarea>
           </div>
           <!-- <div class="inputContainer" ng-show="slideIds[3]">
             <div class="textContainer">
@@ -200,7 +200,7 @@
             <label for='imageUpload' id='imageUploadLabel'>Choose a file</label>
             <p id='percentUploadImage'>No file selected</p>
             <input type="text" id="exhibitImage" placeholder="images/[filename].jpg">
-            
+
             <script>
 
               var imageUpload = document.getElementById("imageUpload");
@@ -245,10 +245,10 @@
 
 
           </div>
-          <div class="inputContainer" >
+          <!-- <div class="inputContainer" >
             <h2 class="longDescription"> Do all the slides have the same image? If so, we will not scroll the image </h2>
             <input type="checkbox" checked ng-model="oneImage" id="oneImage">
-          </div>
+          </div> -->
           <!-- <div class="inputContainer">
             <h2 class="longDescription"> Summary (Like a Tweet! Capture the MOST interesting thing in a short but sweet summary): </h2><br>
             <textarea id="summary" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>

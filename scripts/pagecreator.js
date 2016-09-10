@@ -81,6 +81,7 @@
         exhibitCode = $scope.exhibitCode,
         exhibit = $scope.exhibitSelect,
         slides = [];
+        
         if($scope.inputExhibit === true){
           exhibit = document.getElementById("inputtedExhibit").value;
         }
@@ -111,7 +112,8 @@
             exhibitCode: exhibitCode,
             slides: slides,
             exhibit: exhibit,
-            exhibitAudio: exhibitAudio
+            exhibitAudio: exhibitAudio,
+            timeStamp: timestamp
           }, function(){
             console.log("successfully written to khoi le's firebase");
             $scope.showModal = true;

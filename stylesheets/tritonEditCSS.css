@@ -52,6 +52,9 @@ font-style: normal;
     font-weight: normal;
     font-style: normal;
 }
+html{
+  overflow-x: hidden;
+}
 #headBar{
   position: absolute;
   height: 200px;
@@ -118,7 +121,7 @@ font-style: normal;
 }
 #wrapper {
   position: absolute;
-  border: 0px solid #FFC4CE;
+  border: none;
   top: 200px;
   height: 4600px;
   left: 0px;
@@ -151,6 +154,7 @@ font-style: normal;
   margin-top: 20px;
   margin-left: 40px;
   transition: color 0.2s;
+  font-family: "Roboto Condensed", sans-serif;
 }
 .jumpToLinks:hover, .jumpToLinks:visited:hover{
   color: white;
@@ -206,6 +210,7 @@ font-style: normal;
 }
 .longDescription{
   float: none;
+  /*font-family: "Roboto Condensed", sans-serif;*/
 }
 #footer{
   position: absolute;
@@ -292,7 +297,7 @@ textarea{
   float: none;
   font-size: 24px;
   border-radius: 7px;
-  font-family: 'roboto_condensed', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   transition: border 0.4s, box-shadow 0.4s;
 }
 textarea:focus,
@@ -301,6 +306,7 @@ textarea.focus {
   box-shadow: 0 0 5px 1px #0DAEE0;
 }
 .textContainer{
+  font-family: "Roboto Condensed", sans-serif;
   float: left;
   width: 13%;
 }
@@ -313,13 +319,14 @@ h2{
   float: left;
 }
 input{
-  margin-left: 20px;
-  margin-top: 20px;
+  position: relative;
+  left: 50px;
+  top: 20px;
   margin-bottom: 20px;
-  width: 50%;
+  width: 30%;
   float: left;
-  font-size: 26px;
-  font-family: 'roboto_condensed', sans-serif;
+  font-size: 22px;
+  font-family: 'Roboto', sans-serif;
   border: solid 1px #dcdcdc;
   transition: box-shadow 0.3s, border 0.3s;
   border-radius: 5px;
@@ -356,7 +363,7 @@ input[type="text"].focus {
 
 body{
   background-color: white;
-  font-family: 'roboto_condensed', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 #exhibitPreview{
   /*width: 100%;*/
@@ -410,7 +417,7 @@ body{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background-color: white;
   border-radius: 10px;
-  border: none;
+  border: 1px solid rgba(0,0,0,0.5);
   /*border-style: none none solid none;*/
 }
 #updatePageButton:hover {
@@ -442,7 +449,7 @@ body{
     width: 100%;
     /*margin-left: auto;*/
     margin-right: auto;
-    overflow: auto;
+    overflow-y: hidden;
     border-style: none none solid none;
 }
 p{
@@ -453,9 +460,8 @@ p{
 
 hr {
     border: 0;
-    height: 3px;
-    background: #FFC4CE;
-    background-image: linear-gradient(to right, #FFFFFF, #FFC4CE, #FFFFFF);
+    height: 1px;
+    background: lightgray;
 }
 #commentContainer{
     margin: auto;
