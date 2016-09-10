@@ -1,7 +1,6 @@
 html{
   max-height: 100vh;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow: hidden;
   /*width: auto;*/
 }
 body{
@@ -9,8 +8,7 @@ body{
   max-width: 100%;
   /*max-width: 100%;*/
   /*width: auto;*/
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 img{
   position: relative;
