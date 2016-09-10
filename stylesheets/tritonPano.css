@@ -18,3 +18,11 @@ img{
   bottom:0;
   left: -10px;
 }
+button {
+  z-index: 1;
+}
+#cowell {
+  position: absolute;
+  top: 200px;
+  left: 100px;
+}
