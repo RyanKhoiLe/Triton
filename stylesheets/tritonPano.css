@@ -26,6 +26,7 @@ img{
   border: 10px solid green;
   white-space: nowrap;
   display: inline-block;
+  height: 100%;
 }
 button {
   z-index: 2;
