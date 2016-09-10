@@ -21,7 +21,7 @@ window.addEventListener('load', function(){
     var dist = parseInt(touchobj.clientX) - startx;
     console.log(dist);
     console.log(main.style.left);
-    main.style.left = ( (divleft + dist > 0)?  0 : (divleft + dist < -1700)? -1700 : divleft + dist ) + 'px';
+    main.style.left = ( (divleft + dist > 0)?  0 : (divleft + dist < -1200)? -1200 : divleft + dist ) + 'px';
     e.preventDefault();
   }, false);
 
