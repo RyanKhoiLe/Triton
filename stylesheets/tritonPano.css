@@ -25,7 +25,7 @@ img{
   border: 10px solid green;
   white-space: nowrap;
   display: inline-block;
-  height: 100vh;
+  height: 1000px;
 }
 button {
   z-index: 2;
