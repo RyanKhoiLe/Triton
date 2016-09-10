@@ -1,11 +1,12 @@
 html{
-  min-height: 100%;
+  max-height: 100vh;
   overflow-y: hidden;
   overflow-x: hidden;
   /*width: auto;*/
 }
 body{
   height: 100%;
+  max-width: 100%;
   /*max-width: 100%;*/
   /*width: auto;*/
   overflow-y: hidden;
