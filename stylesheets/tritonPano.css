@@ -18,7 +18,7 @@ img{
   position: absolute;
   top:0;
   bottom:0;
-  left: -5px;
+  left: 0;
   border: 10px solid green;
   white-space: nowrap;
   display: inline-block;
