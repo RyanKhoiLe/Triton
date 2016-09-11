@@ -62,12 +62,12 @@ a img{
   top: 35.2%;
 }
 #triton {
+  position: fixed;
   display: block;
   height: 15%;
   /*border: 10px solid blue;*/
-  position: fixed;
   z-index: 4;
-  bottom: 10px;
+  bottom: 50px;
   left: 0;
   right: 0;
   width: auto;
