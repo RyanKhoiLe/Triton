@@ -67,9 +67,6 @@ a img{
   height: 15%;
   /*border: 10px solid blue;*/
   z-index: 4;
-  top: 70%;
-  left: 0;
-  right: 0;
   width: auto;
   text-align: center;
   background-color: rgba(100,100,100,0.3);
