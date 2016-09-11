@@ -65,10 +65,13 @@ a img{
   position: fixed;
   /*display: block;*/
   height: 80px;
+  width: 100vw;
   top: 400px;
+  left: 0;
+  right: 0;
   /*border: 10px solid blue;*/
   z-index: 4;
   width: auto;
   text-align: center;
-  background-color: rgba(100,100,100,0.3);
+  background-color: rgba(100,100,100,0.1);
 }
