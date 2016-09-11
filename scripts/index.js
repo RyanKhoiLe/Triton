@@ -58,7 +58,7 @@ app.config(function($routeProvider){
   $routeProvider
 
     .when('/', {
-      templateUrl: "home.html",
+      templateUrl: "panorama.html",
       controller: "mobileHome"
     })
     .when('/exhibit', {

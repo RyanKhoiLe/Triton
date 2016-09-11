@@ -21,7 +21,7 @@ $(document).on("pagecreate", function(){
       $routeProvider
 
         .when('/', {
-          templateUrl: "home.html",
+          templateUrl: "panorama.html",
           controller: "mobileHome"
         })
         .when('/exhibit', {

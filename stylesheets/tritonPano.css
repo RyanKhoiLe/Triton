@@ -1,9 +1,9 @@
-html{
+.pano html{
   max-height: 100vh;
   overflow: hidden;
   /*width: auto;*/
 }
-body{
+.pano body{
   height: 100%;
   /*max-width: 100%;*/
   /*max-width: 100%;*/
@@ -11,7 +11,7 @@ body{
   white-space: nowrap;
   overflow: hidden;
 }
-#backgroundImage{
+.pano #backgroundImage{
   position: relative;
   height: 100%;
   z-index: 0;
@@ -27,37 +27,37 @@ body{
   display: inline-block;
   height: 100%;
 }
-button {
+.pano button {
   z-index: 2;
   position: absolute;
   height: 10%;
 }
-a {
+.pano a {
   z-index: 2;
   position: absolute;
   height: 10%;
   /*border: 5px solid white;*/
 }
-a img{
+.pano a img{
   height: 100%;
 }
-#cowell {
+.pano #cowell {
   left: 30.9%;
   top: 42.5%;
 }
-#rotunda {
+.pano #rotunda {
   left: 41.4%;
   top: 30%;
 }
-#sculpture {
+.pano #sculpture {
   left: 56.4%;
   top: 51.1%;
 }
-#warburton {
+.pano #warburton {
   left: 69.8%;
   top: 34.7%;
 }
-#permanent {
+.pano #permanent {
   left: 86.7%;
   top: 35.2%;
 }
@@ -68,6 +68,8 @@ a img{
   /*width: 100vw;*/
   top: 80vh;
   left: 24vw;
+  /*top: 400px;
+  left: 24%;*/
   /*border: 10px solid blue;*/
   z-index: 4;
   width: auto;
