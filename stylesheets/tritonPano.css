@@ -11,7 +11,7 @@ body{
   white-space: nowrap;
   overflow: hidden;
 }
-img{
+#backgroundImage{
   position: relative;
   height: 100%;
   z-index: 0;
@@ -30,24 +30,34 @@ img{
 button {
   z-index: 2;
   position: absolute;
+  height: 10%;
+}
+a {
+  z-index: 2;
+  position: absolute;
+  height: 10%;
+  /*border: 5px solid white;*/
+}
+a img{
+  height: 100%;
 }
 #cowell {
-  left: 15.9%;
-  top: 39.3%;
+  left: 30.9%;
+  top: 42.5%;
 }
 #rotunda {
-  left: 21.3%;
-  top: 32%;
+  left: 41.4%;
+  top: 30%;
 }
 #sculpture {
-  left: 29.1%;
+  left: 56.4%;
   top: 51.1%;
 }
 #warburton {
-  left: 34.4%;
-  top: 32.7%;
+  left: 69.8%;
+  top: 34.7%;
 }
 #permanent {
-  left: 45.6%;
+  left: 86.7%;
   top: 35.2%;
 }

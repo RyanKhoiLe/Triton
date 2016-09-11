@@ -6,7 +6,7 @@ window.addEventListener('load', function(){
   divleft,
   touchobj = null;
 
-  main.style.left = "0px";
+  main.style.left = "-300px";
 
   main.addEventListener("touchstart", function(e){
     console.log("touch start");
@@ -21,7 +21,7 @@ window.addEventListener('load', function(){
     var dist = parseInt(touchobj.clientX) - startx;
     console.log(dist);
     console.log(main.style.left);
-    main.style.left = ( (divleft + (dist * 1.1) > 0)?  0 : (divleft + (dist * 1.1) < -900)? -900 : divleft + (dist * 1.1) ) + 'px';
+    main.style.left = ( (divleft + (dist * 1.1) > 0)?  0 : (divleft + (dist * 1.1) < -520)? -520 : divleft + (dist * 1.1) ) + 'px';
     e.preventDefault();
   }, false);
 
