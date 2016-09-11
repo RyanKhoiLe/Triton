@@ -64,7 +64,7 @@ a img{
 #triton {
   position: fixed;
   /*display: block;*/
-  height: 15%;
+  height: 80px;
   /*border: 10px solid blue;*/
   z-index: 4;
   width: auto;
