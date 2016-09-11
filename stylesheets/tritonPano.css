@@ -67,8 +67,7 @@ a img{
   height: 80px;
   width: 100vw;
   top: 400px;
-  left: 0;
-  right: 0;
+  left: 30%;
   /*border: 10px solid blue;*/
   z-index: 4;
   width: auto;
