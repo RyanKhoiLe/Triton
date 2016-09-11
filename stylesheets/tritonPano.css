@@ -63,14 +63,14 @@ a img{
 }
 #triton {
   position: fixed;
-  display: block;
+  /*display: block;*/
   height: 15%;
   /*border: 10px solid blue;*/
   z-index: 4;
-  bottom: 50px;
+  top: 70%;
   left: 0;
   right: 0;
   width: auto;
   text-align: center;
-  background-color: rgba(100,100,100,0.5);
+  background-color: rgba(100,100,100,0.3);
 }
