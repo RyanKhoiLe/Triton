@@ -65,6 +65,7 @@ a img{
   position: fixed;
   /*display: block;*/
   height: 80px;
+  bottom: 10px;
   /*border: 10px solid blue;*/
   z-index: 4;
   width: auto;
