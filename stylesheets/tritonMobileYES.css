@@ -36,7 +36,7 @@ td{
 #navBar{
   position: fixed;
   height: 50px;
-  width: 100%;
+  width: 100vw;
   background-color: rgba(250,23,62,0.9);
   box-shadow: 0px 2px 3px rgba(100,100,100,0.5);
   text-align: center;
