@@ -61,3 +61,16 @@ a img{
   left: 86.7%;
   top: 35.2%;
 }
+#triton {
+  display: block;
+  height: 15%;
+  /*border: 10px solid blue;*/
+  position: fixed;
+  z-index: 4;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  width: auto;
+  text-align: center;
+  background-color: rgba(100,100,100,0.5);
+}
