@@ -116,6 +116,14 @@ td{
   .keypad {padding-top: 15px;}
   .keypad a {font-size: 18px;}
 }
+#viewportContainer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border: 10px solid blue;
+}
 .keypad {
   height: 100%;
   width: 0;
