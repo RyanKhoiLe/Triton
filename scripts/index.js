@@ -127,6 +127,11 @@ app.filter('reverse', function() {
   });
 app.controller("mainController", ['$scope', function($scope){
   $scope.message = "SUP";
+  setTimeout(function(){
+    $(document).ready(function(){
+      $("body").css("overflow", "hidden");
+    });
+  }, 0);
   if(window.location.href.includes("cowell")){
     $scope.currentRoom = "Cowell Room";
   }
