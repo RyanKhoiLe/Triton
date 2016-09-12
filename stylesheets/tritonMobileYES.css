@@ -223,8 +223,7 @@ p{
   font-family: "Roboto", sans-serif;
 }
 .imageLink{
-  width: 100%;
-
+  width: 100vw;
 }
 .linkBanner{
   position: absolute;
@@ -235,7 +234,7 @@ p{
   padding: 0px;
   z-index: 1;
   height: 50px;
-  width: 100%;
+  width: 100vw;
   background-color: rgba(250,23,62,0.8);
   text-decoration: none;
   color: black;
