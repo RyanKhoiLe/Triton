@@ -50,13 +50,13 @@
       //   }
       //   $scope.$apply();
       // };
-      document.getElementById("oneImage").onchange = function(evt){
-        console.log($scope.oneImage);
-      }
+      // document.getElementById("oneImage").onchange = function(evt){
+      //   console.log($scope.oneImage);
+      // }
       $scope.checkExhibit = function(){
         console.log($scope.exhibitSelect);
         //console.log(document.getElementById("exhibitSelected").textContent);
-        if($scope.exhibitSelect === "New"){
+        if($scope.exhibitSelect == "New"){
           console.log("NEW IS SELECTED");
           $scope.inputExhibit = true;
         }
@@ -81,7 +81,7 @@
         exhibitCode = $scope.exhibitCode,
         exhibit = $scope.exhibitSelect,
         slides = [];
-        
+
         if($scope.inputExhibit === true){
           exhibit = document.getElementById("inputtedExhibit").value;
         }
@@ -99,7 +99,7 @@
           firebase.database().ref("allExhibits/").push({
             exhibit: exhibit
           });
-          var key = firebase.database().ref('exhibits/').push({
+          var key = firebase.database().ref('exhibits/').child(exhibit).push({
             title: title,
             artist: artist,
             year: year,
@@ -112,8 +112,7 @@
             exhibitCode: exhibitCode,
             slides: slides,
             exhibit: exhibit,
-            exhibitAudio: exhibitAudio,
-            timeStamp: timestamp
+            exhibitAudio: exhibitAudio
           }, function(){
             console.log("successfully written to khoi le's firebase");
             $scope.showModal = true;

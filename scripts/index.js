@@ -83,7 +83,7 @@ app.config(function($routeProvider){
 
     .when('/', {
       templateUrl: "panorama.html",
-      controller: "mobileHome"
+      controller: "mainController"
     })
     .when('/exhibit', {
       templateUrl: "exhibit.html",
@@ -182,7 +182,14 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   }
 
   var ref = firebase.database().ref();
-  var exhibitRef = ref.child('exhibits');
+  var exhibitId;
+  if(window.location.href.includes("cowell")){
+    exhibitId = "cowell"
+  }
+  else{
+    exhibitId = "";
+  }
+  var exhibitRef = ref.child('exhibits/' +exhibitId);
   $scope.ExhibitList = $firebaseArray(exhibitRef);
   $scope.imagesUpdated = false;
   $scope.ExhibitList.$loaded().then(function(){
