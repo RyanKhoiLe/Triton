@@ -36,7 +36,16 @@
   z-index: 2;
   position: absolute;
   height: 10%;
-  /*border: 5px solid white;*/
+  border: 1px solid rgba(240,240,240,0.2);
+}
+.pano button {
+  z-index: 2;
+  position: absolute;
+  height: 10%;
+  border: 1px solid rgba(240,240,240,0.2);
+}
+.pano button img{
+  height: 100%;
 }
 .pano a img{
   height: 100%;

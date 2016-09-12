@@ -22,10 +22,11 @@
 </head>
 <body ng-app="app">
   <header>
-    <div id="navBar">
-      <a href="javascript:void(0)" onclick="openSideNav()"><i class="fa fa-bars" id="sidebarButton"></i></a>
-      <a href="javascript:void(0)" onclick="openKeypad()"><i class="fa fa-search" id="keypadButton"></i></a>
-      <a href="#" id="headerTitle"> Triton </a>
+    <div class="colored" id="navBar">
+      <a href="javascript:void(0)" onclick="window.history.back()"><i class="fa fa-caret-left" id="backButton"></i></a>
+      <!-- <a href="javascript:void(0)" onclick=""><i class="fa fa-bars" id="sidebarButton"></i></a> -->
+      <a href="javascript:void(0)" onclick="openKeypad()"><i class="fa fa-bars" id="keypadButton"></i></a>
+      <a href="#" id="headerTitle"> Triton Museum of Art </a>
     </div>
   </header>
   <div id="sidenav" class="sidenav">
@@ -40,6 +41,9 @@
       <input type="number" placeholder="101" ng-model="exhibitCode"/>
       <button class="btn btn-primary" type="submit"> Go </button>
     </form>
+    <a href="#" onclick="newPage()">Home</a>
+    <a href="#about" onclick="newPage()">About Triton</a>
+    <a href="www.tritonmuseum.org">Triton Website</a>
   </div>
   <div id="main" ng-controller="mainController">
 

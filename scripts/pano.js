@@ -13,7 +13,7 @@ window.addEventListener('load', function(){
     touchobj = e.changedTouches[0];
     divleft = parseInt(main.style.left);
     startx = parseInt(touchobj.clientX);
-    e.preventDefault();
+    //e.preventDefault();
   }, false);
 
   main.addEventListener("touchmove", function(e){

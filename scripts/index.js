@@ -30,6 +30,30 @@ function closeNav(){
 function newPage(){
   closeNav();
   closeSlick();
+  $(document).ready(function(){
+
+    var thisColor;
+    if(window.location.href.includes("cowell")){
+      thisColor = "rgba(255,201,14,0.8)";
+    }
+    else if(window.location.href.includes("warburton")){
+      thisColor = "rgba(250,23,62,0.8)";
+    }
+    else if(window.location.href.includes("sculpture")){
+      thisColor = "rgba(34,177,76,0.8)";
+    }
+    else if(window.location.href.includes("rotunda")){
+      thisColor = "rgba(180,234,245,0.8)";
+    }
+    else if(window.location.href.includes("permanent")){
+      thisColor = "rgba(0,162,232,0.8)";
+    }
+    else{
+      thisColor = "rgba(250,23,62,0.8)";
+    }
+    console.log(thisColor);
+    $(".colored").css("background-color", thisColor);
+  });
 }
 function closeSlick(){
   $(document).ready(function(){
@@ -64,6 +88,26 @@ app.config(function($routeProvider){
     .when('/exhibit', {
       templateUrl: "exhibit.html",
       controller: "slideInfo"
+    })
+    .when('/cowell',{
+      templateUrl: "cowell.html",
+      controller: "mobileHome"
+    })
+    .when('/rotunda',{
+      templateUrl: "cowell.html",
+      controller: "mobileHome"
+    })
+    .when('/warburton', {
+      templateUrl: "cowell.html",
+      controller: "mobileHome"
+    })
+    .when('/permanent', {
+      templateUrl: "cowell.html",
+      controller: "mobileHome"
+    })
+    .when('/sculpture', {
+      templateUrl: "cowell.html",
+      controller: "mobileHome"
     });
 
   var config = {
@@ -83,14 +127,47 @@ app.filter('reverse', function() {
   });
 app.controller("mainController", ['$scope', function($scope){
   $scope.message = "SUP";
+  if(window.location.href.includes("cowell")){
+    $scope.currentRoom = "Cowell Room";
+  }
+  else {
+    $scope.currentRoom = "Triton";
+  }
 }]);
 
 app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function($scope, $firebaseArray, $location){
+  setTimeout(function(){
+    $(document).ready(function(){
+      var thisColor;
+      if(window.location.href.includes("cowell")){
+        thisColor = "rgba(255,201,14,0.8)";
+      }
+      else if(window.location.href.includes("warburton")){
+        thisColor = "rgba(250,23,62,0.8)";
+      }
+      else if(window.location.href.includes("sculpture")){
+        thisColor = "rgba(34,177,76,0.8)";
+      }
+      else if(window.location.href.includes("rotunda")){
+        thisColor = "rgba(180,234,245,0.8)";
+      }
+      else if(window.location.href.includes("permanent")){
+        thisColor = "rgba(0,162,232,0.8)";
+      }
+      else{
+        thisColor = "rgba(250,23,62,0.8)";
+      }
+      console.log(thisColor);
+      $(".colored").css("background-color", thisColor);
+    });
+  }, 0);
+
   $scope.fbID = window.location.href.substring(window.location.href.indexOf("?") + 4);
   $scope.title = "HELLO!";
   $scope.logo = "../images/tritonLogo.png";
   $scope.exhibitCode = "";
   $scope.exhibitKeys = [];
+
   $scope.goToExhibit = function(){
     console.log("typed in a number");
     $scope.exhibitKeys.forEach(function(Object){
