@@ -1,6 +1,6 @@
 window.addEventListener('load', function(){
 
-  var main = document.getElementById("main"),
+  var main = document.getElementById("mainContent"),
   startx,
   dist = 0,
   divleft,
