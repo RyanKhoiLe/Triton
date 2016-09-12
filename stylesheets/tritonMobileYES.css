@@ -266,7 +266,7 @@ p{
   float: left;
   margin: 0;
   padding: 0px;
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
 }
 #mainHome{
