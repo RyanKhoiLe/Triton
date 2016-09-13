@@ -127,6 +127,7 @@ app.filter('reverse', function() {
   });
 app.controller("mainController", ['$scope', function($scope){
   $scope.message = "SUP";
+  $scope.navbarColor = "blue";//"rgba(250,23,62,0.8)";
   setTimeout(function(){
     $(document).ready(function(){
       $("body").css("overflow", "hidden");
@@ -174,34 +175,47 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   $scope.logo = "../images/tritonLogo.png";
   $scope.exhibitCode = "";
   $scope.exhibitKeys = [];
-  var thisRoom;
-  var thisColor;
+  var thisRoom, thisColor, navbarColor, slide1Color, slide2Color, slide3Color, slide4Color;
+
   if(window.location.href.includes("cowell")){
     thisRoom = "cowell";
-    thisColor = "rgba(255,201,14,0.8)";
+    thisColor = "rgba(253, 185, 39,0.8)";
+    navbarColor = "rgba(255, 248, 213, 0.9)";
+    slide1Color = "rgba(247, 198, 91, 1)";
+    slide2Color = "rgba(247, 221, 165, 1)";
+    slide3Color = "rgba(255, 231, 181,1)";
+    slide4Color = "rgba(242, 224, 186, 1)";
   }
   else if(window.location.href.includes("warburton")){
     thisRoom = "warburton";
     thisColor = "rgba(250,23,62,0.8)";
+    navbarColor = "rgba(255, 248, 213, 0.9)";
   }
   else if(window.location.href.includes("sculpture")){
     thisRoom = "sculpture";
     thisColor = "rgba(34,177,76,0.8)";
+    navbarColor = "rgba(255, 248, 213, 0.9)";
   }
   else if(window.location.href.includes("rotunda")){
     thisRoom = "rotunda";
     thisColor = "rgba(180,234,245,0.8)";
+    navbarColor = "rgba(255, 248, 213, 0.9)";
   }
   else if(window.location.href.includes("permanent")){
     thisRoom = "permanent";
     thisColor = "rgba(0,162,232,0.8)";
+    navbarColor = "rgba(255, 248, 213, 0.9)";
   }
   else{
     thisRoom = "";
     thisColor = "rgba(250,23,62,0.8)";
+    navbarColor = thisColor;
   }
+  document.getElementById("navBar").style.backgroundColor = navbarColor;
+
   console.log("thisColor: " + thisColor);
   $scope.thisColor = thisColor;
+  $scope.navbarColor = navbarColor;
   // var coloredObjects = document.getElementsByClassName("colored");
   // console.log(coloredObjects);
   // for(var i = 0; i < coloredObjects.length; i++){
@@ -278,10 +292,26 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       $(".regular").slick({
         dots: true,
         infinite: true,
-        focusOnSelect: false
+        focusOnSelect: false,
       });
+      
     });
   }, 0);
+  if(window.location.href.includes("cowell")){
+    thisRoom = "cowell";
+    thisColor = "rgba(253, 185, 39,0.8)";
+    navbarColor = "rgba(255, 248, 213, 0.9)";
+    slide1Color = "rgba(247, 198, 91, 1)";
+    slide2Color = "rgba(247, 221, 165, 1)";
+    slide3Color = "rgba(255, 231, 181,1)";
+    slide4Color = "rgba(242, 224, 186, 1)";
+  }
+  document.getElementById("slide1").style.backgroundColor = slide1Color;
+  document.getElementById("slide2").style.backgroundColor = slide2Color;
+  document.getElementById("slide3").style.backgroundColor = slide3Color;
+  document.getElementById("slide4").style.backgroundColor = slide4Color;
+  //document.getElementById("slide2").height = "500px";//document.getElementById("slider").clientHeight;
+  document.body.style.backgroundColor = thisColor;
   var ref = firebase.database().ref();
   var thisUrl = window.location.href;
   //window.location.href = thisUrl;
