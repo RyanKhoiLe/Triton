@@ -13,19 +13,19 @@ function toggleComment(){
 }
 function openSideNav(){
   console.log("clicked");
-  if(sidebarOpen){
-    console.log('it is open!');
-    closeNav();
-    return;
-  }
-  document.getElementById("sidenav").style.width = "250px";
-  document.getElementById("sidebarButton").style.color = "white";
+  // if(sidebarOpen){
+  //   console.log('it is open!');
+  //   closeNav();
+  //   return;
+  // }
+  // document.getElementById("sidenav").style.width = "250px";
+  // document.getElementById("sidebarButton").style.color = "white";
   sidebarOpen = true;
 }
 function closeNav(){
-  document.getElementById("sidenav").style.width = "0";
-  document.getElementById("sidebarButton").style.color = "black";
-  sidebarOpen = false;
+  // document.getElementById("sidenav").style.width = "0";
+  // document.getElementById("sidebarButton").style.color = "black";
+  // sidebarOpen = false;
 }
 function newPage(){
   closeNav();
@@ -141,8 +141,10 @@ app.controller("mainController", ['$scope', function($scope){
 }]);
 
 app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function($scope, $firebaseArray, $location){
+
   setTimeout(function(){
     $(document).ready(function(){
+      console.log("jquery running");
       var thisColor;
       if(window.location.href.includes("cowell")){
         thisColor = "rgba(255,201,14,0.8)";
@@ -172,6 +174,43 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   $scope.logo = "../images/tritonLogo.png";
   $scope.exhibitCode = "";
   $scope.exhibitKeys = [];
+  var thisRoom;
+  var thisColor;
+  if(window.location.href.includes("cowell")){
+    thisRoom = "cowell";
+    thisColor = "rgba(255,201,14,0.8)";
+  }
+  else if(window.location.href.includes("warburton")){
+    thisRoom = "warburton";
+    thisColor = "rgba(250,23,62,0.8)";
+  }
+  else if(window.location.href.includes("sculpture")){
+    thisRoom = "sculpture";
+    thisColor = "rgba(34,177,76,0.8)";
+  }
+  else if(window.location.href.includes("rotunda")){
+    thisRoom = "rotunda";
+    thisColor = "rgba(180,234,245,0.8)";
+  }
+  else if(window.location.href.includes("permanent")){
+    thisRoom = "permanent";
+    thisColor = "rgba(0,162,232,0.8)";
+  }
+  else{
+    thisRoom = "";
+    thisColor = "rgba(250,23,62,0.8)";
+  }
+  console.log("thisColor: " + thisColor);
+  $scope.thisColor = thisColor;
+  // var coloredObjects = document.getElementsByClassName("colored");
+  // console.log(coloredObjects);
+  // for(var i = 0; i < coloredObjects.length; i++){
+  //   coloredObjects[i].style.backgroundColor = thisColor;
+  // }
+
+
+  $scope.room = thisRoom;
+  console.log("room: "+ $scope.room);
 
   $scope.goToExhibit = function(){
     console.log("typed in a number");
@@ -189,12 +228,13 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   var ref = firebase.database().ref();
   var exhibitId;
   if(window.location.href.includes("cowell")){
-    exhibitId = "cowell"
+    console.log("THIS IS COWELL!!");
+    exhibitId = "cowell";
   }
   else{
     exhibitId = "";
   }
-  var exhibitRef = ref.child('exhibits/' +exhibitId);
+  var exhibitRef = firebase.database().ref().child('exhibits/' + exhibitId);
   $scope.ExhibitList = $firebaseArray(exhibitRef);
   $scope.imagesUpdated = false;
   $scope.ExhibitList.$loaded().then(function(){
@@ -231,6 +271,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
 }]);
 
 app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $firebaseArray){
+  console.log("slideInfo");
   setTimeout(function(){
     $(document).ready(function(){
       console.log("Slick loading");
@@ -246,17 +287,19 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   //window.location.href = thisUrl;
   var idQ = thisUrl.indexOf('?');
   var idStartAt = idQ + 4;
-  var fbID = thisUrl.substring(idStartAt);
+  var idEndAt = thisUrl.indexOf('&');
+  var fbID = thisUrl.substring(idEndAt + 4);
+  console.log("fbID: " + fbID);
+  var exhibitId = thisUrl.substring(idStartAt, idEndAt);
+  console.log("exhibitId" + exhibitId);
   if(thisUrl.includes("#")){
     var idEndAt = thisUrl.indexOf("#");
     if(idEndAt > idStartAt){
       fbID = thisUrl.substring(idStartAt, idEndAt);
     }
-
   }
-
   console.log(fbID);
-  ref.child("exhibits").child(fbID).once('value').then(function(snapshot){
+  firebase.database().ref().child("exhibits").child("cowell").child(fbID).once('value').then(function(snapshot){
     var exhibitData = snapshot.val();
     var fieldArray = Object.keys(exhibitData);
 
@@ -292,7 +335,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
         }
       }
     });
-    var commentRef = firebase.database().ref().child("exhibits").child(fbID).child("comments");
+    var commentRef = firebase.database().ref().child("exhibits").child("exhibitId").child(fbID).child("comments");
     $scope.comments = $firebaseArray(commentRef);
     console.log($scope.title);
     //console.log(exhibitData);
@@ -390,7 +433,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
           name = "Anonymous";
         }
 
-        firebase.database().ref('exhibits/' + fbID + '/comments').push({
+        firebase.database().ref('exhibits/' + exhibitId + '/' + fbID + '/comments').push({
 
           name: $scope.name,
           comment: $scope.comment,

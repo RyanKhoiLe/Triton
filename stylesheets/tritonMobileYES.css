@@ -8,9 +8,9 @@ body{
   max-width: 100%:
   overflow: hidden;
 }
-/*#newContent{
-  font-family: "Roboto", sans-serif;
-}*/
+#newContent{
+  width: 100vw;
+}
 #header{
   background-color: rgba(250,23,62,1);
   font-family: "Roboto", sans-serif;
@@ -163,8 +163,11 @@ td{
 }
 #imgContainer{
   max-height: 40%;
+  width: 100vw;
+  /*border: 5px solid green;*/
 }
 #image1{
+  /*border: 5px solid blue;*/
   max-height: 220px;
   -webkit-box-shadow: 0 10px 6px -6px #777;
 	-moz-box-shadow: 0 10px 6px -6px #777;

@@ -3,7 +3,7 @@
   <title> Triton </title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="../stylesheets/tritonMobileYES.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
   <link rel="icon" href="../images/tritonIconSmall.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
@@ -22,7 +22,7 @@
 </head>
 <body ng-app="app">
   <header>
-    <div class="colored" id="navBar">
+    <div id="navBar">
       <a href="javascript:void(0)" onclick="window.history.back()"><i class="fa fa-caret-left" id="backButton"></i></a>
       <!-- <a href="javascript:void(0)" onclick=""><i class="fa fa-bars" id="sidebarButton"></i></a> -->
       <a href="javascript:void(0)" onclick="openKeypad()"><i class="fa fa-bars" id="keypadButton"></i></a>
@@ -35,8 +35,8 @@
     <a href="#about" onclick="newPage()">About Triton</a>
     <a href="www.tritonmuseum.org">Triton Website</a>
   </div>
-  <div id="viewportContainer">
-    <div id="keypad" class="keypad" ng-controller="mobileHome">
+  <!-- <div id="viewportContainer"> -->
+    <div id="keypad" class="keypad">
       <a href="javascript:void(0)" class="closebtn1" onclick="closeKeypad()">&times;</a>
       <form ng-submit="event.preventDefault(); goToExhibit()">
         <input type="number" placeholder="101" ng-model="exhibitCode"/>
@@ -46,8 +46,8 @@
       <a href="#about" onclick="newPage()">About Triton</a>
       <a href="www.tritonmuseum.org">Triton Website</a>
     </div>
-  </div>
-  <div id="main" ng-controller="mainController">
+  <!-- </div> -->
+  <div id="main">
 
     <div ng-view> </div>
   </div>

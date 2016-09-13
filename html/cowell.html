@@ -1,9 +1,9 @@
-<link rel="stylesheet" type="text/css" href="../stylesheets/tritonMobileYES.css">
+<link rel="stylesheet" type="text/css" ng-href="../stylesheets/tritonMobileYES.css">
 <div id="ListOfExhibits">
   <div class="exhibitLink" ng-repeat="exhibit in ExhibitList">
-    <a ng-href="#exhibit?id={{exhibit.$id}}" onclick="newPage()">
+    <a ng-href="#exhibit?eg={{room}}&id={{exhibit.$id}}" onclick="newPage()">
       <!-- mobileIndex.html?id={{exhibit.$id}} -->
-      <div class="linkBanner colored">
+      <div class="colored linkBanner" style="background-color: {{ thisColor }}">
         <h3 class="linkCode"> {{exhibit.exhibitCode}}</h3>
         <h1 class="linkTitle"> {{exhibit.title}} - {{exhibit.artist}} </h1>
       </div>
