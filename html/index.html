@@ -20,13 +20,13 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400" rel="stylesheet">
 </head>
-<body ng-app="app">
+<body ng-app="app" style="overflow-x: hidden">
   <header>
     <div id="navBar">
-      <a href="javascript:void(0)" onclick="window.history.back()"><i class="fa fa-caret-left" id="backButton"></i></a>
+      <a href="javascript:void(0)" onclick="backButton()"><i class="fa fa-caret-left" id="backButton"></i></a>
       <!-- <a href="javascript:void(0)" onclick=""><i class="fa fa-bars" id="sidebarButton"></i></a> -->
       <a href="javascript:void(0)" onclick="openKeypad()"><i class="fa fa-bars" id="keypadButton"></i></a>
-      <a href="#" id="headerTitle"> Triton </a>
+      <a href="#" onclick="openHome()" id="headerTitle"> Triton </a>
     </div>
   </header>
   <div id="sidenav" class="sidenav">

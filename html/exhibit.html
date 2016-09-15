@@ -57,11 +57,11 @@
     </div>
   </div>
   <div>
-
+    <button type="button" class="btn btn-block" data-toggle="modal" data-target="#createComment"> Add a comment </button>
     <button id="showComment" data-toggle="collapse" data-target="#commentList" onclick="toggleComment()"> <i class="fa fa-caret-down" style="padding-right: 5px;"></i> Show Comments </button>
     <div id="commentList" class="collapse">
 
-        <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#createComment"> Add a comment </button>
+
 
       <div style="text-align: center" ng-repeat="comment in comments | reverse">
         <h4> <i> <b>{{ comment.name }}</b> says: </i> </h4>

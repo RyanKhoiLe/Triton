@@ -197,7 +197,7 @@ p{
   line-height: 16px;
 }
 .textCenter{
-  padding-top: 40px;
+  /*padding-top: 40px;*/
 }
 .slide{
   min-height: 200px;
@@ -223,6 +223,9 @@ p{
 #slider h1, #slider h3, #slider td{
   padding-left: 20px;
   padding-right: 20px;
+}
+#slider h3 {
+  font-size: .9em
 }
 #showComment{
   background-color: white;
@@ -272,7 +275,7 @@ p{
 .linkTitle{
   position: relative;
   top: -45px;
-  text-align: right;
+  text-align: center;
   right: 20px;
   text-shadow: none;
   text-decoration: none;
