@@ -28,10 +28,11 @@ function closeNav(){
   // sidebarOpen = false;
 }
 function openHome(){
-  document.getElementById("navBar").style.backgroundColor = "rgba(250,23,62,0.8)";
+  //document.getElementById("navBar").style.backgroundColor = "rgba(250,23,62,0.8)";
   closeNav();
   closeKeypad();
   closeSlick();
+  document.body.style.backgroundColor = "white";
 }
 function backButton(){
   window.history.back();
@@ -93,7 +94,11 @@ app.config(function($routeProvider){
   $routeProvider
 
     .when('/', {
-      templateUrl: "panorama.html",
+      templateUrl: "newhome.html",
+      controller: "mainController"
+    })
+    .when('/landing', {
+      templateUrl: "museum_front.html",
       controller: "mainController"
     })
     .when('/exhibit', {
@@ -138,11 +143,11 @@ app.filter('reverse', function() {
   });
 app.controller("mainController", ['$scope', function($scope){
   $scope.message = "SUP";
-  $scope.navbarColor = "blue";//"rgba(250,23,62,0.8)";
+  //$scope.navbarColor = "blue";//"rgba(250,23,62,0.8)";
   setTimeout(function(){
     $(document).ready(function(){
       $("body").css("overflow-x", "hidden");
-      $("#navBar").css('background-color', 'rgba(250,23,62,0.8)')
+      //$("#navBar").css('background-color', 'rgba(250,23,62,0.8)')
     });
   }, 0);
   if(window.location.href.includes("cowell")){
@@ -239,11 +244,11 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     thisColor = "rgba(250,23,62,0.8)";
     navbarColor = thisColor;
   }
-  document.getElementById("navBar").style.backgroundColor = navbarColor;
+  //document.getElementById("navBar").style.backgroundColor = navbarColor;
 
   console.log("thisRoom: " + thisRoom);
   $scope.thisColor = thisColor;
-  $scope.navbarColor = navbarColor;
+  //$scope.navbarColor = navbarColor;
   // var coloredObjects = document.getElementsByClassName("colored");
   // console.log(coloredObjects);
   // for(var i = 0; i < coloredObjects.length; i++){
