@@ -398,8 +398,8 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   }
   document.getElementById("slide1").style.backgroundColor = slide1Color;
   document.getElementById("slide2").style.backgroundColor = slide2Color;
-  document.getElementById("slide3").style.backgroundColor = slide3Color;
-  document.getElementById("slide4").style.backgroundColor = slide4Color;
+  //document.getElementById("slide3").style.backgroundColor = slide3Color;
+  //document.getElementById("slide4").style.backgroundColor = slide4Color;
   //document.getElementById("slide2").height = "500px";//document.getElementById("slider").clientHeight;
   document.body.style.backgroundColor = thisColor;
   var ref = firebase.database().ref();

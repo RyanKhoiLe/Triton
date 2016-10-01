@@ -58,7 +58,7 @@ td{
   position: fixed;
   height: 50px;
   width: 100vw;
-  background-color: rgba(187, 195, 204, 0.7);
+  background-color: rgba(187, 195, 204, 1);
   box-shadow: 0px 2px 3px rgba(100,100,100,0.5);
   text-align: center;
   z-index: 2;
@@ -188,8 +188,7 @@ td{
   /*border: 5px solid green;*/
 }
 #image1{
-  /*border: 5px solid blue;*/
-  max-height: 220px;
+  width: 100%;
   -webkit-box-shadow: 0 10px 6px -6px #777;
 	-moz-box-shadow: 0 10px 6px -6px #777;
   box-shadow: 0 10px 6px -6px #777;
@@ -221,8 +220,8 @@ p{
 }
 .slide{
   width: 100vw;
-  min-height: 80vh;
   border: 1px solid rgba(250,250,250,0.3);
+  height: 100vh;
   border-style: solid none solid none;
 }
 .slide:focus{
@@ -234,7 +233,7 @@ p{
 }
 
 #slider{
-  padding-top: 10px;
+  padding-top: 1px;
   /*border: 1px solid black;*/
 }
 #slider:focus{
@@ -250,8 +249,9 @@ p{
 }
 #showComment{
   background-color: white;
-  width: 100%;
-  font-size: 24px;
+  width: 50%;
+  height: 40px;
+  /*font-size: 24px;*/
   font-family: "Roboto", sans-serif;
   border-radius: 2px;
   border: 1px solid rgba(200,200,200,0.3);
@@ -260,7 +260,12 @@ p{
 #showComment:focus{
   outline: none;
 }
-#addComment {
+#addCommentBtn {
+  width: 49.5%;
+  float: left;
+  height: 40px;
+  background-color: white;
+  border: 1px solid rgba(200,200,200,0.3);
   /*display: block;
   margin-left: 100px;*/
 }
@@ -321,6 +326,57 @@ p{
 }
 #mainHome{
   overflow-y: hidden;
+}
+#navPage{
+  position: static;
+}
+#permanent{
+  position: absolute;
+  left: 6.45%;
+  top: 31%;
+  width: 85%;
+  height: 40px;
+  border: 3px solid green;
+}
+#cowell{
+  position: absolute;
+  left: 6.45%;
+  top: 43%;
+  width: 85%;
+  height: 40px;
+  border: 3px solid green;
+}
+#warburton{
+  position: absolute;
+  left: 6.45%;
+  top: 37%;
+  width: 85%;
+  height: 40px;
+  border: 3px solid green;
+}
+#rotunda{
+  position: absolute;
+  left: 6.45%;
+  top: 49%;
+  width: 85%;
+  height: 40px;
+  border: 3px solid green;
+}
+#sculpture{
+  position: absolute;
+  left: 6.45%;
+  top: 55%;
+  width: 85%;
+  height: 40px;
+  border: 3px solid green;
+}
+#jbhouse{
+  position: absolute;
+  left: 6.45%;
+  top: 61%;
+  width: 85%;
+  height: 40px;
+  border: 3px solid green;
 }
 .padding{
   padding-left: 10px;
