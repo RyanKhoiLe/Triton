@@ -328,6 +328,7 @@ p{
   overflow-y: hidden;
 }
 #navPage{
+  width: 100vw;
   position: static;
 }
 #permanent{
