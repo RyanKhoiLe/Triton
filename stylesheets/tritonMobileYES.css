@@ -331,6 +331,11 @@ p{
   width: 100vw;
   position: static;
 }
+#navPageContainer{
+  border: 3px solid blue;
+  width: auto;
+  height: 600px;
+}
 #permanent{
   position: absolute;
   left: 6.45%;
