@@ -332,65 +332,92 @@ p{
   position: static;
 }
 #navPageContainer{
-  border: 3px solid blue;
+  border: none;
   width: auto;
   /*height: auto;*/
 }
 #boundingBox{
   position: absolute;
   left: 0;
-  top: 20%;
-  background-color: rgba(230, 230, 230, 0.5);
-  width: 100%;
+  top: 5%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
+  width: 100%;
+  text-align: center;
+}
+#topbox{
+  background-color: rgba(230, 230, 230, 0.7);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.buttonLink{
+  padding: 0;
+}
+.inBox{
+  border: 1px solid rgba(20,20,20,0.8);
+  width: 80%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+#footerBox{
+  position: relative;
+  /*top: 63%;*/
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+  font-family: "Roboto", sans-serif;
+}
+#logoHome{
+  width: 80%;
 }
 #permanent{
   position: relative;
-  left: 6.45%;
+  /*left: 6.45%;*/
   top: 31%;
   width: 85%;
   /*height: 40px;*/
-  border: 3px solid green;
+  border: 3px solid rgba(240, 240, 240, 0.1);
 }
 #cowell{
   position: relative;
-  left: 6.45%;
+  /*left: 6.45%;*/
   top: 43%;
   width: 85%;
   /*height: 40px;*/
-  border: 3px solid green;
+  border: 3px solid rgba(240, 240, 240, 0.1);
 }
 #warburton{
   position: relative;
-  left: 6.45%;
+  /*left: 6.45%;*/
   top: 37%;
   width: 85%;
   /*height: 40px;*/
-  border: 3px solid green;
+  border: 3px solid rgba(240, 240, 240, 0.1);
 }
 #rotunda{
   position: relative;
-  left: 6.45%;
+  /*left: 6.45%;*/
   top: 49%;
   width: 85%;
   /*height: 40px;*/
-  border: 3px solid green;
+  border: 3px solid rgba(240, 240, 240, 0.1);
 }
 #sculpture{
   position: relative;
-  left: 6.45%;
+  /*left: 6.45%;*/
   top: 55%;
   width: 85%;
   /*height: 40px;*/
-  border: 3px solid green;
+  border: 3px solid rgba(240, 240, 240, 0.1);
 }
 #jbhouse{
   position: relative;
-  left: 6.45%;
+  /*left: 6.45%;*/
   top: 61%;
   width: 85%;
   /*height: 40px;*/
-  border: 3px solid green;
+  border: 3px solid rgba(240, 240, 240, 0.1);
 }
 .padding{
   padding-left: 10px;
