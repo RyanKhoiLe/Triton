@@ -141,6 +141,103 @@ app.filter('reverse', function() {
         return input.slice(start);
     };
   });
+app.controller("keypadController", ['$scope', '$firebaseArray', '$location', function($scope, $firebaseArray, $location){
+  $scope.exhibitCode;
+  var exhibitsRef = firebase.database().ref('exhibits');
+  $scope.exhibitArray = [];
+  //cowell
+  var cowellRef = exhibitsRef.child("cowell");
+  $scope.cowellExhibits = $firebaseArray(cowellRef);
+  $scope.cowellExhibits.$loaded().then(function(){
+    angular.forEach($scope.cowellExhibits, function(exhibit){
+      var id = exhibit.$id;
+      var code = exhibit.exhibitCode;
+      var exhibitName = exhibit.exhibit;
+      $scope.exhibitArray.push({id, exhibitName, code});
+    });
+    console.log($scope.cowellExhibits);
+    console.log($scope.exhibitArray);
+  });
+  //Warburton room
+  var warburtonRef = exhibitsRef.child("warburton");
+  $scope.warburtonExhibits = $firebaseArray(warburtonRef);
+  $scope.warburtonExhibits.$loaded().then(function(){
+    angular.forEach($scope.warburtonExhibits, function(exhibit){
+      var id = exhibit.$id;
+      var code = exhibit.exhibitCode;
+      var exhibit = exhibit.exhibit;
+      var exhibitName = exhibit.exhibit;
+      $scope.exhibitArray.push({id, exhibitName, code});
+    });
+    console.log($scope.warburtonExhibits);
+    console.log($scope.exhibitArray);
+  });
+  //permanent
+  var permanentRef = exhibitsRef.child("permanent");
+  $scope.permanentExhibits = $firebaseArray(permanentRef);
+  $scope.permanentExhibits.$loaded().then(function(){
+    angular.forEach($scope.permanentExhibits, function(exhibit){
+      var id = exhibit.$id;
+      var code = exhibit.exhibitCode;
+      var exhibitName = exhibit.exhibit;
+      $scope.exhibitArray.push({id, exhibitName, code});
+    });
+    console.log($scope.permanentExhibits);
+    console.log($scope.exhibitArray);
+  });
+  //sculpture
+  var sculptureRef = exhibitsRef.child("sculpture");
+  $scope.sculptureExhibits = $firebaseArray(sculptureRef);
+  $scope.sculptureExhibits.$loaded().then(function(){
+    angular.forEach($scope.sculptureExhibits, function(exhibit){
+      var id = exhibit.$id;
+      var code = exhibit.exhibitCode;
+      var exhibitName = exhibit.exhibit;
+      $scope.exhibitArray.push({id, exhibitName, code});
+    });
+    console.log($scope.sculptureExhibits);
+    console.log($scope.exhibitArray);
+  });
+  //rotunda
+  var rotundaRef = exhibitsRef.child("rotunda");
+  $scope.rotundaExhibits = $firebaseArray(rotundaRef);
+  $scope.rotundaExhibits.$loaded().then(function(){
+    angular.forEach($scope.rotundaExhibits, function(exhibit){
+      var id = exhibit.$id;
+      var code = exhibit.exhibitCode;
+      var exhibitName = exhibit.exhibit;
+      $scope.exhibitArray.push({id, exhibitName, code});
+    });
+    console.log($scope.rotundaExhibits);
+    console.log($scope.exhibitArray);
+  });
+  //jbhouse
+  var jbRef = exhibitsRef.child("jbhouse");
+  $scope.jbExhibits = $firebaseArray(jbRef);
+  $scope.jbExhibits.$loaded().then(function(){
+    angular.forEach($scope.jbExhibits, function(exhibit){
+      var id = exhibit.$id;
+      var code = exhibit.exhibitCode;
+      var exhibitName = exhibit.exhibit;
+      $scope.exhibitArray.push({id, exhibitName, code});
+    });
+    console.log($scope.jbExhibits);
+    console.log($scope.exhibitArray);
+  });
+
+  $scope.goToExhibitKeypad = function(){
+    $scope.exhibitArray.forEach(function(Object){
+      console.log(Object);
+      console.log(Object.code);
+      if($scope.exhibitCode == Object.code){
+        console.log("MATCH!");
+        $location.path("/exhibit").search([Object.exhibitName, Object.id]);
+        console.log($location.path);
+        closeKeypad();
+      }
+    });
+  }
+}]);
 app.controller("mainController", ['$scope', function($scope){
   $scope.message = "SUP";
   //$scope.navbarColor = "blue";//"rgba(250,23,62,0.8)";
@@ -156,6 +253,7 @@ app.controller("mainController", ['$scope', function($scope){
   else {
     $scope.currentRoom = "Triton";
   }
+
 }]);
 
 app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function($scope, $firebaseArray, $location){
@@ -406,9 +504,9 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   var thisUrl = window.location.href;
   //window.location.href = thisUrl;
   var idQ = thisUrl.indexOf('?');
-  var idStartAt = idQ + 4;
+  var idStartAt = idQ + 3;
   var idEndAt = thisUrl.indexOf('&');
-  var fbID = thisUrl.substring(idEndAt + 4);
+  var fbID = thisUrl.substring(idEndAt + 3);
   console.log("fbID: " + fbID);
   var exhibitId = thisUrl.substring(idStartAt, idEndAt);
   console.log("exhibitId" + exhibitId);
