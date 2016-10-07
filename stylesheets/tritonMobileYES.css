@@ -221,7 +221,7 @@ p{
 .slide{
   width: 100vw;
   border: 1px solid rgba(250,250,250,0.3);
-  height: 100vh;
+  height: 90vh;
   border-style: solid none solid none;
   text-align: center;
 }
@@ -340,7 +340,7 @@ p{
 #boundingBox{
   position: absolute;
   left: 0;
-  top: 5%;
+  top: 3%;
   padding-top: 10px;
   padding-bottom: 10px;
 
@@ -348,7 +348,7 @@ p{
   text-align: center;
 }
 #topbox{
-  background-color: rgba(230, 230, 230, 0.7);
+  background-color: rgba(240, 240, 240, 0.7);
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -356,10 +356,10 @@ p{
   padding: 0;
 }
 .inBox{
-  border: 1px solid rgba(20,20,20,0.8);
+  border: 1px solid rgba(100,100,100,0.8);
   width: 80%;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 #footerBox{
   position: relative;
@@ -369,57 +369,68 @@ p{
   padding-top: 10px;
   font-family: "Roboto", sans-serif;
 }
+#infoButton{
+  position: relative;
+  width: 85%;
+  top: 10px;
+  left: 10%;
+}
 #logoHome{
-  width: 80%;
+  width: 90%;
+}
+#newsletterButton{
+  background-color: white;
+  border: 1px solid black;
 }
 #permanent{
   position: relative;
   /*left: 6.45%;*/
   top: 31%;
-  width: 85%;
+  width: 90%;
   /*height: 40px;*/
-  border: 3px solid rgba(240, 240, 240, 0.1);
+  border: none;
 }
 #cowell{
   position: relative;
   /*left: 6.45%;*/
   top: 43%;
-  width: 85%;
+  width: 90%;
   /*height: 40px;*/
-  border: 3px solid rgba(240, 240, 240, 0.1);
+  border: none;
 }
 #warburton{
   position: relative;
   /*left: 6.45%;*/
   top: 37%;
-  width: 85%;
+  width: 90%;
   /*height: 40px;*/
-  border: 3px solid rgba(240, 240, 240, 0.1);
+  border: none;
 }
 #rotunda{
   position: relative;
   /*left: 6.45%;*/
   top: 49%;
-  width: 85%;
+  width: 90%;
   /*height: 40px;*/
-  border: 3px solid rgba(240, 240, 240, 0.1);
+  border: none;
 }
 #sculpture{
   position: relative;
   /*left: 6.45%;*/
   top: 55%;
-  width: 85%;
+  width: 90%;
   /*height: 40px;*/
-  border: 3px solid rgba(240, 240, 240, 0.1);
+  border: none;
 }
 #jbhouse{
   position: relative;
   /*left: 6.45%;*/
   top: 61%;
-  width: 85%;
+  width: 90%;
   /*height: 40px;*/
-  border: 3px solid rgba(240, 240, 240, 0.1);
+  border: none;
 }
+
 .padding{
   padding-left: 10px;
   padding-right: 10px;
