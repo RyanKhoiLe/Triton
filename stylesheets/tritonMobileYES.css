@@ -58,7 +58,7 @@ td{
   position: fixed;
   height: 50px;
   width: 100vw;
-  background-color: rgba(187, 195, 204, 1);
+  background-color: rgba(187, 195, 204, 0.3);
   box-shadow: 0px 2px 3px rgba(100,100,100,0.5);
   text-align: center;
   z-index: 2;
@@ -340,7 +340,7 @@ p{
 #boundingBox{
   position: absolute;
   left: 0;
-  top: 3%;
+  top: 9%;
   padding-top: 10px;
   padding-bottom: 10px;
 
@@ -358,8 +358,12 @@ p{
 .inBox{
   border: 1px solid rgba(100,100,100,0.8);
   width: 80%;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 7px;
+  margin-bottom: 13px;
+}
+#bottomLine{
+  margin-top: 20px;
+  margin-bottom: 17px;
 }
 #footerBox{
   position: relative;
@@ -371,12 +375,20 @@ p{
 }
 #infoButton{
   position: relative;
-  width: 85%;
-  top: 10px;
-  left: 10%;
+  width: 90%;
+  top: 30px;
+  /*left: 10%;*/
 }
 #logoHome{
-  width: 90%;
+  width: 98%;
+}
+#newsLetterForm{
+  padding-top: 8px;
+  width: 100%;
+}
+#emailInput{
+  font-size: 14px;
+  width: 70%;
 }
 #newsletterButton{
   background-color: white;
@@ -387,6 +399,7 @@ p{
   /*left: 6.45%;*/
   top: 31%;
   width: 90%;
+  padding-bottom: 1px;
   /*height: 40px;*/
   border: none;
 }
@@ -413,6 +426,7 @@ p{
   width: 90%;
   /*height: 40px;*/
   border: none;
+  padding-bottom: 1px;
 }
 #sculpture{
   position: relative;
@@ -421,6 +435,7 @@ p{
   width: 90%;
   /*height: 40px;*/
   border: none;
+  padding-bottom: 1px;
 }
 #jbhouse{
   position: relative;
