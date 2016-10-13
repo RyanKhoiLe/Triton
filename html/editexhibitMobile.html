@@ -186,16 +186,16 @@
 
             <textarea id="slide2" ng-model="slides[1]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
           </div>
-          <div class="inputContainer" ng-show="slideIds[2]">
+          <!-- <div class="inputContainer" ng-show="slideIds[2]">
 
               <h2 class="longDescription"> Slide 3: </h2>
 
             <textarea id="slide3" ng-model="slides[2]" rows="3" cols="50" placeholder="Picasso is known as the father of cubism, which is evident in the shapes and geometry presented in the painting"></textarea>
-          </div>
+          </div> -->
         <label id="videosLabel">
         <div class="inputContainer">
-          <h2 class="longDescription"> Videos (please use YouTube videos and use the "Embed URL" link and paste below, separated by commas) If no videos, please leave blank </h2>
-          <textarea ng-model="videos" id="videos" rows="3" cols="50" value=""></textarea>
+          <h2 class="longDescription"> Videos (please use YouTube videos and paste the link below (e.g 'https://www.youtube.com/watch?v=R1vskiVDwl4')) If no videos, please leave blank </h2>
+          <textarea ng-model="videos" id="videos" rows="3" cols="50" placeholder="https://www.youtube.com/watch?v=R1vskiVDwl4" value=""></textarea>
           <button class="update" type="submit"> Update Videos </button>
         </div>
         <button id="updatePageButton" type="submit" style="font-size: 36px;">Update page</button>
@@ -211,10 +211,13 @@
           var thisUrl = window.location.href;
           //window.location.href = thisUrl;
           var idQ = thisUrl.indexOf('?');
-          var idStartAt = idQ + 4;
-          var fbID = thisUrl.substring(idStartAt);
+          var idStartAt = idQ + 3;
+          var idAnd = thisUrl.indexOf('&');
+          var fbIDStart = idAnd + 3;
+          var thisRoom = thisUrl.substring(idStartAt, idAnd);
+          var fbID = thisUrl.substring(fbIDStart);
           console.log(fbID);
-          document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?id=" + fbID);
+          //document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?id=" + fbID);
         </script>
 
         <!-- <div id="newContent" ng-controller="slideInfo">

@@ -23,13 +23,14 @@
       <div class="textCenter">
         <h1 ng-bind="title">  </h1>
         <h3 ng-bind="slides[0]">  </h3>
-        <audio controls id="exhibitAudio" ng-if="exhibitAudio"> No audio in this browser </audio>
+        <audio controls id="exhibitAudioPlayer" ng-show="exhibitAudio"> No audio in this browser </audio>
       </div>
     </div>
     <div class="slide" id="slide2">
       <div class="textCenter">
         <h1 ng-bind="title">  </h1>
         <h3 ng-bind="slides[1]"></h3>
+        <iframe id="videoPlayer" ng-show="videos" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
     <!-- <div class="slide" id="slide3">

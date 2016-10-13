@@ -40,8 +40,11 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   var thisUrl = window.location.href;
   //window.location.href = thisUrl;
   var idQ = thisUrl.indexOf('?');
-  var idStartAt = idQ + 4;
-  var fbID = thisUrl.substring(idStartAt);
+  var idStartAt = idQ + 3;
+  var idAnd = thisUrl.indexOf('&');
+  var fbIDStart = idAnd + 3;
+  var thisRoom = thisUrl.substring(idStartAt, idAnd);
+  var fbID = thisUrl.substring(idAnd);
   //$scope.useThisId = fbID;
   //console.log($scope.useThisId);
   console.log(fbID);
@@ -112,9 +115,13 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       var comment = $scope.comment;
       var thisUrl = window.location.href;
       //window.location.href = thisUrl;
+
       var idQ = thisUrl.indexOf('?');
-      var idStartAt = idQ + 4;
-      var fbID = thisUrl.substring(idStartAt);
+      var idStartAt = idQ + 3;
+      var idAnd = thisUrl.indexOf('&');
+      var fbIDStart = idAnd + 3;
+      var thisRoom = thisUrl.substring(idStartAt, idAnd);
+      var fbID = thisUrl.substring(idAnd);
       console.log(fbID);
       var badWords = ["fuck", "shit", "cock", "dick", "pussy", "bitch", "ass", "<", ">"]; //excuse the language, gotta filter it out!
 
@@ -155,9 +162,11 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       var ref = firebase.database().ref();
       var thisUrl = window.location.href;
       var idQ = thisUrl.indexOf('?');
-      var idStartAt = idQ + 4;
-      //var idEnd = //thisUrl.indexOf("#");
-      var fbID = thisUrl.substring(idStartAt);
+      var idStartAt = idQ + 3;
+      var idAnd = thisUrl.indexOf('&');
+      var fbIDStart = idAnd + 3;
+      var thisRoom = thisUrl.substring(idStartAt, idAnd);
+      var fbID = thisUrl.substring(idAnd);
       console.log(fbID);
       if(comment){
         if(name === ''){
@@ -208,14 +217,20 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
   var thisUrl = window.location.href;
   //window.location.href = thisUrl;
   var idQ = thisUrl.indexOf('?');
-  var idStartAt = idQ + 4;
-  var fbID = thisUrl.substring(idStartAt);
+  var idStartAt = idQ + 3;
+  var idAnd = thisUrl.indexOf('&');
+  var fbIDStart = idAnd + 3;
+  var thisRoom = thisUrl.substring(idStartAt, idAnd);
+  console.log(thisRoom);
+  var fbID = thisUrl.substring(fbIDStart);
   if(thisUrl.includes("#")){
     var idEndAt = thisUrl.indexOf("#");
     fbID = thisUrl.substring(idStartAt, idEndAt);
   }
-  ref.child("exhibits").child(fbID).once('value').then(function(snapshot){
+  console.log(fbID);
+  firebase.database().ref("exhibits").child(thisRoom).child(fbID).on('value', function(snapshot){
     var exhibitData = snapshot.val();
+    console.log(exhibitData);
     var fieldArray = Object.keys(exhibitData);
 
     console.log(fieldArray);

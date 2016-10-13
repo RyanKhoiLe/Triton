@@ -438,6 +438,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
 app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $firebaseArray){
   console.log("slideInfo");
   $scope.showLogo = true;
+  $scope.videoLink = "";
   setTimeout(function(){
     $(document).ready(function(){
       console.log("Slick loading");
@@ -499,8 +500,11 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
     thisColor = "rgba(250,23,62,0.8)";
     navbarColor = thisColor;
   }
-  document.getElementById("slide1").style.backgroundColor = slide1Color;
-  document.getElementById("slide2").style.backgroundColor = slide2Color;
+  if(!(window.location.href.includes("edit"))){
+    //document.getElementById("slide1").style.backgroundColor = slide1Color;
+    //document.getElementById("slide2").style.backgroundColor = slide2Color;
+  }
+
   //document.getElementById("slide3").style.backgroundColor = slide3Color;
   //document.getElementById("slide4").style.backgroundColor = slide4Color;
   //document.getElementById("slide2").height = "500px";//document.getElementById("slider").clientHeight;
@@ -556,7 +560,34 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
           }).catch(function(error){
           });
         }
+        if(key==='exhibitAudio'){
+          var storage = firebase.storage();
+          var storageRef = storage.ref();
+          var spaceRefAudio = storageRef.child(exhibitData[key]);
+          storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
+            var test = url;
+            $scope.exhibitAudioFile = test;
+            document.getElementById("exhibitAudioPlayer").setAttribute("src", test);
+            console.log($scope.exhibitAudioFile);
+          }).catch(function(error){
+
+          });
+        }
+        if(key === 'videos'){
+          var url = exhibitData[key];
+          var code = url.substring(url.indexOf("=") + 1);
+          console.log(code);
+
+          var finalUrl = "https://www.youtube.com/embed/"+code;
+          console.log(finalUrl);
+          $scope.videoLink = finalUrl;
+          //https://www.youtube.com/embed/_QdPW8JrYzQ
+          document.getElementById("videoPlayer").setAttribute("src", finalUrl);
+        }
       }
+    });
+    firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).update({
+      views: $scope.views + 1
     });
     var commentRef = firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).child("comments");
     $scope.comments = $firebaseArray(commentRef);
