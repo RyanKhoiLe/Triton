@@ -173,7 +173,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
           name = "Anonymous";
         }
 
-        firebase.database().ref('exhibits/' + fbID + '/comments').push({
+        firebase.database().ref('exhibits/' + thisRoom + '/' + fbID + '/comments').push({
 
           name: $scope.name,
           comment: $scope.comment,
