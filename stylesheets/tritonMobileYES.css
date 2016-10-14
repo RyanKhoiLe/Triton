@@ -63,6 +63,9 @@ td{
   text-align: center;
   z-index: 2;
 }
+#videoPlayer{
+  width: 80%;
+}
 #headerTitle{
   font-size: 40px;
   font-family: "Roboto Condensed", sans-serif;
