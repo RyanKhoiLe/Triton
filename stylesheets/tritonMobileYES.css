@@ -241,7 +241,7 @@ p{
 
 #slider{
   padding-top: 1px;
-  height: 490px;
+  height: 80vh;
   /*border: 1px solid black;*/
 }
 #slider:focus{

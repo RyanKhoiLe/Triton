@@ -271,7 +271,7 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     //console.log(exhibitData);
     console.log(exhibitData);
 
-    $scope.$apply();
+    //$scope.$apply();
   });
   function getTimeStamp(){
     var now = new Date();
@@ -289,8 +289,17 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     return date.join("/") + ", " + time.join(":") + " " + suffix;
   }
   $scope.updatePage = function(){
+    var thisUrl = window.location.href;
+    //window.location.href = thisUrl;
+    var idQ = thisUrl.indexOf('?');
+    var idStartAt = idQ + 3;
+    var idAnd = thisUrl.indexOf('&');
+    var fbIDStart = idAnd + 3;
+    var thisRoom = thisUrl.substring(idStartAt, idAnd);
+    console.log(thisRoom);
+    var fbID = thisUrl.substring(fbIDStart);
     console.log("update called");
-    firebase.database().ref('exhibits/' + fbID).update({
+    firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID).update({
         title: $scope.title,
         artist: $scope.artist,
         year: $scope.year,
@@ -300,8 +309,14 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
         videos: $scope.videos,
         timeStamp: getTimeStamp(),
         exhibitAudio: $scope.exhibitAudio,
-        exhibitCode: $scope.exhibitCode
+        exhibitCode: $scope.exhibitCode,
+        slides: $scope.slides
+
     });
+    // firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID + '/slides').update({
+    //   0: $scope.slides[0],
+    //   1: $scope.slides[2]
+    // });
     document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?id=" + fbID + "#edit");
   }
   // window.onscroll = function(){
