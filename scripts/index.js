@@ -621,9 +621,9 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       var thisUrl = window.location.href;
       //window.location.href = thisUrl;
       var idQ = thisUrl.indexOf('?');
-      var idStartAt = idQ + 4;
+      var idStartAt = idQ + 3;
       var idEndAt = thisUrl.indexOf('&');
-      var fbID = thisUrl.substring(idEndAt + 4);
+      var fbID = thisUrl.substring(idEndAt + 3);
       //console.log("fbID: " + fbID);
       var exhibitId = thisUrl.substring(idStartAt, idEndAt);
       //console.log("exhibitId" + exhibitId);
@@ -673,9 +673,9 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       var ref = firebase.database().ref();
       var thisUrl = window.location.href;
       var idQ = thisUrl.indexOf('?');
-      var idStartAt = idQ + 4;
+      var idStartAt = idQ + 3;
       var idEndAt = thisUrl.indexOf('&');
-      var fbID = thisUrl.substring(idEndAt + 4);
+      var fbID = thisUrl.substring(idEndAt + 3);
       console.log("fbID: " + fbID);
       var exhibitId = thisUrl.substring(idStartAt, idEndAt);
       console.log("exhibitId" + exhibitId);

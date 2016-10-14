@@ -166,7 +166,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       var idAnd = thisUrl.indexOf('&');
       var fbIDStart = idAnd + 3;
       var thisRoom = thisUrl.substring(idStartAt, idAnd);
-      var fbID = thisUrl.substring(idAnd);
+      var fbID = thisUrl.substring(fbIDStart);
       console.log(fbID);
       if(comment){
         if(name === ''){
