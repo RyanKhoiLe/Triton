@@ -28,9 +28,10 @@
     </div>
     <div class="slide" id="slide2">
       <div class="textCenter">
-        <h1 ng-bind="title">  </h1>
+        <!-- <h1 ng-bind="title">  </h1> -->
+
+        <iframe id="videoPlayer" ng-show="videos" style="margin-top: 20px;" src="" frameborder="0" allowfullscreen></iframe>
         <h3 ng-bind="slides[1]"></h3>
-        <iframe id="videoPlayer" ng-show="videos" src="" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
     <!-- <div class="slide" id="slide3">
