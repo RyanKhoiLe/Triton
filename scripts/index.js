@@ -246,6 +246,7 @@ app.controller("mainController", ['$scope', function($scope){
     $(document).ready(function(){
       $("body").css("overflow-x", "hidden");
       $("#navBarLogo").css("display", "none");
+      $("body").css("background-color", "rgba(250,250,250,0.9)");
       //$("#navBar").css('background-color', 'rgba(250,23,62,0.8)')
     });
   }, 0);
@@ -264,7 +265,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   setTimeout(function(){
     $(document).ready(function(){
       console.log("jquery running");
-      $("#navBarLogo").css('display', 'block');
+
       var thisColor;
       if(window.location.href.includes("cowell")){
         thisColor = "rgba(255,201,14,0.8)";
@@ -286,6 +287,8 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
       }
       console.log(thisColor);
       $(".colored").css("background-color", thisColor);
+      $("body").css("background-color", thisColor);
+      $("#navBarLogo").css('display', 'block');
     });
   }, 0);
 
