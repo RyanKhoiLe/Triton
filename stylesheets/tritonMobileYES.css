@@ -70,7 +70,7 @@ td{
 }
 #videoPlayer{
   /*width: 70vw;*/
-  max-height: 150px;
+  max-height: 120px;
 }
 #exhibitAudioPlayer{
   width: 90%;
@@ -366,7 +366,7 @@ p{
 #boundingBox{
   position: absolute;
   left: 0;
-  top: 5%;
+  top: 7%;
   padding-top: 10px;
   padding-bottom: 10px;
 
