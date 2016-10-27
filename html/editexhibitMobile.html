@@ -206,7 +206,7 @@
         <h1 style='padding-top: 50px;'> Real-time preview </h1>
         <p> (make sure to click the update button to see changes): </p>
         <hr>
-        <iframe id="exhibitPreview" width="90%" height="70%"></iframe>
+        <iframe id="exhibitPreview" width="50%" height="70%"></iframe>
         <script>
           var thisUrl = window.location.href;
           //window.location.href = thisUrl;
@@ -217,7 +217,7 @@
           var thisRoom = thisUrl.substring(idStartAt, idAnd);
           var fbID = thisUrl.substring(fbIDStart);
           console.log(fbID);
-          //document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?id=" + fbID);
+          document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?0=" + thisRoom + "&1=" + fbID);
         </script>
 
         <!-- <div id="newContent" ng-controller="slideInfo">

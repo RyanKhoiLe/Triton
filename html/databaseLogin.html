@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- created by Khoi Le 2016 !-->
+  <title> New Exhibit Page Creator </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/tritonLoginCSS.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="../images/tritonIconSmall.png">
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+</head>
+  <body>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCH2GOoz3WtmgKC8gs9-P0eHk02-sX9vS0",
+        authDomain: "lunaspheretriton.firebaseapp.com",
+        databaseURL: "https://lunaspheretriton.firebaseio.com",
+        storageBucket: "lunaspheretriton.appspot.com",
+      };
+      firebase.initializeApp(config);
+
+    var url = "https://lunaspheretriton.firebaseio.com";
+      var firebaseRef = firebase.database();
+
+      function checkUser(){
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            firebase.auth().signOut().then(function(){
+              console.log("signed out");
+            }, function(error){
+              console.log("error signing out");
+            });
+          } else {
+
+          }
+        });
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var resultDisplay = document.getElementById("result");
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode + " " + errorMessage);
+          if(error.code === "auth/wrong-password"){
+            resultDisplay.textContent = "Sorry, that password is incorrect";
+          }
+          if(error.code === "auth/user-not-found"){
+            resultDisplay.textContent = "Sorry, that username is incorrect";
+          }
+          if(error.code === "auth/invalid-email"){
+            resultDisplay.textContent = "Sorry, that is not a valid email";
+          }
+          // return;
+        });
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            resultDisplay.textContent = "Logging in . . .";
+            window.open("edithome.html", "_self");
+          } else {
+
+          }
+        });
+
+      }
+
+    </script>
+    <div id="headBar">
+      <a href="www.lunasphere.com"><img id="lunasphereLogo" src="../images/LogoTransparent.png" alt="Lunasphere"></a>
+      <h1 id="pageTitle"> Login </h1>
+      <a href="index.html"><img id="logoPageCreator" src="../images/tritonIcon.png" alt="triton"></a>
+      <div id="navBar">
+        <a class="navBarLink" href="index.html"> triton database home </a>
+        <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
+      </div>
+    </div>
+    <hr>
+    <div id="wrapper">
+      <div id="centerBox">
+        <form action="#" onsubmit="event.preventDefault(); checkUser()">
+          <div class="inputContainer">
+              <div class="textContainer"><h2 style='float: right'> Username: </h2></div>
+              <input type="email" id="email" placeholder="example@gmail.com">
+          </div>
+          <div class="inputContainer">
+              <div class="textContainer"><h2 style='float: right'> Password: </h2> </div>
+            <input type="password" id="password" placeholder="*****"><input type='submit' style='display:none' />
+          </div>
+          <p id="result"> Please enter your credentials </p>
+          <button id="loginButton" type="submit">Log In</button>
+        </form>
+      </div>
+    </div>
+    <div id="footer">
+      <div id="footerLinkBar">
+        <a class="footerLinks" href="lunasphere.io"> about lunasphere </a>
+        <a class="footerLinks" href="index.html"> triton database </a>
+      </div>
+      <div id="footerLogos">
+        <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.io'> LunaSphere </a> in conjunction with the <a class='h2Links' href='www.triton.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
+        <img src='../images/tritonIcon.png' id='logoPageCreatorFooter'></img>
+        <img src='../images/LogoTransparent.png' id='lunasphereLogoFooter'></img>
+      </div>
+      <div id="credits"> <h3 style='color:gray;'>Copyright 2016: Nikolai Flowers and Khoi Le </h3> </div>
+    </div>
+  </body>
+</html>

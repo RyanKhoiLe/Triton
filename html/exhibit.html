@@ -66,7 +66,7 @@
   <div>
     <button id="addCommentBtn" type="button" class="btn" data-toggle="modal" data-target="#createComment"> Add a comment </button>
     <button id="showComment" data-toggle="collapse" data-target="#commentList"> <i class="fa fa-caret-down" style="padding-right: 5px; font-size: 12px"></i> Show Comments </button>
-    <div id="commentList" class="collapse">
+    <div id="commentList" style="border: none" class="collapse">
       <div style="text-align: center" ng-repeat="comment in comments | reverse">
         <h4> <i> <b>{{ comment.name }}</b> says: </i> </h4>
         <h4> {{ comment.comment }} </h4>
@@ -74,7 +74,7 @@
         <hr>
       </div>
     </div>
-    <div id="createComment" class="modal fade" role="dialog">
+    <div id="createComment" class="modal fade"  role="dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h3> New comment </h3>

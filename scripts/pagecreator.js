@@ -120,17 +120,22 @@
           }).key;
         }
         else{
-          alert('Lunasphere wants to push your best content. Please enter a title, artist, and information for the first slide');
+          alert('Lunasphere wants to push your best content. Please enter a title, artist, and information for the slides');
         }
       }
+      var thisUrl = window.location.href;
+      var idStartAt = thisUrl.indexOf('?') + 3;
+      var idSecondParam = thisUrl.indexOf('&');
+      var thisRoom = thisUrl.substring(idStartAt, idSecondParam);
+      var fbID = thisUrl.substring(idSecondParam + 3);
       $scope.makeAnother = function (){
         window.location.href = 'pagecreatorMobile.html';
       }
       $scope.sendToExhibit = function (){
-        window.location.href = 'exhibit.html?id=' + fbID;
+        window.location.href = 'https://lunaspheretriton.firebaseapp.com/html/index.html#/exhibit.html?0=' + thisRoom + '&1=' + fbID;
       }
       $scope.editExhibit = function (){
-        window.location.href = 'editexhibit.html?id=' + fbID;
+        window.location.href = 'https://lunaspheretriton.firebaseapp.com/html/editexhibitMobile.html?0=' + thisRoom + '&1=' + fbID;
       }
       $scope.goToExplorer = function (){
         window.location.href = 'databaseExplorer.html';

@@ -124,6 +124,10 @@ app.config(function($routeProvider){
     .when('/sculpture', {
       templateUrl: "cowell.html",
       controller: "mobileHome"
+    })
+    .when('/jbhouse', {
+      templateUrl: "cowell.html",
+      controller: "mobileHome"
     });
 
   var config = {
@@ -282,6 +286,9 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
       else if(window.location.href.includes("permanent")){
         thisColor = "rgba(0,162,232,0.8)";
       }
+      else if(window.location.href.includes("jbhouse")){
+        thisColor = "rgba(0,162,232,0.8)";
+      }
       else{
         thisColor = "rgba(250,23,62,0.8)";
       }
@@ -344,6 +351,15 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide3Color = "rgba(202, 216, 234, 1)";
     slide4Color = "rgba(229, 237, 248, 1)";
   }
+  else if(window.location.href.includes("jbhouse")){
+    thisRoom = "jbhouse";
+    thisColor = "rgba(0, 103, 166,0.8)";
+    navbarColor = "rgba(227, 244, 247, 0.9)";
+    slide1Color = "rgba(90, 146, 195, 1)";
+    slide2Color = "rgba(139, 174, 212, 1)";
+    slide3Color = "rgba(202, 216, 234, 1)";
+    slide4Color = "rgba(229, 237, 248, 1)";
+  }
   else{
     thisRoom = "";
     thisColor = "rgba(250,23,62,0.8)";
@@ -399,6 +415,10 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     console.log("THIS IS ROTUNDA!");
     exhibitId = "rotunda";
   }
+  else if(window.location.href.includes("jbhouse")){
+    console.log("THIS IS ROTUNDA!");
+    exhibitId = "jbhouse";
+  }
   else{
     exhibitId = "";
   }
@@ -440,7 +460,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
 
 app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $firebaseArray){
   console.log("slideInfo");
-  $scope.showLogo = true;
+
   $scope.videoLink = "";
   setTimeout(function(){
     $(document).ready(function(){
@@ -453,6 +473,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
 
     });
   }, 0);
+  $scope.showLogo = true;
   if(window.location.href.includes("cowell")){
     thisRoom = "cowell";
     thisColor = "rgba(253, 185, 39,0.8)";
@@ -491,6 +512,15 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   }
   else if(window.location.href.includes("permanent")){
     thisRoom = "permanent";
+    thisColor = "rgba(0, 103, 166,0.8)";
+    navbarColor = "rgba(227, 244, 247, 0.9)";
+    slide1Color = "rgba(90, 146, 195, 1)";
+    slide2Color = "rgba(139, 174, 212, 1)";
+    slide3Color = "rgba(202, 216, 234, 1)";
+    slide4Color = "rgba(229, 237, 248, 1)";
+  }
+  else if(window.location.href.includes("jbhouse")){
+    thisRoom = "jbhouse";
     thisColor = "rgba(0, 103, 166,0.8)";
     navbarColor = "rgba(227, 244, 247, 0.9)";
     slide1Color = "rgba(90, 146, 195, 1)";
