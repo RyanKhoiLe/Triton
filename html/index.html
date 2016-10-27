@@ -31,12 +31,12 @@
       </div>
     </div>
   </header>
-  <div id="sidenav" class="sidenav">
+  <!-- <div id="sidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#" onclick="newPage()">Home</a>
+    <a href="#" onclick="openHome()">Home</a>
     <a href="" data-toggle="modal" data-target="#aboutTriton">About Triton</a>
     <a href="https://www.tritonmuseum.org">Triton Website</a>
-  </div>
+  </div> -->
   <div id="aboutTriton" class="modal fade" role="dialog">
     <div class="centerTextBox">
       <h2 style="font-family: 'Roboto', sans-serif; font-size: 24px;">
@@ -56,11 +56,12 @@
   <!-- <div id="viewportContainer"> -->
     <div id="keypad" class="keypad" ng-controller="keypadController">
       <a href="javascript:void(0)" class="closebtn1" onclick="closeKeypad()">&times;</a>
+      <p> Type in the exhibit number below or use a QR code scanner to scan the QR code next to the painting </p>
       <form ng-submit="event.preventDefault(); goToExhibitKeypad()">
         <input type="number" placeholder="101" ng-model="exhibitCode"/>
         <button class="btn btn-primary" type="submit"> Go </button>
       </form>
-      <a href="#" onclick="newPage()">Home</a>
+      <a href="#" onclick="openHome()">Home</a>
       <a href="" data-toggle="modal" data-target="#aboutTriton">About Triton</a>
       <a href="www.tritonmuseum.org">Triton Website</a>
     </div>

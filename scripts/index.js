@@ -1,6 +1,9 @@
 var sidebarOpen = false;
 var keypadOpen = false;
 var commentOpen = false;
+function scrollDownALittle(){
+  window.scrollBy(0,200);
+}
 function toggleComment(){
   if(!commentOpen){
     document.getElementById("showComment").innerHTML = "<i class='fa fa-caret-up' style='padding-right: 5px;'></i> Hide Comments ";
@@ -32,6 +35,7 @@ function openHome(){
   closeNav();
   closeKeypad();
   closeSlick();
+  document.getElementById("navBar").style.backgroundColor = "rgba(187, 195, 204, 0.01)";
   document.body.style.backgroundColor = "white";
 }
 function backButton(){
@@ -248,6 +252,57 @@ app.controller("mainController", ['$scope', function($scope){
   //$scope.navbarColor = "blue";//"rgba(250,23,62,0.8)";
   setTimeout(function(){
     $(document).ready(function(){
+      var request;
+      $("#newsLetterForm").submit(function(event){
+
+        //Abort any pending request
+        if(request){
+          request.abort();
+        }
+
+        //set up some local variables
+        var $form = $(this);
+
+        // Select and cache all the fields
+        var $inputs = $form.find("input", "button");
+
+        // Serialize the data
+        var serializedData = $form.serialize();
+
+        // Disable inputs while ajax requesting
+        $inputs.prop("disabled", true);
+
+        //Fire the request to /form.php
+        request = $.ajax({
+          url: "https://script.google.com/macros/s/AKfycbxpuQ0yfpnBJkLMR4sdAXhtxrAagpwYJiQIY0NooTJyX980Tas/exec",
+          type: "post",
+          data: serializedData
+        });
+
+        //Callback handler on success
+        request.done(function(response, textStatus, jqXHR){
+          console.log("It worked");
+          console.log(response);
+          console.log(textStatus);
+          console.log(jqXHR);
+          alert("Thank you for subscribing to our newsletter!");
+        });
+
+        //Callback handler on failure
+        request.fail(function(jqXHR, textStatus, errorThrown){
+          console.error(
+            "The following error occured: " +
+            textStatus, errorThrown
+          );
+        });
+
+        //Callback handler regardless
+        request.always(function(){
+          $inputs.prop("disabled", false);
+        });
+
+        event.preventDefault();
+      });
       $("body").css("overflow-x", "hidden");
       $("#navBarLogo").css("display", "none");
       $("body").css("background-color", "rgba(250,250,250,0.9)");
@@ -293,6 +348,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
         thisColor = "rgba(250,23,62,0.8)";
       }
       console.log(thisColor);
+      $("#navBar").css("background-color", "rgba(187, 195, 204, 0.4)");
       $(".colored").css("background-color", thisColor);
       $("body").css("background-color", thisColor);
       $("#navBarLogo").css('display', 'block');
@@ -366,7 +422,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     navbarColor = thisColor;
   }
   //document.getElementById("navBar").style.backgroundColor = navbarColor;
-
+  navbarColor = "rgba(187, 195, 204, 0.4)";
   console.log("thisRoom: " + thisRoom);
   $scope.thisColor = thisColor;
   //$scope.navbarColor = navbarColor;
@@ -465,6 +521,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   setTimeout(function(){
     $(document).ready(function(){
       console.log("Slick loading");
+      $("#navBar").css("background-color", "rgba(187, 195, 204, 0.4)");
       $(".regular").slick({
         dots: true,
         infinite: true,

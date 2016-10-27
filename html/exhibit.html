@@ -65,7 +65,7 @@
   </div>
   <div>
     <button id="addCommentBtn" type="button" class="btn" data-toggle="modal" data-target="#createComment"> Add a comment </button>
-    <button id="showComment" data-toggle="collapse" data-target="#commentList"> <i class="fa fa-caret-down" style="padding-right: 5px; font-size: 12px"></i> Show Comments </button>
+    <button id="showComment" onclick="scrollDownALittle()" data-toggle="collapse" data-target="#commentList"> <i class="fa fa-caret-down" style="padding-right: 5px; font-size: 12px; z-index: 5"></i> Show Comments </button>
     <div id="commentList" style="border: none" class="collapse">
       <div style="text-align: center" ng-repeat="comment in comments | reverse">
         <h4> <i> <b>{{ comment.name }}</b> says: </i> </h4>
