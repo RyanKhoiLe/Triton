@@ -55,6 +55,19 @@ font-style: normal;
 html{
   overflow-x: hidden;
 }
+select{
+  font-family: 'roboto_condensed', sans-serif;
+  font-size: 26px;
+  float: left;
+  border: 1px solid #f2f2f2;
+  margin-top: 15px;
+  margin-left: 55px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
 #headBar{
   position: absolute;
   height: 200px;

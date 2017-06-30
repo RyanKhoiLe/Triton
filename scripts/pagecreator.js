@@ -11,6 +11,62 @@
   });
 
   app.controller("createNewPage", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
+    setTimeout(function(){
+      $(document).ready(function(){
+        var request;
+        $("#pageCreateForm").submit(function(event){
+
+          //Abort any pending request
+          if(request){
+            request.abort();
+          }
+
+          //set up some local variables
+          var $form = $(this);
+
+          // Select and cache all the fields
+          var $inputs = $form.find("input", "textarea", "button", "select");
+
+          // Serialize the data
+          var serializedData = $form.serialize();
+
+          // Disable inputs while ajax requesting
+          $inputs.prop("disabled", true);
+
+          //Fire the request to /form.php
+          request = $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbwDG4Q6-1lmygCQ4_yiTiNGr0sLumWRjqDW4oYaz1YAVsAGQOKE/exec",
+            type: "post",
+            data: serializedData
+          });
+
+          //Callback handler on success
+          request.done(function(response, textStatus, jqXHR){
+            console.log("It worked");
+            console.log(response);
+            console.log(textStatus);
+            console.log(jqXHR);
+            // alert("Thank you for subscribing to our newsletter!");
+          });
+
+          //Callback handler on failure
+          request.fail(function(jqXHR, textStatus, errorThrown){
+            console.error(
+              "The following error occured: " +
+              textStatus, errorThrown
+            );
+          });
+
+          //Callback handler regardless
+          request.always(function(){
+            $inputs.prop("disabled", false);
+          });
+
+          event.preventDefault();
+        });
+      });
+    }, 0);
+
     $scope.numberOfSlides = 3;
     $scope.oneImage = true;
     $scope.exhibitSelect = "";
@@ -95,10 +151,13 @@
           }
         }
         console.log(slides);
-        if(title && exhibitCode && slides){
-          firebase.database().ref("allExhibits/").push({
-            exhibit: exhibit
-          });
+        if(artist && exhibitCode && exhibit){
+          if(title==''){
+            title = "Untitled";
+          }
+          // firebase.database().ref("allExhibits/").push({
+          //   exhibit: exhibit
+          // });
           var key = firebase.database().ref('exhibits/').child(exhibit).push({
             title: title,
             artist: artist,
@@ -120,7 +179,7 @@
           }).key;
         }
         else{
-          alert('Lunasphere wants to push your best content. Please enter a title, artist, and information for the slides');
+          alert('Lunasphere wants to push your best content. Please enter an artist, exhibit code, and exhibit room');
         }
       }
       var thisUrl = window.location.href;

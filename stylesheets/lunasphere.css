@@ -30,14 +30,14 @@ body{
   float: none;
   display: block;
   position: relative;
-  height: 100%;
+  height: 100vh;
   border: 1px dotted rgba(0,0,0,0.01);
 }
 #page2{
   position: relative;
   left: -10px;
   background-color: #2D2D2D;
-  height: 100%;
+  height: 100vh;
   width: 100.7%;
   border: 1px dotted rgba(0,0,0,0.01);
 }
@@ -56,7 +56,7 @@ body{
   text-shadow: 2px 2px 5px #5E5E5E;
 }
 .trifoldIcon{
-  width: 60%;
+  width: 50%;
 }
 .sectionHeaderBox{
   position: relative;
@@ -65,7 +65,7 @@ body{
 .sectionHeader{
   padding-top: 10px;
   font-family: "Roboto", sans-serif;
-  font-size: 5em;
+  font-size: 3.5em;
   text-shadow: 2px 2px 5px #1D1D1D;
 }
 .sectionSubTitle{
@@ -99,11 +99,11 @@ body{
   position: relative;
   height: 80px;
   left: 48%;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 h1{
   color: #0A99D5;
-  font-size: 4.3em;
+  font-size: 3.3em;
   font-family: 'Roboto Condensed', sans-serif;
   text-decoration: none;
   /*border: 1px solid white;*/
@@ -112,7 +112,7 @@ h2{
   position: relative;
   top: -40px;
   color: white;
-  font-size: 2.0em;
+  font-size: 1.8em;
   font-family: 'Roboto', sans-serif;
   /*border: 1px solid white;*/
 }
@@ -121,14 +121,14 @@ h2{
 }
 h3{
   color: white;
-  font-size: 2.0em;
+  font-size: 1.3em;
   font-family: "Roboto Condensed", sans-serif;
   padding-left: 20px;
   padding-right: 20px;
 }
 h4{
   color: lightgray;
-  font-size: 1.5em;
+  font-size: 1.1em;
   font-family: "Roboto", sans-serif;
   padding-left: 20px;
   padding-right: 20px;

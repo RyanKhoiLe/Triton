@@ -86,7 +86,10 @@
       //   tempExhKey = snapshot.val();
       //   console.log('snapshot val' + tempExhKey);
       // });
-      firebaseRef.ref('exhibits/').once('value').then(function(snapshot){
+      // var exhibitNameArray = ["cowell", "warburton", "permanent", "rotunda", "jbhouse", "sculpture"];
+      // for(var i = 0; i < exhibitNameArray.length; i++){
+      //   console.log(exhibitNameArray[i] + " " + i);
+      firebaseRef.ref('exhibits').child("sculpture").once('value').then(function(snapshot){
         snapshot.forEach(function(childSnapshot){
           var keyID = childSnapshot.key;
           var key = childSnapshot.val().key;
@@ -96,11 +99,12 @@
           var title = childSnapshot.val().title;
           var img = childSnapshot.val().exhibitImage;
           //var title = childSnapshot.
-          firebaseRef.ref('exhibits/' + keyID + '/comments').on("child_added", function(snapshot){
-
-              var data = snapshot.val();
+          firebaseRef.ref("exhibits").child("sculpture").child(keyID).child("comments").once("value").then(function(snapshot){
+            snapshot.forEach(function(childSnapshot){
+              console.log("this id" + keyID);
+              var data = childSnapshot.val();
               console.log(data);
-              var commentKey = snapshot.key;
+              var commentKey = childSnapshot.key;
               console.log("comment key: " + commentKey);
               //var title = firebaseRef.ref('exhibits/' + keyID).title;
               console.log("title: " + title );
@@ -112,11 +116,167 @@
               var fbID = keyID;
               var newComment = new commentObject(title, timeStamp, flagged, text, name, fbID, img, commentKey);
               createCommentLink(newComment);
-
-
+            });
           });
         });
       });
+      firebaseRef.ref('exhibits').child("rotunda").once('value').then(function(snapshot){
+        snapshot.forEach(function(childSnapshot){
+          var keyID = childSnapshot.key;
+          var key = childSnapshot.val().key;
+          console.log('just the key: ' + key);
+          console.log('keyID: ' + keyID);
+          console.log('title from exhibit: ' + childSnapshot.val().title);
+          var title = childSnapshot.val().title;
+          var img = childSnapshot.val().exhibitImage;
+          //var title = childSnapshot.
+          firebaseRef.ref("exhibits").child("rotunda").child(keyID).child("comments").once("value").then(function(snapshot){
+            snapshot.forEach(function(childSnapshot){
+              console.log("this id" + keyID);
+              var data = childSnapshot.val();
+              console.log(data);
+              var commentKey = childSnapshot.key;
+              console.log("comment key: " + commentKey);
+              //var title = firebaseRef.ref('exhibits/' + keyID).title;
+              console.log("title: " + title );
+              var name = data.name;
+              console.log("name: " + name);
+              var timeStamp = data.time;
+              var text = data.comment;
+              var flagged = data.flagged;
+              var fbID = keyID;
+              var newComment = new commentObject(title, timeStamp, flagged, text, name, fbID, img, commentKey);
+              createCommentLink(newComment);
+            });
+          });
+        });
+      });
+      firebaseRef.ref('exhibits').child("jbhouse").once('value').then(function(snapshot){
+        snapshot.forEach(function(childSnapshot){
+          var keyID = childSnapshot.key;
+          var key = childSnapshot.val().key;
+          console.log('just the key: ' + key);
+          console.log('keyID: ' + keyID);
+          console.log('title from exhibit: ' + childSnapshot.val().title);
+          var title = childSnapshot.val().title;
+          var img = childSnapshot.val().exhibitImage;
+          //var title = childSnapshot.
+          firebaseRef.ref("exhibits").child("jbhouse").child(keyID).child("comments").once("value").then(function(snapshot){
+            snapshot.forEach(function(childSnapshot){
+              console.log("this id" + keyID);
+              var data = childSnapshot.val();
+              console.log(data);
+              var commentKey = childSnapshot.key;
+              console.log("comment key: " + commentKey);
+              //var title = firebaseRef.ref('exhibits/' + keyID).title;
+              console.log("title: " + title );
+              var name = data.name;
+              console.log("name: " + name);
+              var timeStamp = data.time;
+              var text = data.comment;
+              var flagged = data.flagged;
+              var fbID = keyID;
+              var newComment = new commentObject(title, timeStamp, flagged, text, name, fbID, img, commentKey);
+              createCommentLink(newComment);
+            });
+          });
+        });
+      });
+      firebaseRef.ref('exhibits').child("permanent").once('value').then(function(snapshot){
+        snapshot.forEach(function(childSnapshot){
+          var keyID = childSnapshot.key;
+          var key = childSnapshot.val().key;
+          console.log('just the key: ' + key);
+          console.log('keyID: ' + keyID);
+          console.log('title from exhibit: ' + childSnapshot.val().title);
+          var title = childSnapshot.val().title;
+          var img = childSnapshot.val().exhibitImage;
+          //var title = childSnapshot.
+          firebaseRef.ref("exhibits").child("permanent").child(keyID).child("comments").once("value").then(function(snapshot){
+            snapshot.forEach(function(childSnapshot){
+              console.log("this id" + keyID);
+              var data = childSnapshot.val();
+              console.log(data);
+              var commentKey = childSnapshot.key;
+              console.log("comment key: " + commentKey);
+              //var title = firebaseRef.ref('exhibits/' + keyID).title;
+              console.log("title: " + title );
+              var name = data.name;
+              console.log("name: " + name);
+              var timeStamp = data.time;
+              var text = data.comment;
+              var flagged = data.flagged;
+              var fbID = keyID;
+              var newComment = new commentObject(title, timeStamp, flagged, text, name, fbID, img, commentKey);
+              createCommentLink(newComment);
+            });
+          });
+        });
+      });
+      firebaseRef.ref('exhibits').child("warburton").once('value').then(function(snapshot){
+        snapshot.forEach(function(childSnapshot){
+          var keyID = childSnapshot.key;
+          var key = childSnapshot.val().key;
+          console.log('just the key: ' + key);
+          console.log('keyID: ' + keyID);
+          console.log('title from exhibit: ' + childSnapshot.val().title);
+          var title = childSnapshot.val().title;
+          var img = childSnapshot.val().exhibitImage;
+          //var title = childSnapshot.
+          firebaseRef.ref("exhibits").child("warburton").child(keyID).child("comments").once("value").then(function(snapshot){
+            snapshot.forEach(function(childSnapshot){
+              console.log("this id" + keyID);
+              var data = childSnapshot.val();
+              console.log(data);
+              var commentKey = childSnapshot.key;
+              console.log("comment key: " + commentKey);
+              //var title = firebaseRef.ref('exhibits/' + keyID).title;
+              console.log("title: " + title );
+              var name = data.name;
+              console.log("name: " + name);
+              var timeStamp = data.time;
+              var text = data.comment;
+              var flagged = data.flagged;
+              var fbID = keyID;
+              var newComment = new commentObject(title, timeStamp, flagged, text, name, fbID, img, commentKey);
+              createCommentLink(newComment);
+            });
+          });
+        });
+      });
+        firebaseRef.ref('exhibits').child("cowell").once('value').then(function(snapshot){
+          snapshot.forEach(function(childSnapshot){
+            var keyID = childSnapshot.key;
+            var key = childSnapshot.val().key;
+            console.log('just the key: ' + key);
+            console.log('keyID: ' + keyID);
+            console.log('title from exhibit: ' + childSnapshot.val().title);
+            var title = childSnapshot.val().title;
+            var img = childSnapshot.val().exhibitImage;
+            //var title = childSnapshot.
+            firebaseRef.ref("exhibits").child("cowell").child(keyID).child("comments").once("value").then(function(snapshot){
+              snapshot.forEach(function(childSnapshot){
+                console.log("this id" + keyID);
+                var data = childSnapshot.val();
+                console.log(data);
+                var commentKey = childSnapshot.key;
+                console.log("comment key: " + commentKey);
+                //var title = firebaseRef.ref('exhibits/' + keyID).title;
+                console.log("title: " + title );
+                var name = data.name;
+                console.log("name: " + name);
+                var timeStamp = data.time;
+                var text = data.comment;
+                var flagged = data.flagged;
+                var fbID = keyID;
+                var newComment = new commentObject(title, timeStamp, flagged, text, name, fbID, img, commentKey);
+                createCommentLink(newComment);
+              });
+            });
+          });
+        });
+      //}
+
       // firebaseRef.ref('exhibits').on('child_added', function(snapshot){
       //   var snapshotKey = snapshot.key;
       //   console.log("snapshotKey: " + snapshotKey);
@@ -140,7 +300,7 @@
         return exhibitsArray;
       }
       var commentNum = 0;
-      var trashIcon = '../images/trash.png';
+      var trashIcon = '../images/icons/trash.png';
       function createCommentLink(comment){ //loop through array??
         var newSearchResult = document.createElement('div');
         var searchTable = document.getElementById("searchTable");
@@ -187,7 +347,7 @@
 
         commentTextContent.push(textContent);
         newButton.setAttribute('class','delete');
-        newButton.innerHTML = "<img class='icon' src='../images/trash.png'>";
+        newButton.innerHTML = "<img class='icon' src='../images/icons/trash.png'>";
         newButton.onclick = function(){
           alertDelete(comment, thisNum);
         };
@@ -256,7 +416,7 @@
       <div id="navBar">
         <a class="navBarLink"  href="edithome.html"> database home </a>
         <a class="navBarLink"  href="databaseExplorer.html"> page editor </a>
-        <a class="navBarLink"  href="pagecreator.html"> page creator </a>
+        <a class="navBarLink"  href="pagecreatorMobile.html"> page creator </a>
         <a class="navBarLink" href="commentExplorer.html" style="text-decoration: underline"> comment moderator </a>
         <a class="navBarLink" href="index.html"> triton database home </a>
         <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
@@ -264,7 +424,7 @@
     </div>
     <div id="wrapper">
       <div id="centerBox">
-        <h1> COMING SOON </h1>
+        <!-- <h1> COMING SOON </h1> -->
         <!-- <div id='angularExhibits' ng-app="exhibitSearchList" ng-controller="exhibitController">
         <label> Search: <input ng-model='searchText' id="searchValue"></label>
         <table id='searchTextResults'>
@@ -319,7 +479,7 @@
       <a class="footerLinks" href="index.html"> triton database </a>
     </div>
     <div id="footerLogos">
-      <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.html'> LunaSphere </a> in conjunction with the <a class='h2Links' href='www.triton.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
+      <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.html'> LunaSphere </a> in conjunction with the <a class='h2Links' href='http://www.tritonmuseum.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
       <img src='../images/tritonIcon.png' id='logoPageCreatorFooter'></img>
       <img src='../images/LogoTransparent.png' id='lunasphereLogoFooter'></img>
     </div>

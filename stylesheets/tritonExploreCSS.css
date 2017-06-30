@@ -227,7 +227,7 @@ font-style: normal;
 }
 #footer{
   position: absolute;
-  top: 1900px;
+  top: 4400px;
   left: 0px;
   height: 220px;
   width: 100%;
@@ -447,7 +447,7 @@ th{
 
 #centerBox{
   position: relative;
-  height: 1500px;
+  height: 4000px;
   margin-top: 5%;
   margin-bottom: 200px;
   width: 90%;

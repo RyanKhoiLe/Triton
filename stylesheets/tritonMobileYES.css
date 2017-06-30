@@ -4,7 +4,7 @@ html{
 }
 body{
   font-family: "Roboto", sans-serif;
-  height: 100%;
+  /*height: 100%;*/
   max-width: 100%:
   overflow: hidden;
   /*background-color: blue;*/
@@ -135,7 +135,8 @@ td{
 #main{
   position: absolute;
   top: 0px;
-  height: 100vh;
+  /*border: 5px solid white;*/
+  /*height: 100vh;*/
 }
 .sidenav {
   height: 100%;
@@ -247,7 +248,7 @@ td{
 }
 #image1{
   position: absolute;
-  width: 100vw;
+  max-width: 100vw;
   top: 50%;
   transform: translateY(-50%);
   /*height: 75%;*/
@@ -274,7 +275,7 @@ h2{
 }
 h3{
   font-family: "Roboto", sans-serif;
-  line-height: 22px;
+  /*line-height: 22px;*/
 }
 p{
   font-family: "Roboto", sans-serif;
@@ -287,7 +288,7 @@ p{
   width: 100vw;
   border: none;
   /*border: 1px solid rgba(250,250,250,0.3);*/
-  height: 70vh;
+  height: 80vh;
   /*border-style: solid none solid none;*/
   text-align: center;
 }
@@ -298,10 +299,12 @@ p{
   /*padding-bottom: -5px;*/
   /*box-shadow: 1px 1px 2px rgba(100,100,100,0.2);*/
 }
-
+.slide h3{
+  font-size: 18px;
+}
 #slider{
-  padding-top: 1px;
-  height: 80vh;
+  padding-top: 5px;
+  height: 85vh;
   /*border: 1px solid black;*/
 }
 #slider:focus{
@@ -311,9 +314,6 @@ p{
 #slider h1, #slider h3, #slider td{
   padding-left: 20px;
   padding-right: 20px;
-}
-#slider h3 {
-  font-size: .9em
 }
 #showComment{
   background-color: white;
@@ -343,10 +343,10 @@ p{
 }
 .imageLink{
   position: relative;
-  top: -60%;
-  left: -50%;
-  min-width: 100vw;
-  object-fit: cover;
+  top: -30%;
+  /*left: -50%;*/
+  width: 100vw;
+  /*object-fit: cover;*/
 }
 .linkBanner{
   position: absolute;
@@ -373,7 +373,7 @@ p{
 }
 .linkTitle{
   position: relative;
-  top: -55px;
+  top: -45px;
   text-align: center;
   right: 20px;
   text-shadow: none;

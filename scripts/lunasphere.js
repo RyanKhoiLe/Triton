@@ -13,9 +13,9 @@ $(document).ready(function(){
   });
   $('.moveDownIcon').hover(
     function(){
-      $ (this).attr("src", "images/icons/down_arrow_lightgray.png");
+      $ (this).attr("src", "../images/icons/down_arrow_lightgray.png");
     }, function(){
-      $ (this).attr("src", "images/icons/down_arrow_gray.png");
+      $ (this).attr("src", "../images/icons/down_arrow_gray.png");
   });
   $(window).keydown(
     function(e){

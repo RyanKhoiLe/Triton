@@ -1,3 +1,6 @@
+function setExhibitBox(){
+  document.getElementById("exhibitSelect").value = document.getElementById("exhibitDropdown").value;
+}
 var app = angular.module("database", ["firebase", "ngRoute"]);
 
 app.config(function($routeProvider){
@@ -191,7 +194,19 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
 
 }]);
 app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
-  $scope.exhibitSelect = "";
+  setTimeout(function(){
+    $(document).ready(function(){
+      var thisUrl = window.location.href;
+      //window.location.href = thisUrl;
+      var idQ = thisUrl.indexOf('?');
+      var idStartAt = idQ + 3;
+      var idAnd = thisUrl.indexOf('&');
+      var fbIDStart = idAnd + 3;
+      var thisRoom = thisUrl.substring(idStartAt, idAnd);
+      $("#exhibitDropdown").val(thisRoom);
+    });
+  }, 0);
+  $scope.exhibit = "";
   $scope.numberOfSlides = 3;
   $scope.slideIds = [];
   $scope.slideValues = [];
@@ -204,6 +219,7 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
   $scope.exhibitCode = "";
   $scope.exhibitAudio = "";
   $scope.exhibitImage = "";
+  $scope.imagePreviewLink = "";
   $scope.inputtedExhibit = "";
   $scope.timeStamp = "";
   for(var i = 0; i < 10; i++){
@@ -221,25 +237,25 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
   var idAnd = thisUrl.indexOf('&');
   var fbIDStart = idAnd + 3;
   var thisRoom = thisUrl.substring(idStartAt, idAnd);
-  console.log(thisRoom);
+  //console.log(thisRoom);
   var fbID = thisUrl.substring(fbIDStart);
   if(thisUrl.includes("#")){
     var idEndAt = thisUrl.indexOf("#");
     fbID = thisUrl.substring(idStartAt, idEndAt);
   }
-  console.log(fbID);
+  //console.log(fbID);
   firebase.database().ref("exhibits").child(thisRoom).child(fbID).on('value', function(snapshot){
     var exhibitData = snapshot.val();
-    console.log(exhibitData);
+    //console.log(exhibitData);
     var fieldArray = Object.keys(exhibitData);
 
-    console.log(fieldArray);
+    //console.log(fieldArray);
     fieldArray.forEach(function(key){
-      console.log(key);
+      //console.log(key);
       if(exhibitData[key] !== ''){
         $scope[key] = exhibitData[key];
         if(key === 'slides'){
-          console.log($scope.slides);
+          //console.log($scope.slides);
           for(var i = 0; i < $scope.slides.length; i++){
             if($scope.slides[i] === ""){
               $scope.slides.splice(i, 1);
@@ -247,29 +263,40 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
             }
           }
         }
-        console.log($scope[key]);
-        // if(key==='symbols'){
-        //   $scope.symbols = exhibitData.symbols.split(';');
-        // }
+        //console.log($scope[key]);
         if(key==='exhibitImage'){
           var storage = firebase.storage();
           var storageRef = storage.ref();
           var spaceRefAudio = storageRef.child(exhibitData[key]);
           storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
             var test = url;
-            $scope.exhibitImage = test;
+            $scope.imagePreviewLink = test;
             document.getElementById("exhibitImagePreview").setAttribute("src", test);
-            console.log($scope.exhibitImage);
+            //console.log($scope.exhibitImage);
+            //console.log($scope.imagePreviewLink);
+          }).catch(function(error){
+          });
+        }
+        if(key==='exhibitAudio'){
+          var storage = firebase.storage();
+          var storageRef = storage.ref();
+          var spaceRefAudio = storageRef.child(exhibitData[key]);
+          storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
+            var test = url;
+            $scope.exhibitAudio = test;
+            document.getElementById("exhibitAudioPreview").setAttribute("src", test);
           }).catch(function(error){
           });
         }
       }
     });
+
+
     var commentRef = firebase.database().ref().child("exhibits").child(fbID).child("comments");
     $scope.comments = $firebaseArray(commentRef);
-    console.log($scope.title);
+    //console.log($scope.title);
     //console.log(exhibitData);
-    console.log(exhibitData);
+    //console.log(exhibitData);
 
     //$scope.$apply();
   });
@@ -289,35 +316,80 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     return date.join("/") + ", " + time.join(":") + " " + suffix;
   }
   $scope.updatePage = function(){
+    //$scope.apply();
     var thisUrl = window.location.href;
     //window.location.href = thisUrl;
+    //console.log(thisUrl);
     var idQ = thisUrl.indexOf('?');
     var idStartAt = idQ + 3;
     var idAnd = thisUrl.indexOf('&');
     var fbIDStart = idAnd + 3;
     var thisRoom = thisUrl.substring(idStartAt, idAnd);
-    console.log(thisRoom);
+    //console.log(thisRoom);
     var fbID = thisUrl.substring(fbIDStart);
     console.log("update called");
-    firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID).update({
-        title: $scope.title,
-        artist: $scope.artist,
-        year: $scope.year,
-        genre: $scope.genre,
-        media: $scope.media,
-        //exhibitImage: $scope.exhibitImage,
-        videos: $scope.videos,
-        timeStamp: getTimeStamp(),
-        exhibitAudio: $scope.exhibitAudio,
-        exhibitCode: $scope.exhibitCode,
-        slides: $scope.slides
+    //console.log(fbID);
+    //console.log($scope.exhibitImage);
+    var exhibitName = document.getElementById("exhibitSelect").value;
+    $scope.exhibit = exhibitName;
+    //console.log("ExhibitName " + $scope.exhibit);
+    var exhibitImageValue = document.getElementById("exhibitImage").value;
+    var exhibitAudioValue = document.getElementById("exhibitAudio").value;
+    if(thisRoom != exhibitName){
+      firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID).remove().then(function() {
+        console.log("Remove succeeded.");
+        thisRoom = exhibitName;
+        console.log("Switched exhibit to: " + thisRoom);
+        var newExhibit = firebase.database().ref('exhibits/' + thisRoom).push({
+            title: $scope.title,
+            artist: $scope.artist,
+            year: $scope.year,
+            genre: $scope.genre,
+            media: $scope.media,
+            exhibitImage: exhibitImageValue,
+            videos: $scope.videos,
+            timeStamp: getTimeStamp(),
+            exhibitAudio: exhibitAudioValue,
+            exhibitCode: $scope.exhibitCode,
+            slides: $scope.slides,
+            exhibit: $scope.exhibit,
+            views: $scope.views
 
-    });
+        }).key;
+        alert("Successfully switched exhibit to: " + thisRoom);
+        window.location.href = thisUrl.substring(0, idStartAt) + thisRoom + "&1=" + newExhibit;
+      })
+      .catch(function(error) {
+        console.log("Remove failed: " + error.message);
+      });
+
+    }
+    else{
+      firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID).update({
+          title: $scope.title,
+          artist: $scope.artist,
+          year: $scope.year,
+          genre: $scope.genre,
+          media: $scope.media,
+          exhibitImage: exhibitImageValue,
+          videos: $scope.videos,
+          timeStamp: getTimeStamp(),
+          exhibitAudio: exhibitAudioValue,
+          exhibitCode: $scope.exhibitCode,
+          slides: $scope.slides,
+          exhibit: $scope.exhibit,
+          views: $scope.views
+
+      });
+      alert("Successfully updated.");
+    }
+
+
     // firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID + '/slides').update({
     //   0: $scope.slides[0],
     //   1: $scope.slides[2]
     // });
-    document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?id=" + fbID + "#edit");
+    //document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?id=" + fbID + "#edit");
   }
   // window.onscroll = function(){
   //   //console.log('scrollTop: ' + document.body.scrollTop);

@@ -163,8 +163,8 @@ app.controller("keypadController", ['$scope', '$firebaseArray', '$location', fun
       var exhibitName = exhibit.exhibit;
       $scope.exhibitArray.push({id, exhibitName, code});
     });
-    console.log($scope.cowellExhibits);
-    console.log($scope.exhibitArray);
+    //console.log($scope.cowellExhibits);
+    //console.log($scope.exhibitArray);
   });
   //Warburton room
   var warburtonRef = exhibitsRef.child("warburton");
@@ -177,8 +177,8 @@ app.controller("keypadController", ['$scope', '$firebaseArray', '$location', fun
       var exhibitName = exhibit.exhibit;
       $scope.exhibitArray.push({id, exhibitName, code});
     });
-    console.log($scope.warburtonExhibits);
-    console.log($scope.exhibitArray);
+    //console.log($scope.warburtonExhibits);
+    //console.log($scope.exhibitArray);
   });
   //permanent
   var permanentRef = exhibitsRef.child("permanent");
@@ -190,8 +190,8 @@ app.controller("keypadController", ['$scope', '$firebaseArray', '$location', fun
       var exhibitName = exhibit.exhibit;
       $scope.exhibitArray.push({id, exhibitName, code});
     });
-    console.log($scope.permanentExhibits);
-    console.log($scope.exhibitArray);
+    //console.log($scope.permanentExhibits);
+    //console.log($scope.exhibitArray);
   });
   //sculpture
   var sculptureRef = exhibitsRef.child("sculpture");
@@ -203,8 +203,8 @@ app.controller("keypadController", ['$scope', '$firebaseArray', '$location', fun
       var exhibitName = exhibit.exhibit;
       $scope.exhibitArray.push({id, exhibitName, code});
     });
-    console.log($scope.sculptureExhibits);
-    console.log($scope.exhibitArray);
+    //console.log($scope.sculptureExhibits);
+    //console.log($scope.exhibitArray);
   });
   //rotunda
   var rotundaRef = exhibitsRef.child("rotunda");
@@ -216,8 +216,8 @@ app.controller("keypadController", ['$scope', '$firebaseArray', '$location', fun
       var exhibitName = exhibit.exhibit;
       $scope.exhibitArray.push({id, exhibitName, code});
     });
-    console.log($scope.rotundaExhibits);
-    console.log($scope.exhibitArray);
+    //console.log($scope.rotundaExhibits);
+    //console.log($scope.exhibitArray);
   });
   //jbhouse
   var jbRef = exhibitsRef.child("jbhouse");
@@ -229,18 +229,18 @@ app.controller("keypadController", ['$scope', '$firebaseArray', '$location', fun
       var exhibitName = exhibit.exhibit;
       $scope.exhibitArray.push({id, exhibitName, code});
     });
-    console.log($scope.jbExhibits);
-    console.log($scope.exhibitArray);
+    //console.log($scope.jbExhibits);
+    //console.log($scope.exhibitArray);
   });
 
   $scope.goToExhibitKeypad = function(){
     $scope.exhibitArray.forEach(function(Object){
-      console.log(Object);
-      console.log(Object.code);
+      //console.log(Object);
+      //console.log(Object.code);
       if($scope.exhibitCode == Object.code){
-        console.log("MATCH!");
+        //console.log("MATCH!");
         $location.path("/exhibit").search([Object.exhibitName, Object.id]);
-        console.log($location.path);
+        //console.log($location.path);
         closeKeypad();
       }
     });
@@ -326,20 +326,26 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
       console.log("jquery running");
 
       var thisColor;
+      var showName;
       if(window.location.href.includes("cowell")){
         thisColor = "rgba(255,201,14,0.8)";
+        showName = "Suhas Bhujbal";
       }
       else if(window.location.href.includes("warburton")){
         thisColor = "rgba(250,23,62,0.8)";
+        showName = "ArtsAbled: <i>Seeing the Unseen</i>";
       }
       else if(window.location.href.includes("sculpture")){
         thisColor = "rgba(34,177,76,0.8)";
+        showName = "<i>Signage installed in the Sculpture Garden has been generously funded by the Farrington Historical Foundation.</i>";
       }
       else if(window.location.href.includes("rotunda")){
         thisColor = "rgba(180,234,245,0.8)";
+        showName = "Ketra Oberlander: <i>  Homo Identus </i>";
       }
       else if(window.location.href.includes("permanent")){
         thisColor = "rgba(0,162,232,0.8)";
+        showName = "The Ray Ashley Collection: <i> 35 Years of South Bay Art</i>";
       }
       else if(window.location.href.includes("jbhouse")){
         thisColor = "rgba(0,162,232,0.8)";
@@ -348,6 +354,9 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
         thisColor = "rgba(250,23,62,0.8)";
       }
       console.log(thisColor);
+      if(showName){
+        document.getElementById("showName").innerHTML = showName;
+      }
       $("#navBar").css("background-color", "rgba(187, 195, 204, 0.4)");
       $(".colored").css("background-color", thisColor);
       $("body").css("background-color", thisColor);
@@ -360,6 +369,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   $scope.logo = "../images/tritonLogo.png";
   $scope.exhibitCode = "";
   $scope.exhibitKeys = [];
+  $scope.showName = "";
   var thisRoom, thisColor, navbarColor, slide1Color, slide2Color, slide3Color, slide4Color;
 
   if(window.location.href.includes("cowell")){
@@ -370,6 +380,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(247, 221, 165, 1)";
     slide3Color = "rgba(255, 231, 181,1)";
     slide4Color = "rgba(242, 224, 186, 1)";
+    $scope.showName = "Suhas Bhujbal";
   }
   else if(window.location.href.includes("warburton")){
     thisRoom = "warburton";
@@ -379,6 +390,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(242, 109, 99, 1)";
     slide3Color = "rgba(245, 141, 124, 1)";
     slide4Color = "rgba(249, 176, 146, 1)";
+    $scope.showName = "ArtsAbled: <i>Seeing the Unseen</i>";
   }
   else if(window.location.href.includes("sculpture")){
     thisRoom = "sculpture";
@@ -388,6 +400,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(128, 173, 142, 1)";
     slide3Color = "rgba(161, 201, 173, 1)";
     slide4Color = "rgba(204, 234, 213, 1)";
+    $scope.showName = "Signage installed in the Sculpture Garden has been generously funded by the Farrington Historical Foundation.";
   }
   else if(window.location.href.includes("rotunda")){
     thisRoom = "rotunda";
@@ -397,6 +410,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(211, 194, 203, 1)";
     slide3Color = "rgba(255, 234, 234, 1)";
     slide4Color = "rgba(216, 216, 216, 1)";
+    $scope.showName = "Ketra Oberlander: <i>Homo Identus</i>";
   }
   else if(window.location.href.includes("permanent")){
     thisRoom = "permanent";
@@ -406,6 +420,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(139, 174, 212, 1)";
     slide3Color = "rgba(202, 216, 234, 1)";
     slide4Color = "rgba(229, 237, 248, 1)";
+    $scope.showName = "The Ray Ashley Collection: <i>35 Years of South Bay Art</i>";
   }
   else if(window.location.href.includes("jbhouse")){
     thisRoom = "jbhouse";
@@ -415,6 +430,15 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(139, 174, 212, 1)";
     slide3Color = "rgba(202, 216, 234, 1)";
     slide4Color = "rgba(229, 237, 248, 1)";
+  }
+  else if(window.location.href.includes("archive")){
+      thisRoom = "archive";
+      thisColor = "rgba(255, 255, 255, 0.8)";
+      navbarColor = "rgba(255, 255, 255, 0.8)";
+      slide1Color = "rgba(255, 255, 255, 0.8)";
+      slide2Color = "rgba(255, 255, 255, 0.8)";
+      slide3Color = "rgba(255, 255, 255, 0.8)";
+      slide4Color = "rgba(255, 255, 255, 0.8)";
   }
   else{
     thisRoom = "";
@@ -434,16 +458,16 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
 
 
   $scope.room = thisRoom;
-  console.log("room: "+ $scope.room);
+  //console.log("room: "+ $scope.room);
 
   $scope.goToExhibit = function(){
-    console.log("typed in a number");
+    //console.log("typed in a number");
     $scope.exhibitKeys.forEach(function(Object){
-      console.log(Object);
-      console.log(Object.thisCode);
+      //console.log(Object);
+      //console.log(Object.thisCode);
       if($scope.exhibitCode == Object.thisCode){
-        $location.path("/exhibit").search('id', Object.thisId);
-        console.log($location.path);
+        $location.path("/exhibit").search([Object.exhibitName, Object.id]);
+        //console.log($location.path);
         closeKeypad();
       }
     });
@@ -475,6 +499,9 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     console.log("THIS IS ROTUNDA!");
     exhibitId = "jbhouse";
   }
+  else if(window.location.href.includes("archive")){
+    exhibitId = "archive";
+  }
   else{
     exhibitId = "";
   }
@@ -485,22 +512,22 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     angular.forEach($scope.ExhibitList, function(exhibit){
       var thisId = exhibit.$id;
       var thisCode = exhibit.exhibitCode;
-      console.log(thisId, thisCode);
+      //console.log(thisId, thisCode);
       $scope.exhibitKeys.push({thisId, thisCode});
       //$scope.exhibitKeys.push({exhibit.exhibitCode, exhibit.$id});
       if(exhibit.exhibitImage){
-        console.log(exhibit);
+        //console.log(exhibit);
         var imgPath = exhibit.exhibitImage;
-        console.log(imgPath);
+        //console.log(imgPath);
         var storage = firebase.storage();
         var storageRef = storage.ref();
 
         storageRef.child(imgPath).getDownloadURL().then(function(url){
           var test = url;
           exhibit.exhibitImage = test;
-          document.getElementById(exhibit.title).setAttribute('src', test);
-          console.log(exhibit.exhibitImage);
-          console.log(ExhibitList);
+          document.getElementById(exhibit.$id).setAttribute('src', test);
+          //console.log(exhibit.exhibitImage);
+          //console.log(ExhibitList);
         }).catch(function(error){
 
         });
@@ -508,20 +535,21 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
       }
     });
     $scope.imagesUpdated = true;
-    console.log($scope.exhibitKeys);
+    //console.log($scope.exhibitKeys);
   });
 
-  console.log($scope.ExhibitList);
+  //console.log($scope.ExhibitList);
 }]);
 
 app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $firebaseArray){
-  console.log("slideInfo");
+  //console.log("slideInfo");
 
   $scope.videoLink = "";
   setTimeout(function(){
     $(document).ready(function(){
-      console.log("Slick loading");
+      //console.log("Slick loading");
       $("#navBar").css("background-color", "rgba(187, 195, 204, 0.4)");
+      $("#navBarLogo").css('display', 'block');
       $(".regular").slick({
         dots: true,
         infinite: true,
@@ -585,6 +613,15 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
     slide3Color = "rgba(202, 216, 234, 1)";
     slide4Color = "rgba(229, 237, 248, 1)";
   }
+  else if(window.location.href.includes("archive")){
+    thisRoom = "archive";
+    thisColor = "rgba(255, 255, 255, 0.8)";
+    navbarColor = "rgba(255, 255, 255, 0.8)";
+    slide1Color = "rgba(255, 255, 255, 0.8)";
+    slide2Color = "rgba(255, 255, 255, 0.8)";
+    slide3Color = "rgba(255, 255, 255, 0.8)";
+    slide4Color = "rgba(255, 255, 255, 0.8)";
+  }
   else{
     thisRoom = "";
     thisColor = "rgba(250,23,62,0.8)";
@@ -601,32 +638,33 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   document.body.style.backgroundColor = thisColor;
   var ref = firebase.database().ref();
   var thisUrl = window.location.href;
+  //console.log(thisUrl);
   //window.location.href = thisUrl;
   var idQ = thisUrl.indexOf('?');
   var idStartAt = idQ + 3;
   var idEndAt = thisUrl.indexOf('&');
   var fbID = thisUrl.substring(idEndAt + 3);
-  console.log("fbID: " + fbID);
+  //console.log("fbID: " + fbID);
   var exhibitId = thisUrl.substring(idStartAt, idEndAt);
-  console.log("exhibitId" + exhibitId);
+  //console.log("exhibitId" + exhibitId);
   if(thisUrl.includes("#")){
     var idEndAt = thisUrl.indexOf("#");
     if(idEndAt > idStartAt){
       fbID = thisUrl.substring(idStartAt, idEndAt);
     }
   }
-  console.log(fbID);
+  //console.log(fbID);
   firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).once('value').then(function(snapshot){
     var exhibitData = snapshot.val();
     var fieldArray = Object.keys(exhibitData);
 
-    console.log(fieldArray);
+    //console.log(fieldArray);
     fieldArray.forEach(function(key){
-      console.log(key);
+      //console.log(key);
       if(exhibitData[key] !== ''){
         $scope[key] = exhibitData[key];
         if(key === 'slides'){
-          console.log($scope.slides);
+          //console.log($scope.slides);
           for(var i = 0; i < $scope.slides.length; i++){
             if($scope.slides[i] === ""){
               $scope.slides.splice(i, 1);
@@ -634,42 +672,47 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
             }
           }
         }
-        console.log($scope[key]);
+        //console.log($scope[key]);
         // if(key==='symbols'){
         //   $scope.symbols = exhibitData.symbols.split(';');
         // }
         if(key==='exhibitImage'){
-          var storage = firebase.storage();
-          var storageRef = storage.ref();
-          var spaceRefAudio = storageRef.child(exhibitData[key]);
-          storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
-            var test = url;
-            $scope.exhibitImage = test;
-            document.getElementById("image1").setAttribute("src", test);
-            console.log($scope.exhibitImage);
-          }).catch(function(error){
-          });
+          if($scope.exhibitImage != ''){
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var spaceRefAudio = storageRef.child(exhibitData[key]);
+            storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
+              var test = url;
+              $scope.exhibitImage = test;
+              document.getElementById("image1").setAttribute("src", test);
+              //console.log($scope.exhibitImage);
+            }).catch(function(error){
+            });
+          }
         }
         if(key==='exhibitAudio'){
-          var storage = firebase.storage();
-          var storageRef = storage.ref();
-          var spaceRefAudio = storageRef.child(exhibitData[key]);
-          storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
-            var test = url;
-            $scope.exhibitAudioFile = test;
-            document.getElementById("exhibitAudioPlayer").setAttribute("src", test);
-            console.log($scope.exhibitAudioFile);
-          }).catch(function(error){
+          if($scope.exhibitAudio != ''){
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var spaceRefAudio = storageRef.child(exhibitData[key]);
+            storageRef.child(exhibitData[key]).getDownloadURL().then(function(url){
+              var test = url;
+              $scope.exhibitAudioFile = test;
+              document.getElementById("exhibitAudioPlayer").setAttribute("src", test);
+              //console.log($scope.exhibitAudioFile);
+            }).catch(function(error){
 
-          });
+            });
+          }
         }
         if(key === 'videos'){
+
           var url = exhibitData[key];
           var code = url.substring(url.indexOf("=") + 1);
-          console.log(code);
+          //console.log(code);
 
           var finalUrl = "https://www.youtube.com/embed/"+code;
-          console.log(finalUrl);
+          //console.log(finalUrl);
           $scope.videoLink = finalUrl;
           //https://www.youtube.com/embed/_QdPW8JrYzQ
           document.getElementById("videoPlayer").setAttribute("src", finalUrl);
@@ -679,11 +722,31 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
     firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).update({
       views: $scope.views + 1
     });
+    if($scope.slides.length === 1){
+      var info = "";
+      if($scope.title != ''){
+        info = info + "Title: " + $scope.title;
+      }
+      if($scope.artist != ''){
+        info = info + "\n Artist: " + $scope.artist;
+      }
+      if($scope.media != ''){
+        info = info + "\n Media: " + $scope.media;
+      }
+      if($scope.genre != ''){
+        info = info + "\n Genre: " + $scope.genre;
+      }
+      if($scope.year != ''){
+        info = info + "\n Year: " + $scope.year;
+      }
+      $scope.slides.push(info);
+    }
+
     var commentRef = firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).child("comments");
     $scope.comments = $firebaseArray(commentRef);
-    console.log($scope.title);
+    //console.log($scope.title);
     //console.log(exhibitData);
-    console.log(exhibitData);
+    //console.log(exhibitData);
 
     $scope.$apply();
   });

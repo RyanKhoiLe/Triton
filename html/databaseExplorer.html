@@ -84,7 +84,7 @@
       //   tempExhKey = snapshot.val();
       //   console.log('snapshot val' + tempExhKey);
       // });
-      var exhibitNames = ['cowell', 'warburton', 'permanent','jb','rotunda','sculpture'];
+      var exhibitNames = ['cowell', 'warburton', 'permanent','jb','rotunda','sculpture','archive'];
       for(var i = 0; i < exhibitNames.length; i++){
         firebaseRef.ref('exhibits').child(exhibitNames[i]).on('child_added', function(snapshot){
           var snapshotKey = snapshot.key;
@@ -192,19 +192,19 @@
           console.log('exhibitLink'+num);
           document.getElementById("exhibitLink" + num).style.display='none';
 
-          firebaseRef.ref('exhibitKeys/').once('value').then(function(snapshot){
-            snapshot.forEach(function(childSnapshot){
-              var keyID = childSnapshot.key;
-              var key = childSnapshot.val().key;
-              console.log('just the key: ' + key);
-              if(key == exhibit.fbID){
-                firebaseRef.ref('exhibitKeys/' + keyID).remove();
-                console.log('remove key');
-              }
-
-            });
-          });
-          firebaseRef.ref('exhibits/' + exhibit.fbID).remove();
+          // firebaseRef.ref(exhibit.room).once('value').then(function(snapshot){
+          //   snapshot.forEach(function(childSnapshot){
+          //     var keyID = childSnapshot.key;
+          //     var key = childSnapshot.val().key;
+          //     console.log('just the key: ' + key);
+          //     if(key == exhibit.fbID){
+          //       firebaseRef.ref('exhibitKeys/' + keyID).remove();
+          //       console.log('remove key');
+          //     }
+          //
+          //   });
+          // });
+          firebaseRef.ref('exhibits/' + exhibit.room +'/' + exhibit.fbID).remove();
           //firebaseRef.ref(''+exhibit.fbID).parent.remove();
           //location.href = 'databaseExplorer.html';
 
@@ -255,7 +255,7 @@
         <a class="navBarLink"  href="databaseExplorer.html" style="text-decoration: underline"> page editor </a>
         <a class="navBarLink"  href="pagecreatorMobile.html"> page creator </a>
         <a class="navBarLink" href="commentExplorer.html"> comment moderator </a>
-        <a class="navBarLink" href="mobileHome.html"> triton database home </a>
+        <a class="navBarLink" href="index.html"> triton database home </a>
         <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
       </div>
     </div>
@@ -276,7 +276,7 @@
         </div> -->
 
 
-        <button onclick="location.href='pagecreator.html'" id='addPage'>Create New Page</button>
+        <button onclick="location.href='pagecreatorMobile.html'" id='addPage'>Create New Page</button>
         <button onclick="location.href='commentExplorer.html'" id='addPage'>Moderate Comments</button>
         <br>
         <input type='text' id='searchValue' placeholder='       Search for existing exhibit...' onchange='updateSearch(event);'>
@@ -313,11 +313,11 @@
   </div>
   <div id="footer">
     <div id="footerLinkBar">
-      <a class="footerLinks" href="lunasphere.io"> about lunasphere </a>
+      <a class="footerLinks" href="lunasphere.html"> about lunasphere </a>
       <a class="footerLinks" href="index.html"> triton database </a>
     </div>
     <div id="footerLogos">
-      <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.io'> LunaSphere </a> in conjunction with the <a class='h2Links' href='www.triton.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
+      <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.html'> LunaSphere </a> in conjunction with the <a class='h2Links' href='http://www.tritonmuseum.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
       <img src='../images/tritonIcon.png' id='logoPageCreatorFooter'></img>
       <img src='../images/LogoTransparent.png' id='lunasphereLogoFooter'></img>
     </div>
