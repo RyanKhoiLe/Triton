@@ -628,39 +628,27 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
     navbarColor = thisColor;
   }
   if(!(window.location.href.includes("edit"))){
-    //document.getElementById("slide1").style.backgroundColor = slide1Color;
-    //document.getElementById("slide2").style.backgroundColor = slide2Color;
-  }
 
-  //document.getElementById("slide3").style.backgroundColor = slide3Color;
-  //document.getElementById("slide4").style.backgroundColor = slide4Color;
-  //document.getElementById("slide2").height = "500px";//document.getElementById("slider").clientHeight;
+  }
   document.body.style.backgroundColor = thisColor;
   var ref = firebase.database().ref();
   var thisUrl = window.location.href;
-  //console.log(thisUrl);
-  //window.location.href = thisUrl;
   var idQ = thisUrl.indexOf('?');
   var idStartAt = idQ + 3;
   var idEndAt = thisUrl.indexOf('&');
   var fbID = thisUrl.substring(idEndAt + 3);
-  //console.log("fbID: " + fbID);
   var exhibitId = thisUrl.substring(idStartAt, idEndAt);
-  //console.log("exhibitId" + exhibitId);
   if(thisUrl.includes("#")){
     var idEndAt = thisUrl.indexOf("#");
     if(idEndAt > idStartAt){
       fbID = thisUrl.substring(idStartAt, idEndAt);
     }
   }
-  //console.log(fbID);
   firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).once('value').then(function(snapshot){
     var exhibitData = snapshot.val();
     var fieldArray = Object.keys(exhibitData);
 
-    //console.log(fieldArray);
     fieldArray.forEach(function(key){
-      //console.log(key);
       if(exhibitData[key] !== ''){
         $scope[key] = exhibitData[key];
         if(key === 'slides'){
