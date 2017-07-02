@@ -128,6 +128,7 @@
         newSearchResult.setAttribute('class', 'searchResult');
         newSearchResult.setAttribute('id', 'exhibitLink'+exhibitNum);
         newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
+          "<input type='checkbox' class='smallCheckbox'/>" +
           "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
           "<div class='artistBox'><h2>"+ artistLastName + ", " + artistFirstName + " </h2></div>" +
           "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
@@ -136,6 +137,7 @@
           "</a>";
           if(exhibit.artist.indexOf(' ') == -1){
             newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
+              "<input type='checkbox' class='smallCheckbox'/>" +
               "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
               "<div class='artistBox'><h2>"+ artistLastName + "</h2></div>" +
               "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
@@ -211,6 +213,22 @@
         }
         else{
           return;
+        }
+      }
+      function selectAll(){
+        console.log("SELECTING ALL");
+        var inputs = document.getElementsByTagName('input');
+        for(var i = 0; i < inputs.length; i++){
+          if(inputs[i].type.toLowerCase() == 'checkbox'){
+            // check the checkbox
+            if(document.getElementById("masteCheckBox").checked){
+              inputs[i].checked = true;
+            }
+            else{
+              inputs[i].checked = false;
+            }
+
+          }
         }
       }
 
@@ -300,7 +318,7 @@
         </script>
         <div id="searchTable">
             <div id="categoryBar">
-
+                <input type="checkbox" id="masterCheckBox" class="smallCheckbox" onclick="selectAll()"/>
                 <div class='titleBox'><h1> Title </h1></div>
                 <div class='artistBox'><h1> Artist </h1></div>
                 <div class='timeBox'><h1> Timestamp </h1></div>

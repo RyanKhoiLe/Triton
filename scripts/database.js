@@ -206,6 +206,9 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
       $("#exhibitDropdown").val(thisRoom);
     });
   }, 0);
+  $scope.setExhibitBox = function() {
+    alert($scope.exhibit);
+  };
   $scope.exhibit = "";
   $scope.numberOfSlides = 3;
   $scope.slideIds = [];
@@ -262,6 +265,11 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
               i--;
             }
           }
+        }
+        if(key==="exhibit"){
+          // get drop down, set value based on exhibit name
+          // $scope.exhibit
+          document.getElementById("exhibitDropdown").value = $scope.exhibit;
         }
         //console.log($scope[key]);
         if(key==='exhibitImage'){

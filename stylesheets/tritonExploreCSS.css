@@ -219,6 +219,11 @@ font-style: normal;
   margin-left: 5%;
   border: none;
 }
+.smallCheckbox{
+  float: left;
+  width: 1%;
+  margin-top: 30px;
+}
 #categoryBar {
   float: left;
   width: 100%;

@@ -50,8 +50,7 @@
           <div class="textContainer">
             <h2> Exhibit: </h2>
           </div>
-          <select id='exhibitDropdown' name="Exhibit" onclick="setExhibitBox()">
-            <option disabled selected value> -- select an option -- </option>
+          <select id='exhibitDropdown' name="Exhibit" ng-model="exhibit" ng-click="setExhibitBox()">
             <option value="cowell">Cowell Room</option>
             <option value="warburton">Warburton Gallery</option>
             <option value="permanent">Permanent Collection</option>
@@ -61,7 +60,7 @@
             <option value="archive"> Archive </option>
             <!-- <option value="New">Create new exhibit</option> -->
           </select>
-          <input type="text" id="exhibitSelect"  ng-model="exhibit" readonly>
+          <!-- <input type="text" id="exhibitSelect"  ng-model="exhibit" readonly> -->
         </div>
         <label id="titleLabel">
         <div class="inputContainer">
