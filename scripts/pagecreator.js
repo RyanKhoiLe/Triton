@@ -79,7 +79,6 @@
     $scope.title = "";
     $scope.media = "";
     $scope.genre = "";
-    $scope.exhibitCode = "";
     $scope.exhibitAudio = "";
     $scope.exhibitImage = "";
     $scope.showModal = false;
@@ -134,7 +133,6 @@
         videos = $scope.videos,
         timeStamp = getTimeStamp(),
         exhibitAudio = document.getElementById("exhibitAudio").value,
-        exhibitCode = $scope.exhibitCode,
         exhibit = $scope.exhibitSelect,
         slides = [];
 
@@ -151,7 +149,7 @@
           }
         }
         console.log(slides);
-        if(artist && exhibitCode && exhibit){
+        if(artist && exhibit){
           if(title==''){
             title = "Untitled";
           }
@@ -168,7 +166,6 @@
             videos: videos,
             timeStamp: timeStamp,
             views: 0,
-            exhibitCode: exhibitCode,
             slides: slides,
             exhibit: exhibit,
             exhibitAudio: exhibitAudio
@@ -179,7 +176,7 @@
           }).key;
         }
         else{
-          alert('Lunasphere wants to push your best content. Please enter an artist, exhibit code, and exhibit room');
+          alert('Lunasphere wants to push your best content. Please enter an artist and and exhibit room');
         }
       }
       var thisUrl = window.location.href;
