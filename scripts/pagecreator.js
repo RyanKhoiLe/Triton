@@ -149,9 +149,15 @@
           }
         }
         console.log(slides);
-        if(artist && exhibit){
-          if(title==''){
+        if(exhibit){
+          if(!title || title ===""){
             title = "Untitled";
+          }
+          if (!artist || artist === ""){
+            artist = "Unknown";
+          }
+          if(!year || year === "") {
+            year = "";
           }
           // firebase.database().ref("allExhibits/").push({
           //   exhibit: exhibit
@@ -176,7 +182,7 @@
           }).key;
         }
         else{
-          alert('Lunasphere wants to push your best content. Please enter an artist and and exhibit room');
+          alert('Lunasphere wants to push your best content. Please enter an exhibit room');
         }
       }
       var thisUrl = window.location.href;
