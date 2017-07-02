@@ -377,17 +377,6 @@ p{
 
 }
 
-.linkCode{
-  position: relative;
-  top: -5px;
-  left: 10px;
-  text-shadow: none;
-  text-decoration: none;
-  font-size: 12px;
-  overflow: hidden;
-}
-
-
 .exhibitLink{
   /*border: 1px solid green;*/
   position: relative;
