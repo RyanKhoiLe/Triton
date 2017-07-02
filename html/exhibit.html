@@ -1,0 +1,99 @@
+<script type="text/javascript" src="../slick/slick/slick.js"></script>
+<link rel="stylesheet" type="text/css" href="../slick/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="../slick/slick/slick-theme.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../stylesheets/tritonMobileYES.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div id="newContent" style="padding-top: 50px">
+  <!-- <div width="100%" style="text-align: center" id="imgContainer">
+    <div id="titleBar">
+      <img id="leftArrow" src="../images/icons/left_arrow_gray.png">
+      <h1>{{ title }}</h1>
+      <img id="right arrow" src="../images/icons/right_arrow_gray.png">
+    </div>
+
+  </div> -->
+
+  <div id="slider" class="regular slider">
+    <div class="slide" id="imageSlide">
+      <div id="image1Box">
+        <img id="image1">
+      </div>
+    </div>
+    <div class="slide" id="slide1">
+      <div class="textCenter">
+        <b><i><h1 ng-bind="title"> </h1></i></b>
+        <h3 ng-bind="slides[0]">  </h3>
+        <audio controls id="exhibitAudioPlayer" ng-show="exhibitAudio"> No audio in this browser </audio>
+      </div>
+    </div>
+    <div class="slide" id="slide2">
+      <div class="textCenter">
+        <!-- <h1 ng-bind="title">  </h1> -->
+
+        <iframe id="videoPlayer" ng-show="videos" style="margin-top: 20px;" src="" frameborder="0" allowfullscreen></iframe>
+        <h3 ng-bind="slides[1]"></h3>
+      </div>
+    </div>
+    <!-- <div class="slide" id="slide3">
+      <div class="textCenter">
+        <h1 ng-bind="title">  </h1>
+        <h3 ng-bind="slides[2]">  </h3>
+      </div>
+    </div> -->
+    <!-- <div class="slide" id="slide4">
+      <h1 ng-bind="title + ': Details'">  </h1>
+      <table>
+        <tr>
+          <td ng-bind="'Title: ' + title"></td>
+        </tr>
+        <tr>
+          <td ng-bind="'Artist: ' + artist"> </td>
+        </tr>
+        <tr ng-if="year">
+          <td ng-bind="'Year: ' + year"> </td>
+        </tr>
+        <tr ng-if="media">
+          <td ng-bind="'Media: ' + media"> </td>
+        </tr>
+        <tr ng-if="genre">
+          <td ng-bind="'Genre: ' + genre"> </td>
+        </tr>
+      </table>
+    </div> -->
+  </div>
+  <div style="z-index: 10">
+    <button id="addCommentBtn" type="button" class="btn" data-toggle="modal" data-target="#createComment"> Add a comment </button>
+    <button id="showComment"  data-toggle="collapse" data-target="#commentList"> <i class="fa fa-caret-down" style="padding-right: 5px; font-size: 12px; z-index: 5"></i> Show Comments </button>
+    <div id="commentList" style="border: none" class="collapse">
+      <div style="text-align: center" ng-repeat="comment in comments | reverse">
+        <h4> <i> <b>{{ comment.name }}</b> says: </i> </h4>
+        <h4> {{ comment.comment }} </h4>
+        <p> {{ comment.time }} </p>
+        <hr>
+      </div>
+    </div>
+    <div id="createComment" class="modal fade"  role="dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3> New comment </h3>
+        </div>
+        <div class="modal-body">
+          <form id="addComment">
+            <div>
+              <input ng-model="name" type="text" id="name" placeholder="Name">
+            </div>
+            <div>
+              <textarea ng-model="comment" id="comment" rows="3" cols="30" placeholder="Comment"></textarea>
+            </div>
+            <button class="btn btn-primary" ng-click="postComment()" data-dismiss="modal">POST</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

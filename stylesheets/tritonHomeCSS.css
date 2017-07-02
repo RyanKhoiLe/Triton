@@ -1,0 +1,257 @@
+//***
+* Created by Khoi Le and Nikolai Flowers, March 29, 2016
+*//
+@font-face {
+      font-family: "Bitstream Vera Serif Bold";
+      src: url("VeraSeBd.ttf") format("truetype");
+    }
+
+@font-face {
+font-family: 'bebas_neueregular';
+src: url('fonts/Bebas Neue/bebasneue-webfont.eot');
+src: url('fonts/Bebas Neue/bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+   url('fonts/Bebas Neue/bebasneue-webfont.woff2') format('woff2'),
+   url('fonts/Bebas Neue/bebasneue-webfont.woff') format('woff'),
+   url('fonts/Bebas Neue/bebasneue-webfont.ttf') format('truetype'),
+   url('fonts/Bebas Neue/bebasneue-webfont.svg#bebas_neueregular') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'economica';
+src: url('fonts/Economica/Economica-Regular.eot');
+src: url('fonts/Economica/Economica-Regular.eot?#iefix') format('embedded-opentype'),
+   url('fonts/Economica/Economica-Regular.woff2') format('woff2'),
+   url('fonts/Economica/Economica-Regular.woff') format('woff'),
+   url('fonts/Economica/Economica-Regular.ttf') format('truetype'),
+   url('fonts/Economica/Economica-Regular.svg#Economica-Regular') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+    font-family: 'modern_serif_erodedregular';
+    src: url('fonts/modern_serif_eroded-webfont.eot');
+    src: url('fonts/modern_serif_eroded-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/modern_serif_eroded-webfont.woff2') format('woff2'),
+         url('fonts/modern_serif_eroded-webfont.woff') format('woff'),
+         url('fonts/modern_serif_eroded-webfont.ttf') format('truetype'),
+         url('fonts/modern_serif_eroded-webfont.svg#modern_serif_erodedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roboto_condensed';
+    src: url('fonts/Roboto Condensed/RobotoCondensed-Regular.eot');
+    src: url('fonts/Roboto Condensed/RobotoCondensed-Regular.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Roboto Condensed/RobotoCondensed-Regular.woff2') format('woff2'),
+         url('fonts/Roboto Condensed/RobotoCondensed-Regular.woff') format('woff'),
+         url('fonts/Roboto Condensed/RobotoCondensed-Regular.ttf') format('truetype'),
+         url('fonts/Roboto Condensed/RobotoCondensed-Regular.svg#modern_serif_erodedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.exhibitDisplay {
+  position: relative;
+  width: 100%;
+  border: 1px solid black;
+}
+.exhibitTitle{
+  position: absolute;
+  bottom: 0px;
+  background-color: gray;
+  border: none;
+  width: 100%;
+  /*height: 10%;*/
+  opacity: 0.9;
+}
+.exhibitTitleText{
+  color: white;
+  padding-right: 20px;
+  font-size: 16px;
+  /*padding-bottom: 20px;*/
+  text-align: right;
+}
+#headBar{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: auto;
+  width: 100%;
+  background-color: #C9E8FF;
+}
+
+#lunasphereLogo {
+  float: left;
+  margin-top: 10px;
+  margin-left: 1%;
+  height: 90%;
+}
+#lunasphereLogoFooter {
+  float: left;
+  /*margin-top: 10px;*/
+  /*margin-left: 1%;*/
+  height: 120px;
+}
+#museumCuratorAccess{
+  float: none;
+}
+#pageTitle{
+  /*border: 1px solid white;*/
+  float: left;
+  font-size: 60px;
+  text-align: left;
+  font-family: 'roboto_condensed', serif;
+  color: white;
+  padding-left: 20px;
+  clear: right;
+}
+#navBar{
+  position: absolute;
+  float: left;
+  margin-top: 143px;
+  margin-left: 200px;
+  width: 75%;
+  height: 100px;
+  /*border: solid 1px white;*/
+}
+.navBarLink{
+  padding-left: 20px;
+  font-size: 24px;
+  font-family: 'roboto_condensed', sans-serif;
+}
+
+#logo {
+  position: absolute;
+  top: 10px;
+  margin-left: 80%;
+  height: 70%;
+}
+
+#logoPageCreator {
+  position: absolute;
+  top: 30px;
+  margin-left: 90%;
+  height: 70%;
+}
+
+#wrapper {
+  position: absolute;
+  border: 0px solid #FFC4CE;
+  top: 100px;
+  left: 0px;
+  width: 100%;
+  margin-top: 0;
+  margin: 0 auto;
+  text-align: center;
+  background: -webkit-linear-gradient(#FFFFFE, #FFFFFF);
+}
+
+header{
+  font-size: 36px;
+}
+textarea{
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 580px;
+  float: left;
+  font-size: 24px;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+.textContainer{
+  float: left;
+  width: 13%;
+}
+h2{
+  font-size: 26px;
+  padding-top: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  text-align: left;
+}
+
+button{
+  /*font-family: 'bebas_neueregular', serif;*/
+  font-size: 16px;
+}
+body{
+  background-color: white;
+  font-family: 'roboto_condensed', sans-serif;
+}
+
+p{
+      padding-top: 5px;
+      padding-left: 5%;
+      padding-right: 5%;
+}
+
+hr {
+    border: 0;
+    height: 3px;
+    background: #FFC4CE;
+    background-image: linear-gradient(to right, #FFFFFF, #FFC4CE, #FFFFFF);
+}
+
+h1 {
+  padding-left: 10px;
+  padding-bottom: 10px;
+  color: black;
+  /*font-family: 'bebas_neueregular', serif;*/
+}
+
+h3{
+  font-size: 16px;
+}
+h4{
+  font-size: 20px;
+  text-align: center;
+}
+
+/*a{
+    font-size: 20px;
+      color: #0075CF;
+}
+a:visited{
+      color: blue;
+}*/
+.centeredList{
+      width: 80%;
+      margin:0 auto;
+      text-align: left;
+}
+
+table{
+  table-layout: fixed;
+}
+td{
+  width: 30%;
+}
+#enterCode{
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  margin-top: 5px;
+  width: auto;
+  border-radius: 7px;
+  font-family: 'roboto_condensed', sans-serif;
+  color: #000000;
+  font-size: 20px;
+  background: #ffffff;
+  padding: 5px 10px 5px 10px;
+  border: solid #dcdcdc 1px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+#enterCode:hover {
+  background: blue;
+  text-decoration: none;
+}
+#specialCode, textarea{
+  border: 0px solid #C9E8FF;
+  box-shadow: 0 0 5px 3px #C9E8FF;
+  color: #000000;
+  font-size: 24px;
+  font-family: 'roboto_condensed', sans-serif;
+  text-align: center;
+}

@@ -1,0 +1,13 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\frien\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase open
+[debug] CLI Version:  3.0.7
+[debug] Platform:     win32
+[debug] Node Version: v6.3.0
+[debug] Time:         Wed May 10 2017 04:23:32 GMT-0700 (Pacific Daylight Time)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/lunaspheretriton 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/lunaspheretriton/tokens 
+[debug] <<< HTTP RESPONSE 200

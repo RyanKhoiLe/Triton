@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<head>
+  <title> Triton </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/tritonMobileYES.css">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="../images/tritonIconSmall.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="../slick/slick/slick.css">
+  <link rel="stylesheet" type="text/css" href="../slick/slick/slick-theme.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="../slick/slick/slick.js"></script>
+  <script src="../scripts/index.js"></script>
+  <script src="../scripts/pano.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300,400" rel="stylesheet">
+</head>
+<body ng-app="app" style="overflow-x: hidden">
+  <header>
+    <div id="navBar">
+      <a href="javascript:void(0)" onclick="backButton()"><i class="fa fa-caret-left" id="backButton"></i></a>
+      <!-- <a href="javascript:void(0)" onclick=""><i class="fa fa-bars" id="sidebarButton"></i></a> -->
+      <a href="javascript:void(0)" onclick="openKeypad()"><i class="fa fa-bars" id="keypadButton"></i></a>
+      <div id="logoContainer">
+        <a href="#" onclick="openHome()" id="headerTitle"> <img id="navBarLogo" src="../images/logo_trans_blk.png" > </a>
+      </div>
+    </div>
+  </header>
+  <!-- <div id="sidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#" onclick="openHome()">Home</a>
+    <a href="" data-toggle="modal" data-target="#aboutTriton">About Triton</a>
+    <a href="https://www.tritonmuseum.org">Triton Website</a>
+  </div> -->
+  <div id="aboutTriton" class="modal fade" role="dialog">
+    <div class="centerTextBox">
+      <h2 style="font-family: 'Roboto', sans-serif; font-size: 24px;">
+        Our mission
+      </h2>
+      <p>
+        The Triton Museum of Art is a vital community resource
+        that provides accessible exhibition and education programs,
+        which promote a broad range of contemporary California art.
+        Through our multi-faceted programs, we bring together the
+         culturally diverse population of the Greater Bay Area to
+          foster a better understanding of art and its role in
+          building a strong community.
+      </p>
+    </div>
+  </div>
+  <!-- <div id="viewportContainer"> -->
+    <div id="keypad" class="keypad" ng-controller="keypadController">
+      <a href="javascript:void(0)" class="closebtn1" onclick="closeKeypad()">&times;</a>
+      <p> Type in the exhibit number below or use a QR code scanner to scan the QR code next to the painting </p>
+      <form ng-submit="event.preventDefault(); goToExhibitKeypad()">
+        <input type="number" placeholder="101" ng-model="exhibitCode"/>
+        <button class="btn btn-primary" type="submit"> Go </button>
+      </form>
+      <a href="#" onclick="openHome()">Home</a>
+      <a href="" data-toggle="modal" data-target="#aboutTriton">About Triton</a>
+      <a href="http://www.tritonmuseum.org">Triton Website</a>
+      <!-- <div id="socialMediaBox" >
+        <a href="https://m.facebook.com/TritonMuseum/?fref=ts">
+          <i class="fa fa-facebook" aria-hidden="true" style="color: black"></i>
+        </a>
+        <a href="https://www.instagram.com/explore/locations/932241/">
+          <i class="fa fa-instagram" aria-hidden="true" style="color: black"></i>
+        </a>
+      </div> -->
+    </div>
+  <!-- </div> -->
+  <div id="main">
+    <div ng-view> </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<link rel="stylesheet" type="text/css" ng-href="../stylesheets/tritonMobileYES.css">
+<div id="ListOfExhibits" style="padding-top: 50px">
+  <div ng-show="showName">
+    <h1 id="showName" style="font-size: 24px; padding-right: 15px; padding-left: 10px; text-align: center"> </h1>
+  </div>
+  <div class="exhibitLink" ng-repeat="exhibit in ExhibitList">
+    <a ng-href="#exhibit?0={{room}}&1={{exhibit.$id}}" onclick="newPage()">
+      <div class="colored linkBanner" style="background-color: {{ thisColor }}">
+        <h3 class="linkCode"> {{exhibit.exhibitCode}}</h3>
+        <h1 class="linkTitle"><i> {{exhibit.title}} </i><br>{{exhibit.artist}} </h1>
+      </div>
+      <img class="imageLink" id="{{exhibit.$id}}" ng-if="imagesUpdated">
+    </a>
+  </div>
+</div>

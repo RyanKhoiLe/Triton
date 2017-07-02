@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <!-- created by Khoi Le 2016 !-->
+  <title> New Exhibit Page Creator </title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="../stylesheets/tritonCreateCSS.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" href="../images/tritonIconSmall.png">
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+</head>
+<body>
+    <div id="headBar">
+      <a href="www.lunasphere.com"><img id="lunasphereLogo" src="../images/Logo.png" alt="Lunasphere"></a>
+      <h1 id="pageTitle"> New Exhibit </h1>
+      <a href="index.html"><img id="logoPageCreator" src="../images/tritonIcon.png" alt="triton"></a>
+      <div id="navBar">
+        <a class="navBarLink"  href="edithome.html"> database home </a>
+        <a class="navBarLink"  href="databaseExplorer.html"> page editor </a>
+        <a class="navBarLink"  href="pagecreator.html" style="text-decoration: underline"> page creator </a>
+        <a class="navBarLink" href="commentExplorer.html"> comment moderator </a>
+        <a class="navBarLink" href="index.html"> triton database home </a>
+        <a class="navBarLink" href="lunasphere.html"> visit lunasphere </a>
+      </div>
+    </div>
+    <div id="wrapper" width="90%">
+        <div id="centerBox" ng-app="pcApp" ng-controller="createNewPage">
+
+
+        <form id="pageCreateForm">
+          <!-- <div class="inputContainer">
+              <h2 class="longDescription"> How many slides for this piece? (min: 1, max: 10)</h2>
+            <input type="number" id="numberOfSlides" value="3" ng-model="numberOfSlides" class="smallInput">
+          </div> -->
+
+          <!-- <div class="inputContainer" >
+            <h2 class="longDescription"> Display details slide at the end? </h2>
+            <input type="checkbox" checked ng-model="details" id="details">
+          </div> -->
+          <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Exhibit: </h2>
+            </div>
+            <select id='exhibitDropdown' name="Exhibit" ng-model="exhibitSelect" ng-click="checkExhibit()">
+              <option value="cowell">Cowell Room</option>
+              <option value="warburton">Warburton Gallery</option>
+              <option value="permanent">Permanent Collection</option>
+              <option value="sculpture">Sculpture Garden</option>
+              <option value="rotunda">Rotunda</option>
+              <option value="jbhouse"> Jamison-Brown </option>
+              <!-- <option value="New">Create new exhibit</option> -->
+            </select>
+            <input type="text" id="inputtedExhibit" ng-show="inputExhibit" ng-model="inputtedExhibit" placeholder="New Exhibit">
+          </div>
+          <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Title: </h2>
+            </div>
+            <input type="text" id="title" name="Title" ng-model="title" placeholder="Las Meninas">
+          </div>
+          <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Artist: </h2>
+            </div>
+            <input type="text" id="artist" name="Artist" ng-model="artist" placeholder="Pablo Picasso">
+          </div>
+          <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Year: </h2>
+            </div>
+            <input type="text" id="year" name="Year" ng-model="year" placeholder="1957">
+          </div>
+          <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Genre: </h2>
+            </div>
+            <input type="text" id="genre" name="Genre" ng-model="genre" placeholder="Abstract">
+          </div>
+          <div class="inputContainer">
+            <div class="textContainer">
+              <h2> Media: </h2>
+            </div>
+            <input type="text" id="media" name="Media" ng-model="media" placeholder="Oil on canvas">
+          </div>
+          <div class="inputContainer">
+
+              <h2 class="longDescription"> Exhibit Lookup Code (this is the number shown next to the QR code at the exhibit, so that people can type it into the website if they don't want to use QR): </h2>
+
+            <input type="text" id="exhibitCode" name="Code" ng-model="exhibitCode" style="float: none" placeholder="101">
+          </div>
+
+          <div class="inputContainer" ng-show="slideIds[0]">
+
+              <h2 class="longDescription"> Slide 1: </h2>
+
+            <textarea id="slide1" name="Slide 1" ng-model="slideValues[0]" rows="3" cols="50" placeholder="Picasso's Las Meninas is a 58 piece series, lovingly borrowed from Velasquez's original Las Meninas painted in 1656."></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[1]">
+
+              <h2 class="longDescription"> Slide 2: </h2>
+
+            <textarea id="slide2" name="Slide 2" ng-model="slideValues[1]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div>
+          <!-- <div class="inputContainer" ng-show="slideIds[2]">
+
+              <h2 class="longDescription"> Slide 3: </h2>
+
+            <textarea id="slide3" ng-model="slideValues[2]" rows="3" cols="50" placeholder="Picasso is known as the father of cubism, which is evident in the shapes and geometry presented in the painting"></textarea>
+          </div> -->
+          <!-- <div class="inputContainer" ng-show="slideIds[3]">
+            <div class="textContainer">
+              <h2> Slide 4: </h2>
+            </div>
+            <textarea id="slide4" ng-model="slideValues[3]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[4]">
+            <div class="textContainer">
+              <h2> Slide 5: </h2>
+            </div>
+            <textarea id="slide5" ng-model="slideValues[4]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[5]">
+            <div class="textContainer">
+              <h2> Slide 6: </h2>
+            </div>
+            <textarea id="slide6" ng-model="slideValues[5]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[6]">
+            <div class="textContainer">
+              <h2> Slide 7: </h2>
+            </div>
+            <textarea id="slide7" ng-model="slideValues[6]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[7]">
+            <div class="textContainer">
+              <h2> Slide 8: </h2>
+            </div>
+            <textarea id="slide8" ng-model="slideValues[7]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[8]">
+            <div class="textContainer">
+              <h2> Slide 9: </h2>
+            </div>
+            <textarea id="slide9" ng-model="slideValues[8]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div>
+          <div class="inputContainer" ng-show="slideIds[9]">
+            <div class="textContainer">
+              <h2> Slide 10: </h2>
+            </div>
+            <textarea id="slide10" ng-model="slideValues[9]" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div> -->
+          <div class="inputContainer" id="audioUploadContainer">
+            <h2 class="longDescription"> Audio (please select a high-quality .mp3 file and upload below).</h2> <h3> It should be successfully uploaded and say audio/[filename] in the box below: </h3><br>
+            <input class='uploadFile' accept='audio/*' name='fileUpload' type='file' id='audioUpload'/>
+            <label for='audioUpload' id='audioUploadLabel'>Choose a file</label>
+            <p id='percentUpload'>No file selected</p>
+            <input type="text" id="exhibitAudio" name="Audio File" style='float:none' placeholder="audio/[filename].mp3">
+
+            <script>
+
+              var imageUpload = document.getElementById("audioUpload");
+              imageUpload.onchange = function(evt) {
+                var firstFile = evt.target.files[0];
+                var uploadConfirm = confirm("Upload: " + firstFile.name + "?");
+                var uploadLabel = document.getElementById("audioUploadLabel");
+                uploadLabel.innerHTML = firstFile.name;
+                if(uploadConfirm){
+                  var storageRef = firebase.storage().ref("audio/" + firstFile.name);
+                  var uploadTask = storageRef.put(firstFile);
+                  uploadTask.on('state_changed', function(snapshot){
+                    var percentUpload = document.getElementById("percentUpload");
+                    percentUpload.textContent = "Uploading...";
+                  }, function(error){
+                    alert("An error occurred: " + error);
+                  }, function() {
+                    //alert("Successfully uploaded");
+                    var percentUpload = document.getElementById("percentUpload");
+                    percentUpload.textContent = "Successfully uploaded!";
+                    var audioPath = document.getElementById("exhibitAudio");
+                    audioPath.value = "audio/"+storageRef.name;
+                    console.log("successfully uploaded");
+                    var newAudio = document.createElement("audio");
+                    newAudio.controls = true;
+                    console.log(firstFile.name);
+                    var newPreview = document.createElement("p");
+                    newPreview.textContent = 'Audio preview:';
+                    //var spaceRef2 = storageRef.child("audio/" + firstFile.name);
+                    storageRef = firebase.storage().ref();
+                    storageRef.child("audio/" + firstFile.name).getDownloadURL().then(function(url){
+                      var test= url;
+                      newAudio.src = test;
+                      document.getElementById("audioUploadContainer").appendChild(newPreview);
+                      document.getElementById("audioUploadContainer").appendChild(newAudio);
+                    }).catch(function(error){});
+                  });
+                }
+              };
+            </script>
+
+
+          </div>
+          <div class="inputContainer" id="imageUploadContainer">
+            <h2 class="longDescription"> Image (please select a high-resolution photo and upload below).</h2> <h3> It should be successfully uploaded and say images/[filename] in the box below: </h3><br>
+            <input class='uploadFile' accept='image/*' name='fileUpload' type='file' id='imageUpload'/>
+            <label for='imageUpload' id='imageUploadLabel'>Choose a file</label>
+            <p id='percentUploadImage'>No file selected</p>
+            <input type="text" id="exhibitImage" name="Image File" placeholder="images/[filename].jpg">
+
+            <script>
+
+              var imageUpload = document.getElementById("imageUpload");
+              imageUpload.onchange = function(evt) {
+                var firstFile = evt.target.files[0];
+                var uploadConfirm = confirm("Upload: " + firstFile.name + "?");
+                var uploadLabel = document.getElementById("imageUploadLabel");
+                uploadLabel.innerHTML = firstFile.name;
+                if(uploadConfirm){
+                  var storageRef = firebase.storage().ref("images/" + firstFile.name);
+                  var uploadTask = storageRef.put(firstFile);
+                  uploadTask.on('state_changed', function(snapshot){
+                    var percentUploadImage = document.getElementById("percentUploadImage");
+                    percentUploadImage.textContent = "Uploading...";
+                  }, function(error){
+                    alert("An error occurred: " + error);
+                  }, function() {
+                    //alert("Successfully uploaded");
+                    var percentUploadImage = document.getElementById("percentUploadImage");
+                    percentUploadImage.textContent = "Successfully uploaded!";
+                    var imagePath = document.getElementById("exhibitImage");
+                    console.log(imagePath);
+                    imagePath.value = "images/"+storageRef.name;
+                    console.log("successfully uploaded"); //Khoi Le
+                    var newImg = document.createElement("img");
+                    newImg.style.height = '400px';
+                    console.log(firstFile.name);
+                    var newPreview = document.createElement("p");
+                    newPreview.textContent = 'Image preview:';
+                    //var spaceRef2 = storageRef.child("audio/" + firstFile.name);
+                    storageRef = firebase.storage().ref();
+                    storageRef.child("images/" + firstFile.name).getDownloadURL().then(function(url){
+                      var test = url;
+                      newImg.src = test;
+                      document.getElementById("imageUploadContainer").appendChild(newPreview);
+                      document.getElementById("imageUploadContainer").appendChild(newImg);
+                    }).catch(function(error){});
+                  });
+                }
+              };
+            </script>
+
+
+          </div>
+          <!-- <div class="inputContainer" >
+            <h2 class="longDescription"> Do all the slides have the same image? If so, we will not scroll the image </h2>
+            <input type="checkbox" checked ng-model="oneImage" id="oneImage">
+          </div> -->
+          <!-- <div class="inputContainer">
+            <h2 class="longDescription"> Summary (Like a Tweet! Capture the MOST interesting thing in a short but sweet summary): </h2><br>
+            <textarea id="summary" rows="3" cols="50" placeholder="When people told him that he could never match Velazquez's masterpiece, Picasso told them 'this is MY meninas!'"></textarea>
+          </div> -->
+          <!-- <div class="inputContainer">
+            <h2 class="longDescription"> Major Symbols (Separate by semicolons): </h2><br>
+            <textarea id="symbols" rows="3" cols="50" placeholder="Shapes capture the mood of Picasso; Mirror and shadow leaves mystery; Dark monochrome creates an ominous tone"></textarea>
+          </div>
+          <div class="inputContainer">
+            <h2 class="longDescription"> History of the Painting: </h2><br>
+            <textarea id="historyOfPainting" rows="4" cols="50" placeholder="The original Las Meninas was painted in 1656 by Diego Velazquez, and captured the royal family's princesses. Picasso painted his versions of Las Meninas (58 in total) in the 1950's and wanted to emphasize how his versions conveyed his own meanings."></textarea>
+          </div>
+          <div class="inputContainer">
+            <h2 class="longDescription"> History of the Artist: </h2><br>
+            <textarea id="historyOfArtist" rows="4" cols="50" placeholder="Pablo Picasso is often referred to as the father of cubism, which can be seen in the geometric and abstract shapes of the figures in the painting"></textarea>
+          </div> -->
+          <div class="inputContainer">
+            <h2 class="longDescription"> Videos (please use YouTube or Vimeo videos). </h2><h3>Find the "Embed" option and copy the 'src=' link and paste below, separated by semicolons). If no videos, please leave blank. </h3><br>
+            <textarea id="videos" name="Videos" ng-model="videos" rows="3" cols="50" placeholder="https://www.youtube.com/embed/jc1Nfx4c5LQ; https://www.youtube.com/embed/as47s12LC"></textarea>
+          </div>
+          <button id="createPage" type="submit" ng-click="createNewPage()">Create page</button>
+        </form>
+        <div id='congratsBox' class='modalBox' ng-if="showModal">
+          <h2 id='congratsMessage'> Congratulations! Your new exhibit has been created </h2>
+          <button class='modalButton' ng-click='makeAnother()'> Create another exhibit </button>
+          <button class='modalButton' ng-click='sendToExhibit()'> View exhibit as guest </button>
+          <button class='modalButton' ng-click='editExhibit()'> Edit exhibit </button>
+          <button class='modalButton' ng-click='goToExplorer()'> Go to database explorer </button>
+
+        </div>
+      </div>
+
+      <br>
+      <h1 id="result"></h1>
+
+      <br>
+      <br>
+    </div>
+    <div id="footer">
+      <div id="footerLinkBar">
+        <a class="footerLinks" href="lunasphere.html"> about lunasphere </a>
+        <a class="footerLinks" href="index.html"> triton database </a>
+      </div>
+      <div id="footerLogos">
+        <h2 style="color: gray;">powered by <a class='h2Links' href='lunasphere.html'> LunaSphere </a> in conjunction with the <a class='h2Links' href='http://www.tritonmuseum.org'>Triton Museum of Art</a>, Santa Clara, CA</h2>
+        <img src='../images/tritonIcon.png' id='logoPageCreatorFooter'></img>
+        <img src='../images/LogoTransparent.png' id='lunasphereLogoFooter'></img>
+      </div>
+      <div id="credits"> <h3 style='color:gray;'>Copyright 2016: Nikolai Flowers and Khoi Le </h3> </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="../scripts/pagecreator.js"></script>
+  </body>
+
+</html>
