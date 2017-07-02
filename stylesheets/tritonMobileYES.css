@@ -348,20 +348,35 @@ p{
   width: 100vw;
   /*object-fit: cover;*/
 }
-.linkBanner{
+.linkBanner{ /* Containter */
   position: absolute;
-  display: block;
   bottom: 0px;
   float: left;
   margin: 0;
   padding: 0px;
   z-index: 1;
   height: 50px;
-  width: 100vw;
   background-color: rgba(250,23,62,0.8);
+  width: 100vw;
   text-decoration: none;
   color: black;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
+.linkTitle{
+  /*position: relative;*/
+  text-align: center;
+  text-shadow: none;
+  text-decoration: none;
+  z-index: 1;
+  font-size: 16px;
+  margin: 10px;
+
+}
+
 .linkCode{
   position: relative;
   top: -5px;
@@ -371,17 +386,8 @@ p{
   font-size: 12px;
   overflow: hidden;
 }
-.linkTitle{
-  position: relative;
-  top: -45px;
-  text-align: center;
-  right: 20px;
-  text-shadow: none;
-  text-decoration: none;
-  z-index: 1;
-  font-size: 16px;
-  overflow: hidden;
-}
+
+
 .exhibitLink{
   /*border: 1px solid green;*/
   position: relative;
