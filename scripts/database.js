@@ -14,6 +14,10 @@ app.config(function($routeProvider){
       templateUrl: "editexhibitMobile.html",
       controller: "editExhibit"
     })
+    .when('/editShowTitles',{
+      templateUrl: "editShowTitles.html",
+      controller: "editShowTitles"
+    })
     .when('/commentmoderator',{
       templateUrl: "commentExplorer.html",
       controller: "commentExplorer"
@@ -431,4 +435,37 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
   // }
 
 
+}]);
+
+
+
+app.controller("editShowTitles", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
+
+  $scope.cowellshowtitle = "";
+  $scope.warburtonshowtitle = "";
+  $scope.permanentshowtitle = "";
+  $scope.sculptureshowtitle = "";
+  $scope.rotundashowtitle = "";
+  $scope.jbhouseshowtitle = "";
+
+
+  var ref = firebase.database().ref();
+  var thisUrl = window.location.href;
+  //window.location.href = thisUrl;
+  var idQ = thisUrl.indexOf('?');
+  var idStartAt = idQ + 3;
+  var idAnd = thisUrl.indexOf('&');
+  var fbIDStart = idAnd + 3;
+  var thisRoom = thisUrl.substring(idStartAt, idAnd);
+  //console.log(thisRoom);
+  var fbID = thisUrl.substring(fbIDStart);
+  if(thisUrl.includes("#")){
+    var idEndAt = thisUrl.indexOf("#");
+    fbID = thisUrl.substring(idStartAt, idEndAt);
+  }
+  //console.log(fbID);
+  firebase.database().ref("exhibits/cowell/ShowTitle").once("value").then(function(snapshot) {
+    $scope.cowellshowtitle = snapshot.val();
+  });
+  
 }]);
