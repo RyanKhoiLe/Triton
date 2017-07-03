@@ -329,32 +329,46 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
       var showName;
       if(window.location.href.includes("cowell")){
         thisColor = "rgba(255,201,14,0.8)";
-        showName = "Suhas Bhujbal";
+        firebase.database().ref('exhibits/cowell/').once('value').then(function(snapshot) {
+            showName = snapshot.val().ShowTitle;
+        });
       }
       else if(window.location.href.includes("warburton")){
         thisColor = "rgba(250,23,62,0.8)";
-        showName = "ArtsAbled: <i>Seeing the Unseen</i>";
+        firebase.database().ref('exhibits/warburton/').once('value').then(function(snapshot) {
+            showName = snapshot.val().ShowTitle;
+        });
       }
       else if(window.location.href.includes("sculpture")){
         thisColor = "rgba(34,177,76,0.8)";
-        showName = "<i>Signage installed in the Sculpture Garden has been generously funded by the Farrington Historical Foundation.</i>";
+        firebase.database().ref('exhibits/sculpture/').once('value').then(function(snapshot) {
+            showName = snapshot.val().ShowTitle;
+        });
       }
       else if(window.location.href.includes("rotunda")){
         thisColor = "rgba(180,234,245,0.8)";
-        showName = "Ketra Oberlander: <i>  Homo Identus </i>";
+        firebase.database().ref('exhibits/rotunda/').once('value').then(function(snapshot) {
+            showName = snapshot.val().ShowTitle;
+        });
       }
       else if(window.location.href.includes("permanent")){
         thisColor = "rgba(0,162,232,0.8)";
-        showName = "The Ray Ashley Collection: <i> 35 Years of South Bay Art</i>";
+        firebase.database().ref('exhibits/permanent/').once('value').then(function(snapshot) {
+            showName = snapshot.val().ShowTitle;
+        });
       }
       else if(window.location.href.includes("jbhouse")){
         thisColor = "rgba(0,162,232,0.8)";
+        firebase.database().ref('exhibits/jbhouse/').once('value').then(function(snapshot) {
+            showName = snapshot.val().ShowTitle;
+        });
       }
       else{
         thisColor = "rgba(250,23,62,0.8)";
+        showName = " ";
       }
       console.log(thisColor);
-      if(showName){
+      if(showName != " "){
         document.getElementById("showName").innerHTML = showName;
       }
       $("#navBar").css("background-color", "rgba(187, 195, 204, 0.4)");
