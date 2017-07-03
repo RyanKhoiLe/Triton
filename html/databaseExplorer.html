@@ -67,6 +67,7 @@
 
       var exhibitsArray = [];
       var exhibitTextContent = [];
+      var selectedExhibits = [];
       //TODO: USE ARRAY TO HOLD EXHIBITS, USE DISPLAY: NONE TO HIDE NON-RELEVANT, USE SEARCHVALUE TO LOOK FOR MATCHES IN ANY CHILD NODE OF EXHIBITOBJECT
       function exhibitObject(title, artist, timeStamp, views, img, fbID, room){
         this.title = title;
@@ -116,6 +117,16 @@
       }
       var exhibitNum = 0;
       var trashIcon = '../images/icons/trash.png';
+      function addToSelected(e, path){
+        console.log("Add to selected");
+        if(e.target.checked){
+            selectedExhibits.push(path);
+        }
+        else{
+            selectedExhibits.splice(selectedExhibits.indexOf(path), 1);
+        }
+        console.log(selectedExhibits);
+      }
       function createExhibitLink(exhibit){ //loop through array??
         var newSearchResult = document.createElement('div');
         var searchTable = document.getElementById("searchTable");
@@ -128,7 +139,7 @@
         newSearchResult.setAttribute('class', 'searchResult');
         newSearchResult.setAttribute('id', 'exhibitLink'+exhibitNum);
         newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
-          "<input type='checkbox' class='smallCheckbox'/>" +
+          "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID +"&quot;"+ ")'/>" +
           "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
           "<div class='artistBox'><h2>"+ artistLastName + ", " + artistFirstName + " </h2></div>" +
           "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
@@ -137,7 +148,7 @@
           "</a>";
           if(exhibit.artist.indexOf(' ') == -1){
             newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
-              "<input type='checkbox' class='smallCheckbox'/>" +
+              "<input type='checkbox' class='smallCheckbox' onclick=&quot;addToSelected(event,'" +  exhibit.room + exhibit.fbID + "')&quot;/>" +
               "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
               "<div class='artistBox'><h2>"+ artistLastName + "</h2></div>" +
               "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
@@ -145,6 +156,7 @@
 
               "</a>";
           }
+
           var newDivBox = document.createElement("div");
           newDivBox.setAttribute("class", "imgBox");
           var newImgBox = document.createElement('img');
@@ -221,12 +233,26 @@
         for(var i = 0; i < inputs.length; i++){
           if(inputs[i].type.toLowerCase() == 'checkbox'){
             // check the checkbox
-            if(document.getElementById("masteCheckBox").checked){
-              inputs[i].checked = true;
+            if(inputs[i] != document.getElementById("masterCheckBox")){
+              if(document.getElementById("masterCheckBox").checked){
+                if(inputs[i].checked == true){
+                  //pass
+                }
+                else{
+                  inputs[i].click();
+                }
+              }
+              else{
+                // uncheck everything
+                if(inputs[i].checked == false){
+                  //pass
+                }
+                else{
+                  inputs[i].click();
+                }
+              }
             }
-            else{
-              inputs[i].checked = false;
-            }
+
 
           }
         }
@@ -279,26 +305,14 @@
     </div>
     <div id="wrapper">
       <div id="centerBox">
-        <!-- <div id='angularExhibits' ng-app="exhibitSearchList" ng-controller="exhibitController">
-        <label> Search: <input ng-model='searchText' id="searchValue"></label>
-        <table id='searchTextResults'>
-          <tr><th>Title</th><th>Artist</th><th>Last edited</th><th>Views</th><th>Preview</th></tr>
-          <tr ng-repeat="exhibitObject in exhibitsArray | filter:searchText">
-            <td>{{exhibitObject.title}}</td>
-            <td>{{exhibitObject.artist}}</td>
-            <td>{{exhibitObject.timeStamp}}</td>
-            <td>{{exhibitObject.views}}</td>
-            <td><img src={{exhibitObject.img}} height='55px'></td>
-          </tr>
-        </table>
-        </div> -->
 
-
-        <button onclick="location.href='pagecreatorMobile.html'" id='addPage'>Create New Page</button>
-        <button onclick="location.href='commentExplorer.html'" id='addPage'>Moderate Comments</button>
+        <button onclick="location.href='pagecreatorMobile.html'" class='addPage'>Create New Page</button>
+        <button onclick="location.href='commentExplorer.html'" class='addPage'>Moderate Comments</button>
         <br>
         <input type='text' id='searchValue' placeholder='       Search for existing exhibit...' onchange='updateSearch(event);'>
-        <button id='addPage'>Search</button>
+        <button class='addPage'>Search</button>
+        <img class='delete icon' src='../images/icons/trash.png'/>
+        <button class="addPage"> Archive </button>
         <script>
           function updateSearch(event){
             console.log('change detected');

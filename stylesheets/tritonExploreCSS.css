@@ -495,7 +495,7 @@ th{
 #searchValue.focus{
   background-image: none;
 }
-#addPage{
+.addPage{
   margin-top: 20px;
   float: none;
   -webkit-border-radius: 7;
@@ -510,8 +510,8 @@ th{
   text-decoration: none;
   transition: background-color 0.3s;
 }
-#addPage:hover,
-#addPage.hover{
+.addPage:hover,
+.addPage.hover{
   background-color: #0A99D5;
 }
 
