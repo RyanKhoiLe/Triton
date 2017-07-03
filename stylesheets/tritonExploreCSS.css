@@ -644,3 +644,46 @@ td{
   font-size: 24px;
   text-align: center;
 }
+
+.bigdaddy{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  padding-top: 5%;
+
+}
+
+.babyform{
+    margin-top: 5%;
+    margin-bottom: 50px;
+
+    width: 60%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+}
+
+#michelleFooter{
+  left: 0px;
+  height: 220px;
+  width: 100%;
+  background-color: #0d0d0d;
+  color: white;
+  text-align: left;
+}
+
+.editShowTitles{
+  margin-top: 5%;
+}
+
+
+
+.babyform .inputContainer .show {
+  margin-left: 60px !important;
+
+}
