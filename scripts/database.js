@@ -463,9 +463,46 @@ app.controller("editShowTitles", ["$scope", "$firebaseArray", function($scope, $
     var idEndAt = thisUrl.indexOf("#");
     fbID = thisUrl.substring(idStartAt, idEndAt);
   }
-  //console.log(fbID);
-  firebase.database().ref("exhibits/cowell/ShowTitle").once("value").then(function(snapshot) {
-    $scope.cowellshowtitle = snapshot.val();
+
+  firebase.database().ref("exhibits/cowell/").once("value").then(function(snapshot) {
+    $scope.cowellshowtitle = snapshot.val().ShowTitle;
+    console.log($scope.cowellshowtitle);
+    $scope.$apply();
   });
-  
+
+  firebase.database().ref("exhibits/warburton/").once("value").then(function(snapshot) {
+    $scope.warburtonshowtitle = snapshot.val().ShowTitle;
+    $scope.$apply();
+
+  });
+
+  firebase.database().ref("exhibits/permanent/").once("value").then(function(snapshot) {
+    $scope.permanentshowtitle = snapshot.val().ShowTitle;
+    $scope.$apply();
+
+  });
+
+  firebase.database().ref("exhibits/sculpture/").once("value").then(function(snapshot) {
+    $scope.sculptureshowtitle = snapshot.val().ShowTitle;
+    $scope.$apply();
+
+  });
+
+  firebase.database().ref("exhibits/rotunda/").once("value").then(function(snapshot) {
+    $scope.rotundashowtitle = snapshot.val().ShowTitle;
+    $scope.$apply();
+
+  });
+
+  firebase.database().ref("exhibits/jbhouse/").once("value").then(function(snapshot) {
+    $scope.jbhouseshowtitle = snapshot.val().ShowTitle;
+    $scope.$apply();
+
+  });
+
+
+  //$scope.$apply();
+
+
+
 }]);

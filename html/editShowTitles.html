@@ -8,7 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="icon" href="../images/tritonIconSmall.png">
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+  <script src="../scripts/database.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
+
+  <script>
+    function doFunction() {
+      alert('hello!');
+    };
+  </script>
+
+
 </head>
   <body ng-app="database">
 
@@ -28,7 +40,7 @@
     </div>
     <div id= "wrapper" >
 
-      <div class="bigdaddy" ng-controller="editShowTitles"> 
+      <div class="bigdaddy" ng-controller="editShowTitles">
         <div class="babyform">
 
 
@@ -42,7 +54,6 @@
                   <h2> Cowell: </h2>
                 </div>
               <input class="show" type="text" ng-model="cowellshowtitle" id="cowell" value="" placeholder="{{cowellshowtitle}}">
-              <button class="update" type="submit"> Update </button>
             </div>
             <label id="artistLabel">
 
@@ -52,7 +63,6 @@
                 <h2> Warburton: </h2>
               </div>
               <input class="show" type="text" ng-model="warburtonshowtitle" id="warburton" value="" placeholder="{{warburtonshowtitle}}">
-              <button class="update" type="submit"> Update </button>
             </div>
 
 
@@ -62,7 +72,6 @@
                   <h2> Permanent: </h2>
                 </div>
               <input class="show" type="text" ng-model="permanentshowtitle" id="permanent" value="" placeholder="{{permanentshowtitle}}">
-              <button class="update" type="submit"> Update </button>
             </div>
             <label id="artistLabel">
 
@@ -72,7 +81,6 @@
                 <h2> Sculpture: </h2>
               </div>
               <input class="show" type="text" ng-model="sculptureshowtitle" id="sculpture" value="" placeholder="{{sculptureshowtitle}}">
-              <button class="update" type="submit"> Update </button>
             </div>
 
 
@@ -82,7 +90,6 @@
                   <h2> Rotunda: </h2>
                 </div>
               <input class="show" type="text" ng-model="rotundashowtitle" id="rotunda" value="" placeholder="{{rotundashowtitle}}">
-              <button class="update" type="submit"> Update </button>
             </div>
             <label id="artistLabel">
 
@@ -92,9 +99,9 @@
                 <h2> Jamison: </h2>
               </div>
               <input class="show" type="text" ng-model="jbhouseshowtitle" id="jbhouse" value="" placeholder="{{jbhouseshowtitle}}">
-              <button class="update" type="submit"> Update </button>
             </div>
 
+            <button class="update" id="updateButton" type="submit" onclick="doFunction();"> Update </button>
 
           </form>
         </div>
@@ -112,8 +119,6 @@
         </div>
         <div id="credits"> <h3 style='color:gray;'>Copyright 2016: Nikolai Flowers and Khoi Le </h3> </div>
       </div>
-
-
 
       </div> <!-- Close bigdaddy -->
 
