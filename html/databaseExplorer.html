@@ -139,7 +139,7 @@
         newSearchResult.setAttribute('class', 'searchResult');
         newSearchResult.setAttribute('id', 'exhibitLink'+exhibitNum);
         newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
-          "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID +"&quot;"+ ")'/>" +
+          "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID + ";" +exhibit.title + ";" + thisNum +"&quot;"+ ")'/>" +
           "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
           "<div class='artistBox'><h2>"+ artistLastName + ", " + artistFirstName + " </h2></div>" +
           "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
@@ -148,7 +148,7 @@
           "</a>";
           if(exhibit.artist.indexOf(' ') == -1){
             newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
-              "<input type='checkbox' class='smallCheckbox' onclick=&quot;addToSelected(event,'" +  exhibit.room + exhibit.fbID + "')&quot;/>" +
+  "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID +"&quot;"+ ")'/>" +
               "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
               "<div class='artistBox'><h2>"+ artistLastName + "</h2></div>" +
               "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
@@ -197,31 +197,19 @@
         centerBox.appendChild(searchTable);
         console.log('link created');
       }
-      function alertDelete(exhibit, num){
+      function alertDelete(exhibitPath){
+        var exhibitDetails = exhibitPath.split(';'); // room, id, title, num
+        var room = exhibitDetails[0];
+        var exhibitId = exhibitDetails[1];
+        var title = exhibitDetails[2];
+        var num = exhibitDetails[3];
         console.log("CONFIRM DELETE?");
-        console.log('exhibitLink'+num);
-        var deleteConfirmation = confirm('Delete exhibit: ' + exhibit.title + '?'); //exhibit.title
+        var deleteConfirmation = confirm('Delete exhibit: ' + title + '?'); //exhibit.title
 
         if(deleteConfirmation){
           console.log('exhibitLink'+num);
           document.getElementById("exhibitLink" + num).style.display='none';
-
-          // firebaseRef.ref(exhibit.room).once('value').then(function(snapshot){
-          //   snapshot.forEach(function(childSnapshot){
-          //     var keyID = childSnapshot.key;
-          //     var key = childSnapshot.val().key;
-          //     console.log('just the key: ' + key);
-          //     if(key == exhibit.fbID){
-          //       firebaseRef.ref('exhibitKeys/' + keyID).remove();
-          //       console.log('remove key');
-          //     }
-          //
-          //   });
-          // });
-          firebaseRef.ref('exhibits/' + exhibit.room +'/' + exhibit.fbID).remove();
-          //firebaseRef.ref(''+exhibit.fbID).parent.remove();
-          //location.href = 'databaseExplorer.html';
-
+          firebaseRef.ref('exhibits/' + room +'/' + exhibitId).remove();
         }
         else{
           return;
@@ -255,6 +243,14 @@
 
 
           }
+        }
+      }
+      function archiveSelected(){
+
+      }
+      function alertDeleteSelected(){
+        for(var i = 0; i < selectedExhibits.length; i++){
+          alertDelete()
         }
       }
 
@@ -311,9 +307,10 @@
         <br>
         <input type='text' id='searchValue' placeholder='       Search for existing exhibit...' onchange='updateSearch(event);'>
         <button class='addPage'>Search</button>
-        <img class='delete icon' src='../images/icons/trash.png'/>
-        <button class="addPage"> Archive </button>
+        <img class='delete icon' src='../images/icons/trash.png' onclick="alertDeleteSelected()"/>
+        <button class="addPage" onclick="archiveSelected()"> Archive </button>
         <script>
+
           function updateSearch(event){
             console.log('change detected');
             console.log(exhibitTextContent);
