@@ -380,7 +380,10 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(247, 221, 165, 1)";
     slide3Color = "rgba(255, 231, 181,1)";
     slide4Color = "rgba(242, 224, 186, 1)";
-    $scope.showName = "Suhas Bhujbal";
+    firebase.database().ref('exhibits/cowell/').once('value').then(function(snapshot) {
+        $scope.showName = snapshot.val().ShowTitle;
+        $scope.$apply();
+    });
   }
   else if(window.location.href.includes("warburton")){
     thisRoom = "warburton";
@@ -390,7 +393,10 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(242, 109, 99, 1)";
     slide3Color = "rgba(245, 141, 124, 1)";
     slide4Color = "rgba(249, 176, 146, 1)";
-    $scope.showName = "ArtsAbled: <i>Seeing the Unseen</i>";
+    firebase.database().ref('exhibits/warburton/').once('value').then(function(snapshot) {
+        $scope.showName = snapshot.val().ShowTitle;
+        $scope.$apply();
+    });
   }
   else if(window.location.href.includes("sculpture")){
     thisRoom = "sculpture";
@@ -400,7 +406,10 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(128, 173, 142, 1)";
     slide3Color = "rgba(161, 201, 173, 1)";
     slide4Color = "rgba(204, 234, 213, 1)";
-    $scope.showName = "Signage installed in the Sculpture Garden has been generously funded by the Farrington Historical Foundation.";
+    firebase.database().ref('exhibits/sculpture/').once('value').then(function(snapshot) {
+        $scope.showName = snapshot.val().ShowTitle;
+        $scope.$apply();
+    });
   }
   else if(window.location.href.includes("rotunda")){
     thisRoom = "rotunda";
@@ -410,7 +419,10 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(211, 194, 203, 1)";
     slide3Color = "rgba(255, 234, 234, 1)";
     slide4Color = "rgba(216, 216, 216, 1)";
-    $scope.showName = "Ketra Oberlander: <i>Homo Identus</i>";
+    firebase.database().ref('exhibits/rotunda/').once('value').then(function(snapshot) {
+        $scope.showName = snapshot.val().ShowTitle;
+        $scope.$apply();
+    });
   }
   else if(window.location.href.includes("permanent")){
     thisRoom = "permanent";
@@ -420,7 +432,10 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(139, 174, 212, 1)";
     slide3Color = "rgba(202, 216, 234, 1)";
     slide4Color = "rgba(229, 237, 248, 1)";
-    $scope.showName = "The Ray Ashley Collection: <i>35 Years of South Bay Art</i>";
+    firebase.database().ref('exhibits/permanent/').once('value').then(function(snapshot) {
+        $scope.showName = snapshot.val().ShowTitle;
+        $scope.$apply();
+    });
   }
   else if(window.location.href.includes("jbhouse")){
     thisRoom = "jbhouse";
@@ -430,6 +445,10 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     slide2Color = "rgba(139, 174, 212, 1)";
     slide3Color = "rgba(202, 216, 234, 1)";
     slide4Color = "rgba(229, 237, 248, 1)";
+    firebase.database().ref('exhibits/jbhouse/').once('value').then(function(snapshot) {
+        $scope.showName = snapshot.val().ShowTitle;
+        $scope.$apply();
+    });
   }
   else if(window.location.href.includes("archive")){
       thisRoom = "archive";
