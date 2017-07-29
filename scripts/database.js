@@ -237,6 +237,8 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     $scope.slideIds[i] = true;
   }
   var ref = firebase.database().ref();
+  var publicRef = ref.child("exhibits").child("public");
+  var privateRef = ref.child("exhibits").child("private");
   var thisUrl = window.location.href;
   //window.location.href = thisUrl;
   var idQ = thisUrl.indexOf('?');
@@ -250,19 +252,15 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     var idEndAt = thisUrl.indexOf("#");
     fbID = thisUrl.substring(idStartAt, idEndAt);
   }
-  //console.log(fbID);
-  firebase.database().ref("exhibits").child(thisRoom).child(fbID).on('value', function(snapshot){
+  // PULL FROM PRIVATE
+  privateRef.child(thisRoom).child(fbID).on('value', function(snapshot){
     var exhibitData = snapshot.val();
-    //console.log(exhibitData);
     var fieldArray = Object.keys(exhibitData);
 
-    //console.log(fieldArray);
     fieldArray.forEach(function(key){
-      //console.log(key);
       if(exhibitData[key] !== ''){
         $scope[key] = exhibitData[key];
         if(key === 'slides'){
-          //console.log($scope.slides);
           for(var i = 0; i < $scope.slides.length; i++){
             if($scope.slides[i] === ""){
               $scope.slides.splice(i, 1);
@@ -275,7 +273,7 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
           // $scope.exhibit
           document.getElementById("exhibitDropdown").value = $scope.exhibit;
         }
-        //console.log($scope[key]);
+
         if(key==='exhibitImage'){
           var storage = firebase.storage();
           var storageRef = storage.ref();
@@ -284,8 +282,6 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
             var test = url;
             $scope.imagePreviewLink = test;
             document.getElementById("exhibitImagePreview").setAttribute("src", test);
-            //console.log($scope.exhibitImage);
-            //console.log($scope.imagePreviewLink);
           }).catch(function(error){
           });
         }
@@ -303,14 +299,9 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
       }
     });
 
-
-    var commentRef = firebase.database().ref().child("exhibits").child(fbID).child("comments");
+    // PUSH COMMENTS TO BOTH
+    var commentRef = privateRef.child(thisRoom).child(fbID).child("comments");
     $scope.comments = $firebaseArray(commentRef);
-    //console.log($scope.title);
-    //console.log(exhibitData);
-    //console.log(exhibitData);
-
-    //$scope.$apply();
   });
   function getTimeStamp(){
     var now = new Date();
@@ -327,28 +318,36 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
 
     return date.join("/") + ", " + time.join(":") + " " + suffix;
   }
-  $scope.updatePage = function(){
-    //$scope.apply();
+
+  /* Function updatePage happens when user hits submit
+   * button. It pulls all values from the form using
+   * Angular scope, then pushes to the privateRef tree
+   * on the Firebase. */
+  $scope.updatePage = function(tree){
+    var ref = firebase.database().ref();
+    var publicRef = ref.child("exhibits").child("public");
+    var privateRef = ref.child("exhibits").child("private");
+    var refToPush = null;
+    if(tree == "private"){
+      refToPush = privateRef;
+    }
+    if(tree == "public"){
+      refToPush = publicRef;
+    }
     var thisUrl = window.location.href;
-    //window.location.href = thisUrl;
-    //console.log(thisUrl);
     var idQ = thisUrl.indexOf('?');
     var idStartAt = idQ + 3;
     var idAnd = thisUrl.indexOf('&');
     var fbIDStart = idAnd + 3;
     var thisRoom = thisUrl.substring(idStartAt, idAnd);
-    //console.log(thisRoom);
     var fbID = thisUrl.substring(fbIDStart);
     console.log("update called");
-    //console.log(fbID);
-    //console.log($scope.exhibitImage);
     var exhibitName = document.getElementById("exhibitSelect").value;
     $scope.exhibit = exhibitName;
-    //console.log("ExhibitName " + $scope.exhibit);
     var exhibitImageValue = document.getElementById("exhibitImage").value;
     var exhibitAudioValue = document.getElementById("exhibitAudio").value;
-    if(thisRoom != exhibitName){
-      firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID).remove().then(function() {
+    if(thisRoom != exhibitName){ // Changed rooms
+      privateRef.child(thisRoom).child(fbID).remove().then(function() {
         console.log("Remove succeeded.");
         thisRoom = exhibitName;
         console.log("Switched exhibit to: " + thisRoom);
@@ -368,6 +367,34 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
             views: $scope.views
 
         }).key;
+
+        alert("Successfully switched exhibit to: " + thisRoom);
+        window.location.href = thisUrl.substring(0, idStartAt) + thisRoom + "&1=" + newExhibit;
+      })
+      .catch(function(error) {
+        console.log("Remove failed: " + error.message);
+      });
+      publicRef.child(thisRoom).child(fbID).remove().then(function() {
+        console.log("Remove succeeded.");
+        thisRoom = exhibitName;
+        console.log("Switched exhibit to: " + thisRoom);
+        var newExhibit = firebase.database().ref('exhibits/' + thisRoom).push({
+            title: $scope.title,
+            artist: $scope.artist,
+            year: $scope.year,
+            genre: $scope.genre,
+            media: $scope.media,
+            exhibitImage: exhibitImageValue,
+            videos: $scope.videos,
+            timeStamp: getTimeStamp(),
+            exhibitAudio: exhibitAudioValue,
+            exhibitCode: $scope.exhibitCode,
+            slides: $scope.slides,
+            exhibit: $scope.exhibit,
+            views: $scope.views
+
+        }).key;
+
         alert("Successfully switched exhibit to: " + thisRoom);
         window.location.href = thisUrl.substring(0, idStartAt) + thisRoom + "&1=" + newExhibit;
       })
