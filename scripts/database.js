@@ -319,11 +319,11 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     return date.join("/") + ", " + time.join(":") + " " + suffix;
   }
 
-  /* Function updatePage happens when user hits submit
+  /* Function updatePage happens when user hits save
    * button. It pulls all values from the form using
    * Angular scope, then pushes to the privateRef tree
    * on the Firebase. */
-  $scope.updatePage = function(tree){
+  $scope.updateChangePage = function(tree){
     var ref = firebase.database().ref();
     var publicRef = ref.child("exhibits").child("public");
     var privateRef = ref.child("exhibits").child("private");
@@ -404,7 +404,7 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
 
     }
     else{
-      firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID).update({
+      refToPush.child(thisRoom).child(fbID).update({
           title: $scope.title,
           artist: $scope.artist,
           year: $scope.year,
@@ -422,14 +422,8 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
       });
       alert("Successfully updated.");
     }
-
-
-    // firebase.database().ref('exhibits/' + thisRoom + '/' +  fbID + '/slides').update({
-    //   0: $scope.slides[0],
-    //   1: $scope.slides[2]
-    // });
-    //document.getElementById("exhibitPreview").setAttribute("src", "index.html#/exhibit?id=" + fbID + "#edit");
   }
+
   // window.onscroll = function(){
   //   //console.log('scrollTop: ' + document.body.scrollTop);
   //   if(document.body.scrollTop > 290 && document.body.scrollTop < 3260){
