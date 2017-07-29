@@ -237,8 +237,8 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     $scope.slideIds[i] = true;
   }
   var ref = firebase.database().ref();
-  var publicRef = ref.child("exhibits").child("public");
-  var privateRef = ref.child("exhibits").child("private");
+  var publicRef = ref.child("public");
+  var privateRef = ref.child("private");
   var thisUrl = window.location.href;
   //window.location.href = thisUrl;
   var idQ = thisUrl.indexOf('?');
@@ -254,6 +254,7 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
   }
   // PULL FROM PRIVATE
   privateRef.child(thisRoom).child(fbID).on('value', function(snapshot){
+    console.log();
     var exhibitData = snapshot.val();
     var fieldArray = Object.keys(exhibitData);
 
@@ -321,12 +322,12 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
 
   /* Function updatePage happens when user hits save
    * button. It pulls all values from the form using
-   * Angular scope, then pushes to the privateRef tree
-   * on the Firebase. */
+   * Angular scope, then pushes to either the privateRef tree
+   * or the publicRef tree on the Firebase. */
   $scope.updateChangePage = function(tree){
     var ref = firebase.database().ref();
-    var publicRef = ref.child("exhibits").child("public");
-    var privateRef = ref.child("exhibits").child("private");
+    var publicRef = ref.child("public");
+    var privateRef = ref.child("private");
     var refToPush = null;
     if(tree == "private"){
       refToPush = privateRef;
@@ -342,7 +343,7 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     var thisRoom = thisUrl.substring(idStartAt, idAnd);
     var fbID = thisUrl.substring(fbIDStart);
     console.log("update called");
-    var exhibitName = document.getElementById("exhibitSelect").value;
+    var exhibitName = document.getElementById("exhibitDropdown").value;
     $scope.exhibit = exhibitName;
     var exhibitImageValue = document.getElementById("exhibitImage").value;
     var exhibitAudioValue = document.getElementById("exhibitAudio").value;

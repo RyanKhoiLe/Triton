@@ -9,6 +9,7 @@
   <link rel="icon" href="../images/tritonIconSmall.png">
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  <script src="../scripts/move.js"></script>
 </head>
   <body>
     <script>
@@ -88,11 +89,24 @@
       //   console.log('snapshot val' + tempExhKey);
       // });
       var exhibitNames = ['cowell', 'warburton', 'permanent','jb','rotunda','sculpture','archive'];
+      console.log(exhibitNames);
       var exhibitNum = 0;
       for(var i = 0; i < exhibitNames.length; i++){
+        console.log("second: " + exhibitNames);
+        console.log(i);
+        console.log("Exhibit: " + exhibitNames[2]);
+        console.log("Name: " + firebaseRef.ref('exhibits/' + exhibitNames[i]));
+          moveExhibitsRecord(firebaseRef.ref().child('exhibits').child(exhibitNames[i]), publicRef.child(exhibitNames[i]));
+      }
+      for(var i = 0; i < exhibitNames.length; i++){
+        console.log("i outside: " + i);
         firebaseRef.ref('exhibits').child(exhibitNames[i]).on('child_added', function(snapshot){
           var snapshotKey = snapshot.key;
+
           console.log("snapshotKey: " + snapshotKey);
+
+
+
           if (snapshotKey != 'ShowTitle'){
             var exhibits = snapshot.val();
           //console.log('id: ' + tempFBID);

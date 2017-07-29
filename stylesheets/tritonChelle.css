@@ -431,6 +431,10 @@ body{
   text-decoration: none;
   transition: background 0.2s;
 }
+.progressButton:hover {
+  background: #0A99D5;
+  text-decoration: none;
+}
 #centerBox{
   margin-top: 2%;
   margin-left: auto;
