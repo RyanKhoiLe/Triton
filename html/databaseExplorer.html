@@ -21,9 +21,11 @@
       };
       firebase.initializeApp(config);
 
-    var url = "https://lunaspheretriton.firebaseio.com";
-      var firebaseRef = firebase.database();
 
+      var url = "https://lunaspheretriton.firebaseio.com";
+      var firebaseRef = firebase.database();
+      var privateRef = firebaseRef.ref().child("private");
+      var publicRef = firebaseRef.ref().child("public");
       function checkUser(){
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
@@ -86,27 +88,31 @@
       //   console.log('snapshot val' + tempExhKey);
       // });
       var exhibitNames = ['cowell', 'warburton', 'permanent','jb','rotunda','sculpture','archive'];
+      var exhibitNum = 0;
       for(var i = 0; i < exhibitNames.length; i++){
         firebaseRef.ref('exhibits').child(exhibitNames[i]).on('child_added', function(snapshot){
           var snapshotKey = snapshot.key;
           console.log("snapshotKey: " + snapshotKey);
-          var exhibits = snapshot.val();
-        //console.log('id: ' + tempFBID);
-          var title = exhibits.title;
-          var artist = exhibits.artist;
-          var timeStamp = exhibits.timeStamp;
-          var views = exhibits.views;
-          var img = exhibits.exhibitImage;
-          var exhibitRoom = exhibits.exhibit;
+          if (snapshotKey != 'ShowTitle'){
+            var exhibits = snapshot.val();
+          //console.log('id: ' + tempFBID);
+            var title = exhibits.title;
+            var artist = exhibits.artist;
+            var timeStamp = exhibits.timeStamp;
+            var views = exhibits.views;
+            var img = exhibits.exhibitImage;
+            var exhibitRoom = exhibits.exhibit;
 
-          var newExhibit = new exhibitObject(title, artist, timeStamp, views, img, snapshotKey, exhibitRoom);
-          exhibitsArray.push(newExhibit);
+            var newExhibit = new exhibitObject(title, artist, timeStamp, views, img, snapshotKey, exhibitRoom);
+            exhibitsArray.push(newExhibit);
 
-          createExhibitLink(newExhibit);
-          console.log(exhibitsArray);
-          //var artist = snapshot.val().artist;
-          console.log(exhibits);
-          console.log('title: ' + title);
+            createExhibitLink(newExhibit);
+            console.log(exhibitsArray);
+            //var artist = snapshot.val().artist;
+            console.log(exhibits);
+            console.log('title: ' + title);
+          }
+
         });
       }
 
@@ -115,7 +121,7 @@
       function getExhibitsArray(){
         return exhibitsArray;
       }
-      var exhibitNum = 0;
+
       var trashIcon = '../images/icons/trash.png';
       function addToSelected(e, path){
         console.log("Add to selected");
@@ -131,31 +137,36 @@
         var newSearchResult = document.createElement('div');
         var searchTable = document.getElementById("searchTable");
         var centerBox = document.getElementById("centerBox");
-
-        var artistLastName = exhibit.artist.substring(exhibit.artist.indexOf(' '));
-        console.log('indexOf space: ' + exhibit.artist.indexOf(' '));
-        var artistFirstName = exhibit.artist.substring(0, exhibit.artist.indexOf(' '));
+        var artistLastName = "";
+        var artistFirstName = "Unknown";
+        console.log("EXHIBIT ARTST: " + exhibit.artist);
+        if(exhibit.artist != null){
+          artistLastName = exhibit.artist.substring(exhibit.artist.indexOf(' '));
+          artistFirstName = exhibit.artist.substring(0, exhibit.artist.indexOf(' '));
+        }
         //var newIndex = document.createElement('div')
         newSearchResult.setAttribute('class', 'searchResult');
         newSearchResult.setAttribute('id', 'exhibitLink'+exhibitNum);
         newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
-          "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID + ";" +exhibit.title + ";" + thisNum +"&quot;"+ ")'/>" +
+          "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID + ";" +exhibit.title + ";" + exhibitNum +"&quot;"+ ")'/>" +
           "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
           "<div class='artistBox'><h2>"+ artistLastName + ", " + artistFirstName + " </h2></div>" +
           "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
           "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
 
           "</a>";
-          if(exhibit.artist.indexOf(' ') == -1){
-            newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
-  "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID +"&quot;"+ ")'/>" +
-              "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
-              "<div class='artistBox'><h2>"+ artistLastName + "</h2></div>" +
-              "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
-              "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
+            if(exhibit.artist != null){
+              if(exhibit.artist.indexOf(' ') == -1){
+                newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
+      "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID +"&quot;"+ ")'/>" +
+                  "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
+                  "<div class='artistBox'><h2>"+ artistLastName + "</h2></div>" +
+                  "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
+                  "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
 
-              "</a>";
-          }
+                  "</a>";
+              }
+        }
 
           var newDivBox = document.createElement("div");
           newDivBox.setAttribute("class", "imgBox");
@@ -249,8 +260,30 @@
 
       }
       function alertDeleteSelected(){
-        for(var i = 0; i < selectedExhibits.length; i++){
-          alertDelete()
+        console.log(selectedExhibits);
+        var count = selectedExhibits.length;
+
+        var deleteConfirmation = confirm('Delete ' + count +  ' exhibits?'); //exhibit.title
+
+        if(deleteConfirmation){
+          for(var i = 0; i < selectedExhibits.length; i++){
+            var exhibitDetails = selectedExhibits[i].split(';'); // room, id, title, num
+            var room = exhibitDetails[0];
+            var exhibitId = exhibitDetails[1];
+            var title = exhibitDetails[2];
+            var num = exhibitDetails[3];
+            var exhibitDisplay = document.getElementById("exhibitLink" + num);
+            if(exhibitDisplay != null)
+              exhibitDisplay.style.display='none';
+            firebase.database().ref().child('exhibits').child(room).child(exhibitId).remove();
+            publicRef.child(room).child(exhibitId).remove();
+            privateRef.child(room).child(exhibitId).remove();
+          }
+          console.log('exhibitLink'+num);
+
+        }
+        else{
+          return;
         }
       }
 
