@@ -76,6 +76,18 @@ select{
   left: 0px;
   background-color: #0d0d0d;
 }
+body{
+  margin: 0px;
+}
+#newHeadbar{
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: #0d0d0d;
+}
+#newHeadbar img{
+  max-height: 210px;
+}
 #lunasphereLogo {
   float: left;
   margin-top: 10px;
@@ -99,18 +111,34 @@ select{
   clear: right;
 }
 #navBar{
+  /*
   position: absolute;
-  float: left;
+  float: left;*/
+  position: block;
   margin-top: 133px;
   margin-left: 200px;
   width: 75%;
   height: 100px;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   /*border: solid 1px white;*/
 }
 .navBarLink{
-  padding-left: 20px;
+  padding-right: 20px;
   font-size: 24px;
   font-family: 'roboto_condensed', sans-serif;
+  color: white;
+  text-decoration: none;
+}
+.navBarLink:visited{
+  color:  white;
+}
+
+.navBarLink:hover{
+  color: #0DB1E6;
 }
 
 #logo {
@@ -137,6 +165,15 @@ select{
   border: none;
   top: 200px;
   height: 4600px;
+  left: 0px;
+  width: 100%;
+  margin-top: 0;
+  margin: 0 auto;
+  text-align: center;
+  background: -webkit-linear-gradient(#0DB1E6, #0E6B92);
+}
+
+#newWrapper{
   left: 0px;
   width: 100%;
   margin-top: 0;
@@ -228,6 +265,15 @@ select{
 #footer{
   position: absolute;
   top: 4700px;
+  left: 0px;
+  height: 220px;
+  width: 100%;
+  background-color: #0d0d0d;
+  color: white;
+}
+
+#newFooter{
+  padding-top: 40px;
   left: 0px;
   height: 220px;
   width: 100%;
@@ -336,7 +382,7 @@ input{
   left: 50px;
   top: 20px;
   margin-bottom: 20px;
-  width: 30%;
+  width: 60%;
   float: left;
   font-size: 22px;
   font-family: 'Roboto', sans-serif;
@@ -390,7 +436,7 @@ body{
 }
 #submitUpdate{
   margin-left: 8%;
-  margin-bottom: 700px;
+  margin-bottom: 50px;
   width: 40%;
   border: none;
   border-radius: 10px;
@@ -444,6 +490,14 @@ body{
   border-radius: 10px;
   border: 1px solid rgba(0,0,0,0.5);
   /*border-style: none none solid none;*/
+}
+
+#newCenterBox{
+  overflow: hidden;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 #updatePageButton:hover {
   background: #0A99D5;
