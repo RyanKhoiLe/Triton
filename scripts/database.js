@@ -433,39 +433,6 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
       alert("Successfully updated.");
     }
   }
-
-  // window.onscroll = function(){
-  //   //console.log('scrollTop: ' + document.body.scrollTop);
-  //   if(document.body.scrollTop > 290 && document.body.scrollTop < 3260){
-  //     var showExhibit = document.getElementById("showExhibit");
-  //     var jumpToBar = document.getElementById("jumpTo");
-  //     jumpToBar.style.position = 'fixed';
-  //     jumpToBar.style.top = '0px';
-  //     style = showExhibit.style;
-  //     style.position = 'fixed';
-  //     style.marginLeft = '53%';
-  //     style.top = '15px';
-  //     style.marginTop = '0px';
-  //   }
-  //   if(document.body.scrollTop <= 290){
-  //     var showExhibit = document.getElementById("showExhibit");
-  //     style = showExhibit.style;
-  //     style.position = 'static';
-  //     style.marginLeft = '5%';
-  //     var jumpToBar = document.getElementById("jumpTo");
-  //     jumpToBar.style.position = 'static';
-  //     jumpToBar.style.top = '0px';
-  //   }
-  //   if(document.body.scrollTop >= 3260){
-  //     var showExhibit = document.getElementById("showExhibit");
-  //     style = showExhibit.style;
-  //     style.position = 'static';
-  //     style.marginLeft = '5%';
-  //     style.marginTop = '2900px';
-  //   }
-  // }
-
-
 }]);
 
 
@@ -530,10 +497,5 @@ app.controller("editShowTitles", ["$scope", "$firebaseArray", function($scope, $
     $scope.$apply();
 
   });
-
-
-  //$scope.$apply();
-
-
 
 }]);

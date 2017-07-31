@@ -55,7 +55,7 @@
             console.log(response);
             console.log(textStatus);
             console.log(jqXHR);
-            // alert("Thank you for subscribing to our newsletter!");
+            //alert("Thank you for subscribing to our newsletter!");
           });
 
           //Callback handler on failure
@@ -103,20 +103,6 @@
       $scope.slideIds[i] = true;
     }
     console.log($scope.slideIds);
-      // document.getElementById("numberOfSlides").onchange = function(){
-      //   console.log($scope.numberOfSlides);
-      //   //TODO make slides using ng-repeat
-      //   for(var i = 0; i <$scope.slideIds.length; i++){
-      //     $scope.slideIds[i] = false;
-      //   }
-      //   for(var i = 0; i < $scope.numberOfSlides; i++){
-      //     $scope.slideIds[i] = true;
-      //   }
-      //   $scope.$apply();
-      // };
-      // document.getElementById("oneImage").onchange = function(evt){
-      //   console.log($scope.oneImage);
-      // }
       $scope.checkExhibit = function(){
         console.log($scope.exhibitSelect);
         //console.log(document.getElementById("exhibitSelected").textContent);

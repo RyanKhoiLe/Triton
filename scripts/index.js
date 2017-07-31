@@ -1,6 +1,64 @@
 var sidebarOpen = false;
 var keypadOpen = false;
 var commentOpen = false;
+var publicRef;
+var privateRef;
+var COLOR_CODES = {
+  cowell: {
+    thisRoom: "cowell",
+    thisColor: "rgba(253, 185, 39,0.8)",
+    navbarColor: "rgba(255, 248, 213, 0.9)",
+    slide1Color: "rgba(247, 198, 91, 1)",
+    slide2Color: "rgba(247, 221, 165, 1)",
+    slide3Color: "rgba(255, 231, 181,1)",
+    slide4Color: "rgba(242, 224, 186, 1)"
+  },
+  warburton: {
+    thisRoom: "warburton",
+    thisColor: "rgba(238, 59, 66,0.8)",
+    navbarColor: "rgba(252, 214, 203, 0.9)",
+    slide1Color: "rgba(175, 42, 48, 1)",
+    slide2Color: "rgba(242, 109, 99, 1)",
+    slide3Color: "rgba(245, 141, 124, 1)",
+    slide4Color: "rgba(249, 176, 146, 1)"
+  },
+  sculpture: {
+    thisRoom: "sculpture",
+    thisColor: "rgba(77, 130, 57,0.8)",
+    navbarColor: "rgba(33, 149, 70, 0.9)",
+    slide1Color: "rgba(33, 149, 70, 1)",
+    slide2Color: "rgba(128, 173, 142, 1)",
+    slide3Color: "rgba(161, 201, 173, 1)",
+    slide4Color: "rgba(204, 234, 213, 1)"
+  },
+  rotunda: {
+    thisRoom: "rotunda",
+    thisColor: "rgba(249, 247, 248,0.8)",
+    navbarColor: "rgba(214, 205, 209, 0.9)",
+    slide1Color: "rgba(127, 121, 124, 1)",
+    slide2Color: "rgba(211, 194, 203, 1)",
+    slide3Color: "rgba(255, 234, 234, 1)",
+    slide4Color: "rgba(216, 216, 216, 1)",
+  },
+  permanent:{
+    thisRoom: "permanent",
+    thisColor: "rgba(0, 103, 166,0.8)",
+    navbarColor: "rgba(227, 244, 247, 0.9)",
+    slide1Color: "rgba(90, 146, 195, 1)",
+    slide2Color: "rgba(139, 174, 212, 1)",
+    slide3Color: "rgba(202, 216, 234, 1)",
+    slide4Color: "rgba(229, 237, 248, 1)"
+  },
+  jbhouse: {
+    thisRoom: "jbhouse",
+    thisColor: "rgba(0, 103, 166,0.8)",
+    navbarColor: "rgba(227, 244, 247, 0.9)",
+    slide1Color: "rgba(90, 146, 195, 1)",
+    slide2Color: "rgba(139, 174, 212, 1)",
+    slide3Color: "rgba(202, 216, 234, 1)",
+    slide4Color: "rgba(229, 237, 248, 1)"
+  }
+}
 function scrollDownALittle(){
   window.scrollBy(0,200);
 }
@@ -141,6 +199,8 @@ app.config(function($routeProvider){
     storageBucket: "lunaspheretriton.appspot.com",
   };
   firebase.initializeApp(config);
+  publicRef = firebase.database().ref().child("public");
+  privateRef = firebase.database().ref().child("private");
 });
 app.filter('reverse', function() {
     return function(input, start) {
@@ -327,46 +387,45 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
 
       var thisColor;
       var showName;
+      var showTitleRef;
+      var exhibitColorData;
       if(window.location.href.includes("cowell")){
-        thisColor = "rgba(255,201,14,0.8)";
-        firebase.database().ref('exhibits/cowell/').once('value').then(function(snapshot) {
-            showName = snapshot.val().ShowTitle;
-        });
+        exhibitColorData = COLOR_CODES.cowell;
+        showTitleRef = publicRef.child('cowell');
       }
       else if(window.location.href.includes("warburton")){
-        thisColor = "rgba(250,23,62,0.8)";
-        firebase.database().ref('exhibits/warburton/').once('value').then(function(snapshot) {
-            showName = snapshot.val().ShowTitle;
-        });
+        exhibitColorData = COLOR_CODES.warburton;
+        showTitleRef = publicRef.child('warburton');
       }
       else if(window.location.href.includes("sculpture")){
-        thisColor = "rgba(34,177,76,0.8)";
-        firebase.database().ref('exhibits/sculpture/').once('value').then(function(snapshot) {
-            showName = snapshot.val().ShowTitle;
-        });
+        exhibitColorData = COLOR_CODES.sculpture;
+        showTitleRef = publicRef.child('sculpture');
       }
       else if(window.location.href.includes("rotunda")){
-        thisColor = "rgba(180,234,245,0.8)";
-        firebase.database().ref('exhibits/rotunda/').once('value').then(function(snapshot) {
-            showName = snapshot.val().ShowTitle;
-        });
+        exhibitColorData = COLOR_CODES.rotunda;
+        showTitleRef = publicRef.child('rotunda');
       }
       else if(window.location.href.includes("permanent")){
-        thisColor = "rgba(0,162,232,0.8)";
-        firebase.database().ref('exhibits/permanent/').once('value').then(function(snapshot) {
-            showName = snapshot.val().ShowTitle;
-        });
+        exhibitColorData = COLOR_CODES.permanent;
+        showTitleRef = publicRef.child('permanent');
       }
       else if(window.location.href.includes("jbhouse")){
-        thisColor = "rgba(0,162,232,0.8)";
-        firebase.database().ref('exhibits/jbhouse/').once('value').then(function(snapshot) {
-            showName = snapshot.val().ShowTitle;
-        });
+        exhibitColorData = COLOR_CODES.jbhouse;
+        showTitleRef = publicRef.child('cowell');
       }
       else{
         thisColor = "rgba(250,23,62,0.8)";
         showName = " ";
       }
+      if(showTitleRef != null){
+        showTitleRef.once('value').then(function(snapshot) {
+            showName = snapshot.val().ShowTitle;
+        });
+      }
+      if(exhibitColorData != null){
+        thisColor = exhibitColorData.thisColor;
+      }
+
       console.log(thisColor);
       if(showName != " "){
         document.getElementById("showName").innerHTML = showName;
@@ -385,84 +444,31 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   $scope.exhibitKeys = [];
   $scope.showName = "";
   var thisRoom, thisColor, navbarColor, slide1Color, slide2Color, slide3Color, slide4Color;
-
+  var exhibitColorData, exhibitFBRef;
   if(window.location.href.includes("cowell")){
-    thisRoom = "cowell";
-    thisColor = "rgba(253, 185, 39,0.8)";
-    navbarColor = "rgba(255, 248, 213, 0.9)";
-    slide1Color = "rgba(247, 198, 91, 1)";
-    slide2Color = "rgba(247, 221, 165, 1)";
-    slide3Color = "rgba(255, 231, 181,1)";
-    slide4Color = "rgba(242, 224, 186, 1)";
-    firebase.database().ref('exhibits/cowell/').once('value').then(function(snapshot) {
-        $scope.showName = snapshot.val().ShowTitle;
-        $scope.$apply();
-    });
+    exhibitColorData = COLOR_CODES.cowell;
+    exhibitFBRef = publicRef.child('cowell');
   }
   else if(window.location.href.includes("warburton")){
-    thisRoom = "warburton";
-    thisColor = "rgba(238, 59, 66,0.8)";
-    navbarColor = "rgba(252, 214, 203, 0.9)";
-    slide1Color = "rgba(175, 42, 48, 1)";
-    slide2Color = "rgba(242, 109, 99, 1)";
-    slide3Color = "rgba(245, 141, 124, 1)";
-    slide4Color = "rgba(249, 176, 146, 1)";
-    firebase.database().ref('exhibits/warburton/').once('value').then(function(snapshot) {
-        $scope.showName = snapshot.val().ShowTitle;
-        $scope.$apply();
-    });
+    exhibitColorData = COLOR_CODES.warburton;
+    exhibitFBRef = publicRef.child('warburton');
   }
   else if(window.location.href.includes("sculpture")){
-    thisRoom = "sculpture";
-    thisColor = "rgba(77, 130, 57,0.8)";
-    navbarColor = "rgba(33, 149, 70, 0.9)";
-    slide1Color = "rgba(33, 149, 70, 1)";
-    slide2Color = "rgba(128, 173, 142, 1)";
-    slide3Color = "rgba(161, 201, 173, 1)";
-    slide4Color = "rgba(204, 234, 213, 1)";
-    firebase.database().ref('exhibits/sculpture/').once('value').then(function(snapshot) {
-        $scope.showName = snapshot.val().ShowTitle;
-        $scope.$apply();
-    });
+    exhibitColorData = COLOR_CODES.sculpture;
+    exhibitFBRef = publicRef.child('sculpture');
+    exhibitFBRef = firebase.database().ref('exhibits/sculpture/');
   }
   else if(window.location.href.includes("rotunda")){
-    thisRoom = "rotunda";
-    thisColor = "rgba(249, 247, 248,0.8)";
-    navbarColor = "rgba(214, 205, 209, 0.9)";
-    slide1Color = "rgba(127, 121, 124, 1)";
-    slide2Color = "rgba(211, 194, 203, 1)";
-    slide3Color = "rgba(255, 234, 234, 1)";
-    slide4Color = "rgba(216, 216, 216, 1)";
-    firebase.database().ref('exhibits/rotunda/').once('value').then(function(snapshot) {
-        $scope.showName = snapshot.val().ShowTitle;
-        $scope.$apply();
-    });
+    exhibitColorData = COLOR_CODES.rotunda;
+    exhibitFBRef = publicRef.child('rotunda');
   }
   else if(window.location.href.includes("permanent")){
-    thisRoom = "permanent";
-    thisColor = "rgba(0, 103, 166,0.8)";
-    navbarColor = "rgba(227, 244, 247, 0.9)";
-    slide1Color = "rgba(90, 146, 195, 1)";
-    slide2Color = "rgba(139, 174, 212, 1)";
-    slide3Color = "rgba(202, 216, 234, 1)";
-    slide4Color = "rgba(229, 237, 248, 1)";
-    firebase.database().ref('exhibits/permanent/').once('value').then(function(snapshot) {
-        $scope.showName = snapshot.val().ShowTitle;
-        $scope.$apply();
-    });
+    exhibitColorData = COLOR_CODES.permanent;
+    exhibitFBRef = publicRef.child('permanent');
   }
   else if(window.location.href.includes("jbhouse")){
-    thisRoom = "jbhouse";
-    thisColor = "rgba(0, 103, 166,0.8)";
-    navbarColor = "rgba(227, 244, 247, 0.9)";
-    slide1Color = "rgba(90, 146, 195, 1)";
-    slide2Color = "rgba(139, 174, 212, 1)";
-    slide3Color = "rgba(202, 216, 234, 1)";
-    slide4Color = "rgba(229, 237, 248, 1)";
-    firebase.database().ref('exhibits/jbhouse/').once('value').then(function(snapshot) {
-        $scope.showName = snapshot.val().ShowTitle;
-        $scope.$apply();
-    });
+    exhibitColorData = COLOR_CODES.jbhouse;
+    exhibitFBRef = publicRef.child('jbhouse');
   }
   else if(window.location.href.includes("archive")){
       thisRoom = "archive";
@@ -478,6 +484,22 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
     thisColor = "rgba(250,23,62,0.8)";
     navbarColor = thisColor;
   }
+  if(exhibitColorData != null){
+    thisRoom = exhibitColorData.thisRoom;
+    thisColor = exhibitColorData.thisColor;
+    navbarColor = exhibitColorData.navbarColor;
+    slide1Color = exhibitColorData.slide1Color;
+    slide2Color = exhibitColorData.slide2Color;
+    slide3Color = exhibitColorData.slide3Color;
+    slide4Color = exhibitColorData.slide4Color;
+  }
+  if(exhibitFBRef != null){
+    exhibitFBRef.once('value').then(function(snapshot) {
+        $scope.showName = snapshot.val().ShowTitle;
+        $scope.$apply();
+    });
+  }
+
   //document.getElementById("navBar").style.backgroundColor = navbarColor;
   navbarColor = "rgba(187, 195, 204, 0.4)";
   console.log("thisRoom: " + thisRoom);
@@ -592,73 +614,54 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
     });
   }, 0);
   $scope.showLogo = true;
+  var exhibitColorData, exhibitFBRef;
   if(window.location.href.includes("cowell")){
-    thisRoom = "cowell";
-    thisColor = "rgba(253, 185, 39,0.8)";
-    navbarColor = "rgba(255, 248, 213, 0.9)";
-    slide1Color = "rgba(247, 198, 91, 1)";
-    slide2Color = "rgba(247, 221, 165, 1)";
-    slide3Color = "rgba(255, 231, 181,1)";
-    slide4Color = "rgba(242, 224, 186, 1)";
+    exhibitColorData = COLOR_CODES.cowell;
+    exhibitFBRef = publicRef.child('cowell');
   }
   else if(window.location.href.includes("warburton")){
-    thisRoom = "warburton";
-    thisColor = "rgba(238, 59, 66,0.8)";
-    navbarColor = "rgba(252, 214, 203, 0.9)";
-    slide1Color = "rgba(175, 42, 48, 1)";
-    slide2Color = "rgba(242, 109, 99, 1)";
-    slide3Color = "rgba(245, 141, 124, 1)";
-    slide4Color = "rgba(249, 176, 146, 1)";
+    exhibitColorData = COLOR_CODES.warburton;
+    exhibitFBRef = publicRef.child('warburton');
   }
   else if(window.location.href.includes("sculpture")){
-    thisRoom = "sculpture";
-    thisColor = "rgba(77, 130, 57,0.8)";
-    navbarColor = "rgba(33, 149, 70, 0.9)";
-    slide1Color = "rgba(33, 149, 70, 1)";
-    slide2Color = "rgba(128, 173, 142, 1)";
-    slide3Color = "rgba(161, 201, 173, 1)";
-    slide4Color = "rgba(204, 234, 213, 1)";
+    exhibitColorData = COLOR_CODES.sculpture;
+    exhibitFBRef = publicRef.child('sculpture');
+    exhibitFBRef = firebase.database().ref('exhibits/sculpture/');
   }
   else if(window.location.href.includes("rotunda")){
-    thisRoom = "rotunda";
-    thisColor = "rgba(249, 247, 248,0.8)";
-    navbarColor = "rgba(214, 205, 209, 0.9)";
-    slide1Color = "rgba(127, 121, 124, 1)";
-    slide2Color = "rgba(211, 194, 203, 1)";
-    slide3Color = "rgba(255, 234, 234, 1)";
-    slide4Color = "rgba(216, 216, 216, 1)";
+    exhibitColorData = COLOR_CODES.rotunda;
+    exhibitFBRef = publicRef.child('rotunda');
   }
   else if(window.location.href.includes("permanent")){
-    thisRoom = "permanent";
-    thisColor = "rgba(0, 103, 166,0.8)";
-    navbarColor = "rgba(227, 244, 247, 0.9)";
-    slide1Color = "rgba(90, 146, 195, 1)";
-    slide2Color = "rgba(139, 174, 212, 1)";
-    slide3Color = "rgba(202, 216, 234, 1)";
-    slide4Color = "rgba(229, 237, 248, 1)";
+    exhibitColorData = COLOR_CODES.permanent;
+    exhibitFBRef = publicRef.child('permanent');
   }
   else if(window.location.href.includes("jbhouse")){
-    thisRoom = "jbhouse";
-    thisColor = "rgba(0, 103, 166,0.8)";
-    navbarColor = "rgba(227, 244, 247, 0.9)";
-    slide1Color = "rgba(90, 146, 195, 1)";
-    slide2Color = "rgba(139, 174, 212, 1)";
-    slide3Color = "rgba(202, 216, 234, 1)";
-    slide4Color = "rgba(229, 237, 248, 1)";
+    exhibitColorData = COLOR_CODES.jbhouse;
+    exhibitFBRef = publicRef.child('jbhouse');
   }
   else if(window.location.href.includes("archive")){
-    thisRoom = "archive";
-    thisColor = "rgba(255, 255, 255, 0.8)";
-    navbarColor = "rgba(255, 255, 255, 0.8)";
-    slide1Color = "rgba(255, 255, 255, 0.8)";
-    slide2Color = "rgba(255, 255, 255, 0.8)";
-    slide3Color = "rgba(255, 255, 255, 0.8)";
-    slide4Color = "rgba(255, 255, 255, 0.8)";
+      thisRoom = "archive";
+      thisColor = "rgba(255, 255, 255, 0.8)";
+      navbarColor = "rgba(255, 255, 255, 0.8)";
+      slide1Color = "rgba(255, 255, 255, 0.8)";
+      slide2Color = "rgba(255, 255, 255, 0.8)";
+      slide3Color = "rgba(255, 255, 255, 0.8)";
+      slide4Color = "rgba(255, 255, 255, 0.8)";
   }
   else{
     thisRoom = "";
     thisColor = "rgba(250,23,62,0.8)";
     navbarColor = thisColor;
+  }
+  if(exhibitColorData != null){
+    thisRoom = exhibitColorData.thisRoom;
+    thisColor = exhibitColorData.thisColor;
+    navbarColor = exhibitColorData.navbarColor;
+    slide1Color = exhibitColorData.slide1Color;
+    slide2Color = exhibitColorData.slide2Color;
+    slide3Color = exhibitColorData.slide3Color;
+    slide4Color = exhibitColorData.slide4Color;
   }
   if(!(window.location.href.includes("edit"))){
 
@@ -765,9 +768,6 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
 
     var commentRef = firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).child("comments");
     $scope.comments = $firebaseArray(commentRef);
-    //console.log($scope.title);
-    //console.log(exhibitData);
-    //console.log(exhibitData);
 
     $scope.$apply();
   });
@@ -865,8 +865,19 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
         if(name === ''){
           name = "Anonymous";
         }
+        publicRef.child(thisRoom).child(fbID).child('comments').push({
 
-        firebase.database().ref('exhibits/' + thisRoom + '/' + fbID + '/comments').push({
+          name: $scope.name,
+          comment: $scope.comment,
+          time: time,
+          flagged: 0
+        },function(){
+          console.log("pushed!");
+          $scope.name = '';
+          $scope.comment = '';
+          //window.location.href = "mobileIndex.html?id="+fbID;
+        });
+        privateRef.child(thisRoom).child(fbID).child('comments').push({
 
           name: $scope.name,
           comment: $scope.comment,
