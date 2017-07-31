@@ -46,7 +46,7 @@
         <a class="jumpToLinks" href="#videosLabel"> Videos </a>
       </div>
       <div id="centerBox">
-      <form id="submitUpdate" ng-submit="updateChangePage('private')" >
+      <form id="submitUpdate">
         <div class="inputContainer">
           <div class="textContainer">
             <h2> Exhibit: </h2>
@@ -201,7 +201,6 @@
         <div class="inputContainer">
           <h2 class="longDescription"> Videos (please use YouTube videos and paste the link below (e.g 'https://www.youtube.com/watch?v=R1vskiVDwl4')) If no videos, please leave blank </h2>
           <textarea ng-model="videos" id="videos" rows="3" cols="50" placeholder="https://www.youtube.com/watch?v=R1vskiVDwl4" value=""></textarea>
-          <button class="update" type="submit"> Update Videos </button>
         </div>
         <!-- This used to be update page -->
         <button id="savePageButton" type="submit" class="progressButton" ng-click="updateChangePage('private')" >Save</button>
