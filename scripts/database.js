@@ -24,7 +24,7 @@ app.config(function($routeProvider){
     });
 
     var config = {
-      apiKey: "AIzaSyCH2GOoz3WtmgKC8gs9-P0eHk02-sX9vS0",
+      apiKey: CONFIG.FB_KEY,
       authDomain: "lunaspheretriton.firebaseapp.com",
       databaseURL: "https://lunaspheretriton.firebaseio.com",
       storageBucket: "lunaspheretriton.appspot.com",
