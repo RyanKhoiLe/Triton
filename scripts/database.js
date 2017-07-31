@@ -200,6 +200,15 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
 app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
   setTimeout(function(){
     $(document).ready(function(){
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+
+        } else {
+          //return;
+          console.log("NO ONE SIGNED IN");
+          window.open("databaseLogin.html", "_self");
+        }
+      });
       var thisUrl = window.location.href;
       //window.location.href = thisUrl;
       var idQ = thisUrl.indexOf('?');

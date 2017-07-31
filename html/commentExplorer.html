@@ -20,7 +20,15 @@
         storageBucket: "lunaspheretriton.appspot.com",
       };
       firebase.initializeApp(config);
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
 
+        } else {
+          //return;
+          console.log("NO ONE SIGNED IN");
+          window.open("databaseLogin.html", "_self");
+        }
+      });
     var url = "https://lunaspheretriton.firebaseio.com";
       var firebaseRef = firebase.database();
 

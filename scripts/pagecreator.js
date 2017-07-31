@@ -13,6 +13,15 @@
   app.controller("createNewPage", ["$scope", "$firebaseArray", function($scope, $firebaseArray){
     setTimeout(function(){
       $(document).ready(function(){
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+
+          } else {
+            //return;
+            console.log("NO ONE SIGNED IN");
+            window.open("databaseLogin.html", "_self");
+          }
+        });
         var request;
         $("#pageCreateForm").submit(function(event){
 

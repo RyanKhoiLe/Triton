@@ -24,17 +24,17 @@
       var firebaseRef = firebase.database();
 
       function checkUser(){
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            firebase.auth().signOut().then(function(){
-              console.log("signed out");
-            }, function(error){
-              console.log("error signing out");
-            });
-          } else {
-
-          }
-        });
+        // firebase.auth().onAuthStateChanged(function(user) {
+        //   if (user) {
+        //     firebase.auth().signOut().then(function(){
+        //       console.log("signed out");
+        //     }, function(error){
+        //       console.log("error signing out");
+        //     });
+        //   } else {
+        //
+        //   }
+        // });
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
         var resultDisplay = document.getElementById("result");
@@ -58,7 +58,7 @@
             resultDisplay.textContent = "Logging in . . .";
             window.open("edithome.html", "_self");
           } else {
-
+              resultDisplay.textContent = "Please sign in using valid credentials.";
           }
         });
 

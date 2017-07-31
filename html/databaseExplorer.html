@@ -22,6 +22,15 @@
       };
       firebase.initializeApp(config);
 
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+
+        } else {
+          //return;
+          console.log("NO ONE SIGNED IN");
+          window.open("databaseLogin.html", "_self");
+        }
+      });
 
       var url = "https://lunaspheretriton.firebaseio.com";
       var firebaseRef = firebase.database();
@@ -57,14 +66,7 @@
           }
           // return;
         });
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            resultDisplay.textContent = "Logging in . . .";
-            window.open("edithome.html", "_self");
-          } else {
-            //return;
-          }
-        });
+
 
       }
 
@@ -92,20 +94,11 @@
       console.log(exhibitNames);
       var exhibitNum = 0;
       for(var i = 0; i < exhibitNames.length; i++){
-        console.log("second: " + exhibitNames);
-        console.log(i);
-        console.log("Exhibit: " + exhibitNames[2]);
-        console.log("Name: " + firebaseRef.ref('exhibits/' + exhibitNames[i]));
-          moveExhibitsRecord(firebaseRef.ref().child('exhibits').child(exhibitNames[i]), publicRef.child(exhibitNames[i]));
-      }
-      for(var i = 0; i < exhibitNames.length; i++){
         console.log("i outside: " + i);
-        firebaseRef.ref('exhibits').child(exhibitNames[i]).on('child_added', function(snapshot){
+        privateRef.child(exhibitNames[i]).on('child_added', function(snapshot){
           var snapshotKey = snapshot.key;
 
           console.log("snapshotKey: " + snapshotKey);
-
-
 
           if (snapshotKey != 'ShowTitle'){
             var exhibits = snapshot.val();
@@ -129,8 +122,6 @@
 
         });
       }
-
-
 
       function getExhibitsArray(){
         return exhibitsArray;
@@ -271,7 +262,31 @@
         }
       }
       function archiveSelected(){
+        var count = selectedExhibits.length;
 
+        var archiveConfirmation = confirm('Archive ' + count +  ' exhibits?'); //exhibit.title
+
+        if(archiveConfirmation){
+          for(var i = 0; i < selectedExhibits.length; i++){
+            var exhibitDetails = selectedExhibits[i].split(';'); // room, id, title, num
+            var room = exhibitDetails[0];
+            var exhibitId = exhibitDetails[1];
+            var title = exhibitDetails[2];
+            var num = exhibitDetails[3];
+            // archive
+            var oldRef = privateRef.child(room).child(exhibitId);
+            var newRef = firebase.database().ref().child('archive');
+            pushToNew(oldRef, newRef);
+            var exhibitDisplay = document.getElementById("exhibitLink" + num); //.getElementsByClassName('input');
+            if(exhibitDisplay != null)
+              exhibitDisplay.style.display='none';
+          }
+
+          console.log('exhibitLink'+num);
+        }
+        else{
+          return;
+        }
       }
       function alertDeleteSelected(){
         console.log(selectedExhibits);
