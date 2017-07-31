@@ -205,14 +205,14 @@ body{
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
   border: none;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border-radius: 28px;
   font-family: 'roboto_condensed', sans-serif;
   color: #ffffff;
   font-size: 20px;
   background: #0FABE5;
   padding: 10px 20px 10px 20px;
-  text-decoration: none;
+  text-decoration: none
 }
 #loginButton:hover{
   background: #1279B9;
