@@ -15,6 +15,15 @@
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
 
   <script>
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+
+    } else {
+      //return;
+      console.log("NO ONE SIGNED IN");
+      window.open("databaseLogin.html", "_self");
+    }
+  });
     function doFunction() {
       alert('hello!');
     };

@@ -22,6 +22,15 @@
       };
       firebase.initializeApp(config);
 
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+
+        } else {
+          //return;
+          console.log("NO ONE SIGNED IN");
+          window.open("databaseLogin.html", "_self");
+        }
+      });
 
       var url = "https://lunaspheretriton.firebaseio.com";
       var firebaseRef = firebase.database();
@@ -57,14 +66,7 @@
           }
           // return;
         });
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            resultDisplay.textContent = "Logging in . . .";
-            window.open("edithome.html", "_self");
-          } else {
-            //return;
-          }
-        });
+
 
       }
 
@@ -91,17 +93,12 @@
       var exhibitNames = ['cowell', 'warburton', 'permanent','jb','rotunda','sculpture','archive'];
       console.log(exhibitNames);
       var exhibitNum = 0;
-      privateRef.child("archive").on('child_added', function(snap){
-        pushToNew(privateRef.child('archive').child(snap.key), firebase.database().ref('archive'));
-      })
       for(var i = 0; i < exhibitNames.length; i++){
         console.log("i outside: " + i);
-        firebaseRef.ref('exhibits').child(exhibitNames[i]).on('child_added', function(snapshot){
+        privateRef.child(exhibitNames[i]).on('child_added', function(snapshot){
           var snapshotKey = snapshot.key;
 
           console.log("snapshotKey: " + snapshotKey);
-
-
 
           if (snapshotKey != 'ShowTitle'){
             var exhibits = snapshot.val();
@@ -125,8 +122,6 @@
 
         });
       }
-
-
 
       function getExhibitsArray(){
         return exhibitsArray;
