@@ -1,6 +1,6 @@
-//***
+/***
 * Created by Khoi Le, Nikolai Flowers, and Michelle Yang July 29, 2017
-*//
+*/
 @font-face {
       font-family: "Bitstream Vera Serif Bold";
       src: url("VeraSeBd.ttf") format("truetype");
@@ -135,10 +135,14 @@ body{
 }
 .navBarLink:visited{
   color:  white;
+  text-decoration: none;
+
 }
 
 .navBarLink:hover{
   color: #0DB1E6;
+  text-decoration: none;
+
 }
 
 #logo {
