@@ -211,7 +211,7 @@ app.filter('reverse', function() {
   });
 app.controller("keypadController", ['$scope', '$firebaseArray', '$location', function($scope, $firebaseArray, $location){
   $scope.exhibitCode;
-  var exhibitsRef = firebase.database().ref('exhibits');
+  var exhibitsRef = firebase.database().ref('public');
   $scope.exhibitArray = [];
   //cowell
   var cowellRef = exhibitsRef.child("cowell");
@@ -456,7 +456,6 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   else if(window.location.href.includes("sculpture")){
     exhibitColorData = COLOR_CODES.sculpture;
     exhibitFBRef = publicRef.child('sculpture');
-    exhibitFBRef = firebase.database().ref('exhibits/sculpture/');
   }
   else if(window.location.href.includes("rotunda")){
     exhibitColorData = COLOR_CODES.rotunda;
@@ -478,6 +477,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
       slide2Color = "rgba(255, 255, 255, 0.8)";
       slide3Color = "rgba(255, 255, 255, 0.8)";
       slide4Color = "rgba(255, 255, 255, 0.8)";
+      exhibitFBRef = firebase.database().ref("archive");
   }
   else{
     thisRoom = "";
@@ -495,7 +495,12 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   }
   if(exhibitFBRef != null){
     exhibitFBRef.once('value').then(function(snapshot) {
-        $scope.showName = snapshot.val().ShowTitle;
+        if(snapshot.val().ShowTitle != null){
+          $scope.showName = snapshot.val().ShowTitle;
+        }else {
+          $scope.showName = "Archive";
+        }
+
         $scope.$apply();
     });
   }
@@ -560,7 +565,10 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
   else{
     exhibitId = "";
   }
-  var exhibitRef = firebase.database().ref().child('exhibits/' + exhibitId);
+  var exhibitRef = firebase.database().ref().child("public").child(exhibitId);
+  if(exhibitId == "archive"){
+    exhibitRef = firebase.database().ref().child(exhibitId);
+  }
   $scope.ExhibitList = $firebaseArray(exhibitRef);
   $scope.imagesUpdated = false;
   $scope.ExhibitList.$loaded().then(function(){
@@ -680,7 +688,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       fbID = thisUrl.substring(idStartAt, idEndAt);
     }
   }
-  firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).once('value').then(function(snapshot){
+  firebase.database().ref().child("public").child(thisRoom).child(fbID).once('value').then(function(snapshot){
     var exhibitData = snapshot.val();
     var fieldArray = Object.keys(exhibitData);
 
@@ -743,7 +751,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
         }
       }
     });
-    firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).update({
+    firebase.database().ref().child("public").child(thisRoom).child(fbID).update({
       views: $scope.views + 1
     });
     if($scope.slides.length === 1){
@@ -766,7 +774,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
       $scope.slides.push(info);
     }
 
-    var commentRef = firebase.database().ref().child("exhibits").child(thisRoom).child(fbID).child("comments");
+    var commentRef = firebase.database().ref().child("public").child(thisRoom).child(fbID).child("comments");
     $scope.comments = $firebaseArray(commentRef);
 
     $scope.$apply();
