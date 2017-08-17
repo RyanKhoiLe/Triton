@@ -770,7 +770,14 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
         if(key === 'videos'){
 
           var url = exhibitData[key];
-          var code = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
+          var code;
+          if(url.indexOf("&") > -1){
+            code = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
+          }
+          else{
+            code = = url.substring(url.indexOf("=") + 1;
+          }
+
           //console.log(code);
 
           var finalUrl = "https://www.youtube.com/embed/"+code;
