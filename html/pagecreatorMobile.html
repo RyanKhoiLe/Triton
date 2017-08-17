@@ -224,7 +224,9 @@
             <h2 class="longDescription"> Videos (please use YouTube or Vimeo videos). </h2><h3>Find the "Embed" option and copy the 'src=' link and paste below, separated by semicolons). If no videos, please leave blank. </h3><br>
             <textarea id="videos" name="Videos" ng-model="videos" rows="3" cols="50" placeholder="https://www.youtube.com/embed/jc1Nfx4c5LQ; https://www.youtube.com/embed/as47s12LC"></textarea>
           </div>
-          <button id="createPage" type="submit" ng-click="createNewPage()">Create page</button>
+          <button id="createPage" type="submit" ng-click="createNewPage('private')">Make page private</button>
+          <button id="createPage" type="submit" ng-click="createNewPage('public')">Make page live</button>
+
         </form>
         <div id='congratsBox' class='modalBox' ng-if="showModal">
           <h2 id='congratsMessage'> Congratulations! Your new exhibit has been created </h2>

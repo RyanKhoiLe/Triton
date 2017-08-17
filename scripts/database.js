@@ -180,7 +180,19 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
           name = "Anonymous";
         }
 
-        firebase.database().ref('exhibits/' + thisRoom + '/' + fbID + '/comments').push({
+        firebase.database().ref("private").child(thisRoom + '/' + fbID + '/comments').push({
+
+          name: $scope.name,
+          comment: $scope.comment,
+          time: time,
+          flagged: 0
+        },function(){
+          console.log("pushed!");
+          $scope.name = '';
+          $scope.comment = '';
+          //window.location.href = "mobileIndex.html?id="+fbID;
+        });
+        firebase.database().ref("public").child(thisRoom + '/' + fbID + '/comments').push({
 
           name: $scope.name,
           comment: $scope.comment,
@@ -445,7 +457,47 @@ app.controller("editShowTitles", ["$scope", "$firebaseArray", function($scope, $
   $scope.sculptureshowtitle = "";
   $scope.rotundashowtitle = "";
   $scope.jbhouseshowtitle = "";
-
+  $scope.editShowTitlesPrivate = function () {
+    firebase.database().ref("private/cowell/").update({
+      ShowTitle: $scope.cowellshowtitle
+    });
+    firebase.database().ref("private/warburton/").update({
+      ShowTitle: $scope.warburtonshowtitle
+    });
+    firebase.database().ref("private/permanent/").update({
+      ShowTitle: $scope.permanentshowtitle
+    });
+    firebase.database().ref("private/rotunda/").update({
+      ShowTitle: $scope.rotundashowtitle
+    });
+    firebase.database().ref("private/jbhouse/").update({
+      ShowTitle: $scope.jbhouseshowtitle
+    });
+    firebase.database().ref("private/sculpture/").update({
+      ShowTitle: $scope.sculptureshowtitle
+    });
+  }
+  $scope.editShowTitlesPublic = function () {
+    $scope.editShowTitlesPrivate();
+    firebase.database().ref("public/cowell/").update({
+      ShowTitle: $scope.cowellshowtitle
+    });
+    firebase.database().ref("public/warburton/").update({
+      ShowTitle: $scope.warburtonshowtitle
+    });
+    firebase.database().ref("public/permanent/").update({
+      ShowTitle: $scope.permanentshowtitle
+    });
+    firebase.database().ref("public/rotunda/").update({
+      ShowTitle: $scope.rotundashowtitle
+    });
+    firebase.database().ref("public/jbhouse/").update({
+      ShowTitle: $scope.jbhouseshowtitle
+    });
+    firebase.database().ref("public/sculpture/").update({
+      ShowTitle: $scope.sculptureshowtitle
+    });
+  }
 
   var ref = firebase.database().ref();
   var thisUrl = window.location.href;
@@ -462,37 +514,37 @@ app.controller("editShowTitles", ["$scope", "$firebaseArray", function($scope, $
     fbID = thisUrl.substring(idStartAt, idEndAt);
   }
 
-  firebase.database().ref("exhibits/cowell/").once("value").then(function(snapshot) {
+  firebase.database().ref("private/cowell/").once("value").then(function(snapshot) {
     $scope.cowellshowtitle = snapshot.val().ShowTitle;
     console.log($scope.cowellshowtitle);
     $scope.$apply();
   });
 
-  firebase.database().ref("exhibits/warburton/").once("value").then(function(snapshot) {
+  firebase.database().ref("private/warburton/").once("value").then(function(snapshot) {
     $scope.warburtonshowtitle = snapshot.val().ShowTitle;
     $scope.$apply();
 
   });
 
-  firebase.database().ref("exhibits/permanent/").once("value").then(function(snapshot) {
+  firebase.database().ref("private/permanent/").once("value").then(function(snapshot) {
     $scope.permanentshowtitle = snapshot.val().ShowTitle;
     $scope.$apply();
 
   });
 
-  firebase.database().ref("exhibits/sculpture/").once("value").then(function(snapshot) {
+  firebase.database().ref("private/sculpture/").once("value").then(function(snapshot) {
     $scope.sculptureshowtitle = snapshot.val().ShowTitle;
     $scope.$apply();
 
   });
 
-  firebase.database().ref("exhibits/rotunda/").once("value").then(function(snapshot) {
+  firebase.database().ref("private/rotunda/").once("value").then(function(snapshot) {
     $scope.rotundashowtitle = snapshot.val().ShowTitle;
     $scope.$apply();
 
   });
 
-  firebase.database().ref("exhibits/jbhouse/").once("value").then(function(snapshot) {
+  firebase.database().ref("private/jbhouse/").once("value").then(function(snapshot) {
     $scope.jbhouseshowtitle = snapshot.val().ShowTitle;
     $scope.$apply();
 

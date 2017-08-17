@@ -5,7 +5,7 @@
   <title> Triton Database Explorer </title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="../stylesheets/tritonExploreCSS.css">
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="icon" href="../images/tritonIconSmall.png">
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
@@ -93,9 +93,13 @@
       //   tempExhKey = snapshot.val();
       //   console.log('snapshot val' + tempExhKey);
       // });
-      var exhibitNames = ['cowell', 'warburton', 'permanent','jb','rotunda','sculpture','archive'];
+      var exhibitNames = ['cowell', 'warburton', 'permanent','jbhouse','rotunda','sculpture','archive'];
       console.log(exhibitNames);
       var exhibitNum = 0;
+    //  moveExhibitsRecord(firebase.database().ref().child("exhibits").child("jbhouse"), publicRef.child("jbhouse"));
+        //moveExhibitsRecord(firebase.database().ref().child("exhibits").child("jbhouse"), privateRef.child("jbhouse"));
+        moveExhibitsRecord(publicRef.child("jbhouse"), privateRef.child("jbhouse"));
+        moveExhibitsRecord(publicRef.child("sculpture"), privateRef.child("sculpture"));
       for(var i = 0; i < exhibitNames.length; i++){
         console.log("i outside: " + i);
         privateRef.child(exhibitNames[i]).on('child_added', function(snapshot){
@@ -125,6 +129,33 @@
 
         });
       }
+
+      firebase.database().ref("archive").on('child_added', function(snapshot){
+        var snapshotKey = snapshot.key;
+
+        console.log("snapshotKey: " + snapshotKey);
+
+        if (snapshotKey != 'ShowTitle'){
+          var exhibits = snapshot.val();
+        //console.log('id: ' + tempFBID);
+          var title = exhibits.title;
+          var artist = exhibits.artist;
+          var timeStamp = exhibits.timeStamp;
+          var views = exhibits.views;
+          var img = exhibits.exhibitImage;
+          var exhibitRoom = exhibits.exhibit;
+
+          var newExhibit = new exhibitObject(title, artist, timeStamp, views, img, snapshotKey, exhibitRoom);
+          exhibitsArray.push(newExhibit);
+
+          createExhibitLink(newExhibit);
+          console.log(exhibitsArray);
+          //var artist = snapshot.val().artist;
+          console.log(exhibits);
+          console.log('title: ' + title);
+        }
+
+      });
 
       function getExhibitsArray(){
         return exhibitsArray;
@@ -280,6 +311,8 @@
             var oldRef = privateRef.child(room).child(exhibitId);
             var newRef = firebase.database().ref().child('archive');
             pushToNew(oldRef, newRef);
+            var oldPubRef = publicRef.child(room).child(exhibitId);
+            pushToNew(oldPubRef, newRef);
             var exhibitDisplay = document.getElementById("exhibitLink" + num); //.getElementsByClassName('input');
             if(exhibitDisplay != null)
               exhibitDisplay.style.display='none';
@@ -395,7 +428,7 @@
             }
           }
         </script>
-        <div id="searchTable">what
+        <div id="searchTable">
           <div id="categoryBar">
               <input type="checkbox" id="masterCheckBox" class="smallCheckbox" onclick="selectAll()"/>
               <div class='titleBox'><h1> Title </h1></div>
@@ -403,11 +436,11 @@
               <div class='timeBox'><h1> Timestamp </h1></div>
               <div class='viewsBox'><h1> Views </h1></div>
           </div>
-            in here
+
           <!--li ng-repeat="exhibit in exhibitList"!-->
 
         </div>
-        hello
+
       </div>
 
 

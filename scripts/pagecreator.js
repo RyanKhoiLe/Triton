@@ -115,7 +115,7 @@
         }
         //$scope.$apply();
       }
-      $scope.createNewPage = function(){
+      $scope.createNewPage = function(pubOrPriv){
         // evt.preventDefault();
         console.log("Exhibit:" + $scope.exhibitSelect);
         console.log("This database is managed by Khoi Le, 2016");
@@ -157,7 +157,14 @@
           // firebase.database().ref("allExhibits/").push({
           //   exhibit: exhibit
           // });
-          var key = firebase.database().ref('exhibits/').child(exhibit).push({
+          var referenceToPush;
+          if(pubOrPriv == "private"){
+            referenceToPush = firebase.database().ref('private');
+          }
+          else{
+            referenceToPush = firebase.database().ref('public');
+          }
+          var key = referenceToPush.child(exhibit).push({
             title: title,
             artist: artist,
             year: year,

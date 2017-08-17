@@ -15,23 +15,6 @@
   <script src="../scripts/config.js"> </script>
   <script src="../scripts/database.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.min.js"></script>
-
-  <script>
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-
-    } else {
-      //return;
-      console.log("NO ONE SIGNED IN");
-      window.open("databaseLogin.html", "_self");
-    }
-  });
-    function doFunction() {
-      alert('hello!');
-    };
-  </script>
-
-
 </head>
   <body ng-app="database">
 
@@ -55,7 +38,7 @@
         <div class="babyform">
 
 
-          <form id="editShowTitles" ng-submit="editShowTitles()">
+          <form id="editShowTitles">
 
             <label id="titleLabel">
 
@@ -112,8 +95,8 @@
               <input class="show" type="text" ng-model="jbhouseshowtitle" id="jbhouse" value="" placeholder="{{jbhouseshowtitle}}">
             </div>
 
-            <button class="update" id="updateButton" type="submit" onclick="doFunction();"> Update </button>
-
+            <button class="update" id="updateButton" type="submit" ng-click="editShowTitlesPrivate()"> Save Private </button>
+            <button class="update" id="updateButtonPublic" type="submit" ng-click="editShowTitlesPublic()"> Publish </button>
           </form>
         </div>
 
