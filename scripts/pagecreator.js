@@ -163,6 +163,22 @@
           }
           else{
             referenceToPush = firebase.database().ref('public');
+            var key = firebase.database().ref("private").child(exhibit).push({
+              title: title,
+              artist: artist,
+              year: year,
+              genre: genre,
+              media: media,
+              exhibitImage: exhibitImage,
+              videos: videos,
+              timeStamp: timeStamp,
+              views: 0,
+              slides: slides,
+              exhibit: exhibit,
+              exhibitAudio: exhibitAudio
+            }, function(){
+              console.log("successfully written to khoi le's firebase");
+            }).key;
           }
           var key = referenceToPush.child(exhibit).push({
             title: title,

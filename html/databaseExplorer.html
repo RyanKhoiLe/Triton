@@ -100,6 +100,9 @@
         //moveExhibitsRecord(firebase.database().ref().child("exhibits").child("jbhouse"), privateRef.child("jbhouse"));
         // moveExhibitsRecord(publicRef.child("jbhouse"), privateRef.child("jbhouse"));
         // moveExhibitsRecord(publicRef.child("sculpture"), privateRef.child("sculpture"));
+        //moveExhibitsRecord(publicRef.child("cowell"), privateRef.child("cowell"));
+        //moveExhibitsRecord(publicRef.child("permanent"), privateRef.child("permanent"));
+        //moveExhibitsRecord(publicRef.child("rotunda"), privateRef.child("rotunda"));
       for(var i = 0; i < exhibitNames.length; i++){
         console.log("i outside: " + i);
         privateRef.child(exhibitNames[i]).on('child_added', function(snapshot){

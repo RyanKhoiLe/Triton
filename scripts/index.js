@@ -770,7 +770,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
         if(key === 'videos'){
 
           var url = exhibitData[key];
-          var code = url.substring(url.indexOf("=") + 1);
+          var code = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
           //console.log(code);
 
           var finalUrl = "https://www.youtube.com/embed/"+code;
@@ -786,19 +786,19 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
     });
     if($scope.slides.length === 1){
       var info = "";
-      if($scope.title != ''){
+      if($scope.title != null && $scope.title != ""){
         info = info + "Title: " + $scope.title;
       }
-      if($scope.artist != ''){
+      if($scope.artist != null && $scope.artist != ""){
         info = info + "\n Artist: " + $scope.artist;
       }
-      if($scope.media != ''){
+      if($scope.media != null && $scope.media != ""){
         info = info + "\n Media: " + $scope.media;
       }
-      if($scope.genre != ''){
+      if($scope.genre != null && $scope.genre != ''){
         info = info + "\n Genre: " + $scope.genre;
       }
-      if($scope.year != ''){
+      if($scope.year != null && $scope.year != ''){
         info = info + "\n Year: " + $scope.year;
       }
       $scope.slides.push(info);

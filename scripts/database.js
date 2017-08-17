@@ -426,6 +426,24 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
 
     }
     else{
+      if(refToPush == firebase.database().ref().child("public")){
+        firebase.database().ref().child("private").child(thisRoom).child(fbID).update({
+            title: $scope.title,
+            artist: $scope.artist,
+            year: $scope.year,
+            genre: $scope.genre,
+            media: $scope.media,
+            exhibitImage: exhibitImageValue,
+            videos: $scope.videos,
+            timeStamp: getTimeStamp(),
+            exhibitAudio: exhibitAudioValue,
+            exhibitCode: $scope.exhibitCode,
+            slides: $scope.slides,
+            exhibit: $scope.exhibit,
+            views: $scope.views
+
+        });
+      }
       refToPush.child(thisRoom).child(fbID).update({
           title: $scope.title,
           artist: $scope.artist,
