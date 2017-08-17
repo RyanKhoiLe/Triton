@@ -429,7 +429,7 @@ app.controller("mobileHome", ["$scope", "$firebaseArray", "$location", function(
       }
       else if(window.location.href.includes("jbhouse")){
         exhibitColorData = COLOR_CODES.jbhouse;
-        showTitleRef = firebase.database().ref().child("public").child('cowell');
+        showTitleRef = firebase.database().ref().child("public").child('jbhouse');
       }
       else{
         thisColor = "rgba(250,23,62,0.8)";
