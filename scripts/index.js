@@ -775,7 +775,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
             code = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
           }
           else{
-            code = = url.substring(url.indexOf("=") + 1;
+            code = url.substring(url.indexOf("=") + 1);
           }
 
           //console.log(code);
