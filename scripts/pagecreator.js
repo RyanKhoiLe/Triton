@@ -158,12 +158,31 @@
           //   exhibit: exhibit
           // });
           var referenceToPush;
+          var exhibitKey;
           if(pubOrPriv == "private"){
             referenceToPush = firebase.database().ref('private');
+            referenceToPush.child(exhibit).child(exhibitKey).push({
+              title: title,
+              artist: artist,
+              year: year,
+              genre: genre,
+              media: media,
+              exhibitImage: exhibitImage,
+              videos: videos,
+              timeStamp: timeStamp,
+              views: 0,
+              slides: slides,
+              exhibit: exhibit,
+              exhibitAudio: exhibitAudio
+            }, function(){
+              console.log("successfully written to khoi le's firebase");
+              $scope.showModal = true;
+              $scope.$apply();
+            }).key;
           }
           else{
             referenceToPush = firebase.database().ref('public');
-            var key = firebase.database().ref("private").child(exhibit).push({
+            exhibitKey = firebase.database().ref("private").child(exhibit).push({
               title: title,
               artist: artist,
               year: year,
@@ -179,25 +198,25 @@
             }, function(){
               console.log("successfully written to khoi le's firebase");
             }).key;
+            referenceToPush.child(exhibit).child(exhibitKey).set({
+              title: title,
+              artist: artist,
+              year: year,
+              genre: genre,
+              media: media,
+              exhibitImage: exhibitImage,
+              videos: videos,
+              timeStamp: timeStamp,
+              views: 0,
+              slides: slides,
+              exhibit: exhibit,
+              exhibitAudio: exhibitAudio
+            }, function(){
+              console.log("successfully written to khoi le's firebase");
+              $scope.showModal = true;
+              $scope.$apply();
+            });
           }
-          var key = referenceToPush.child(exhibit).push({
-            title: title,
-            artist: artist,
-            year: year,
-            genre: genre,
-            media: media,
-            exhibitImage: exhibitImage,
-            videos: videos,
-            timeStamp: timeStamp,
-            views: 0,
-            slides: slides,
-            exhibit: exhibit,
-            exhibitAudio: exhibitAudio
-          }, function(){
-            console.log("successfully written to khoi le's firebase");
-            $scope.showModal = true;
-            $scope.$apply();
-          }).key;
         }
         else{
           alert('Lunasphere wants to push your best content. Please enter an exhibit room');

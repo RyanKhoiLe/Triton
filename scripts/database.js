@@ -55,7 +55,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
   //$scope.useThisId = fbID;
   //console.log($scope.useThisId);
   console.log(fbID);
-  ref.child("exhibits").child(fbID).once('value').then(function(snapshot){
+  privateRef.child(thisRoom).child(fbID).once('value').then(function(snapshot){
     var exhibitData = snapshot.val();
     var fieldArray = Object.keys(exhibitData);
 
@@ -91,7 +91,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
         }
       }
     });
-    var commentRef = firebase.database().ref().child("exhibits").child(fbID).child("comments");
+    var commentRef = publicRef.child(thisRoom).child(fbID).child("comments");
     $scope.comments = $firebaseArray(commentRef);
     console.log($scope.title);
     //console.log(exhibitData);
@@ -368,12 +368,15 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
     $scope.exhibit = exhibitName;
     var exhibitImageValue = document.getElementById("exhibitImage").value;
     var exhibitAudioValue = document.getElementById("exhibitAudio").value;
+    var switchedExhibits = false;
     if(thisRoom != exhibitName){ // Changed rooms
+      switchedExhibits = true;
+      // TODO: Switch to pushTonew()
       privateRef.child(thisRoom).child(fbID).remove().then(function() {
         console.log("Remove succeeded.");
-        thisRoom = exhibitName;
-        console.log("Switched exhibit to: " + thisRoom);
-        var newExhibit = firebase.database().ref('exhibits/' + thisRoom).push({
+        exhibitName;
+        console.log("Switched exhibit to: " + exhibitName);
+        var newExhibit = privateRef.child(exhibitName).push({
             title: $scope.title,
             artist: $scope.artist,
             year: $scope.year,
@@ -390,17 +393,16 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
 
         }).key;
 
-        alert("Successfully switched exhibit to: " + thisRoom);
-        window.location.href = thisUrl.substring(0, idStartAt) + thisRoom + "&1=" + newExhibit;
+        //alert("Successfully switched exhibit to: " + thisRoom);
+        //window.location.href = thisUrl.substring(0, idStartAt) + thisRoom + "&1=" + newExhibit;
       })
       .catch(function(error) {
         console.log("Remove failed: " + error.message);
       });
       publicRef.child(thisRoom).child(fbID).remove().then(function() {
         console.log("Remove succeeded.");
-        thisRoom = exhibitName;
-        console.log("Switched exhibit to: " + thisRoom);
-        var newExhibit = firebase.database().ref('exhibits/' + thisRoom).push({
+        console.log("Switched exhibit to: " + exhibitName);
+        var newExhibit = publicRef.child(exhibitName).push({
             title: $scope.title,
             artist: $scope.artist,
             year: $scope.year,
@@ -418,14 +420,14 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
         }).key;
 
         alert("Successfully switched exhibit to: " + thisRoom);
-        window.location.href = thisUrl.substring(0, idStartAt) + thisRoom + "&1=" + newExhibit;
+
       })
       .catch(function(error) {
         console.log("Remove failed: " + error.message);
       });
 
     }
-    else{
+
       if(refToPush == firebase.database().ref().child("public")){
         firebase.database().ref().child("private").child(thisRoom).child(fbID).update({
             title: $scope.title,
@@ -461,7 +463,10 @@ app.controller("editExhibit", ["$scope", "$firebaseArray", function($scope, $fir
 
       });
       alert("Successfully updated.");
-    }
+      if(switchedExhibits){
+        window.location.href = thisUrl.substring(0, idStartAt) + thisRoom + "&1=" + newExhibit;
+      }
+
   }
 }]);
 

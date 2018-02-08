@@ -771,10 +771,18 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
 
           var url = exhibitData[key];
           var code;
-          if(url.indexOf("&") > -1){
-            code = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
-          }
-          else{
+//          if(url.indexOf("&") > -1){
+//            code = url.substring(url.indexOf("=") + 1, url.indexOf("&"));
+//          }
+//          else if(url.indexOf("=") == -1){
+//            code = url.substring(url.indexOf("you"), url.length);
+//            code = code.substring(code.indexOf("."), code.length);
+//            code = code.substring(code.indexOf("/") + 1);
+//            if(code.indexOf("&") > -1){
+//              code = code.substring(0, code.indexOf("&"));
+//            }
+//          }
+//          else{
             code = url.substring(url.indexOf("=") + 1);
           }
 
@@ -786,7 +794,7 @@ app.controller("slideInfo", ["$scope" ,"$firebaseArray", function($scope, $fireb
           //https://www.youtube.com/embed/_QdPW8JrYzQ
           document.getElementById("videoPlayer").setAttribute("src", finalUrl);
         }
-      }
+
     });
     firebase.database().ref().child("public").child(thisRoom).child(fbID).update({
       views: $scope.views + 1

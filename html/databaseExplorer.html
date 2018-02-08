@@ -96,13 +96,7 @@
       var exhibitNames = ['cowell', 'warburton', 'permanent','jbhouse','rotunda','sculpture','archive'];
       console.log(exhibitNames);
       var exhibitNum = 0;
-    //  moveExhibitsRecord(firebase.database().ref().child("exhibits").child("jbhouse"), publicRef.child("jbhouse"));
-        //moveExhibitsRecord(firebase.database().ref().child("exhibits").child("jbhouse"), privateRef.child("jbhouse"));
-        // moveExhibitsRecord(publicRef.child("jbhouse"), privateRef.child("jbhouse"));
-        // moveExhibitsRecord(publicRef.child("sculpture"), privateRef.child("sculpture"));
-        //moveExhibitsRecord(publicRef.child("cowell"), privateRef.child("cowell"));
-        //moveExhibitsRecord(publicRef.child("permanent"), privateRef.child("permanent"));
-        //moveExhibitsRecord(publicRef.child("rotunda"), privateRef.child("rotunda"));
+
       for(var i = 0; i < exhibitNames.length; i++){
         console.log("i outside: " + i);
         privateRef.child(exhibitNames[i]).on('child_added', function(snapshot){
@@ -148,6 +142,13 @@
           var img = exhibits.exhibitImage;
           var exhibitRoom = exhibits.exhibit;
 
+          if(exhibits.exhibit == "jbhouse" || exhibitRoom == "sculpture"){
+            firebase.database().ref("archive").child(snapshotKey).remove();
+          //  moveExhibitsRecord(, firebase.database().ref().child("private").child(exhibitRoom).child(snapshotKey));
+        //    moveExhibitsRecord(firebase.database().ref("archive").child(snapshotKey), firebase.database().ref().child("public").child(exhibitRoom).child(snapshotKey));
+
+          }
+
           var newExhibit = new exhibitObject(title, artist, timeStamp, views, img, snapshotKey, exhibitRoom);
           exhibitsArray.push(newExhibit);
 
@@ -189,9 +190,11 @@
         //var newIndex = document.createElement('div')
         newSearchResult.setAttribute('class', 'searchResult');
         newSearchResult.setAttribute('id', 'exhibitLink'+exhibitNum);
+        //exhibit.title = exhibit.title.replace("\"", "\\\"");
+        var displayTitle = exhibit.title; //.replace("\"", "");
         newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
-          "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID + ";" +exhibit.title + ";" + exhibitNum +"&quot;"+ ")'/>" +
-          "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
+          "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID + ";" +displayTitle + ";" + exhibitNum +"&quot;"+ ")'/>" +
+          "<div class='titleBox'><h2>" + displayTitle + " </h2></div>" +
           "<div class='artistBox'><h2>"+ artistLastName + ", " + artistFirstName + " </h2></div>" +
           "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
           "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
@@ -200,15 +203,15 @@
             if(exhibit.artist != null){
               if(exhibit.artist.indexOf(' ') == -1){
                 newSearchResult.innerHTML = "<a class='resultLink' href='editexhibitMobile.html?0=" + exhibit.room + "&1=" + exhibit.fbID + "'>" +
-      "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID +"&quot;"+ ")'/>" +
-                  "<div class='titleBox'><h2>" + exhibit.title + " </h2></div>" +
+      "<input type='checkbox' class='smallCheckbox' onclick='addToSelected(event," + "&quot;" +exhibit.room + ";" + exhibit.fbID + ";" +displayTitle + ";" + exhibitNum +"&quot;"+ ")'/>" +
+                  "<div class='titleBox'><h2>" + displayTitle + " </h2></div>" +
                   "<div class='artistBox'><h2>"+ artistLastName + "</h2></div>" +
                   "<div class='timeBox'><h2>" + exhibit.timeStamp + " </h2></div>" +
                   "<div class='viewsBox'><h2>" + exhibit.views + "</h2></div>" +
 
                   "</a>";
               }
-        }
+          }
 
           var newDivBox = document.createElement("div");
           newDivBox.setAttribute("class", "imgBox");
